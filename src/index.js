@@ -1,13 +1,13 @@
 // import * as Treeviz from 'treeviz';
 const Treeviz = require('treeviz');
 
-var data_1 = [
+let data_1 = [
     { id: 1, text_1: "Chaos", text_2: "Void", father: null, color:"#FF5722" },
     { id: 2, text_1: "Tartarus", text_2: "Abyss", father: 1, color:"#FFC107" },
     { id: 3, text_1: "Gaia", text_2: "Earth", father: 1, color:"#8BC34A" },
     { id: 4, text_1: "Eros", text_2: "Desire", father: 1,  color:"#00BCD4" }];
 
-var data_2 = [
+let data_2 = [
     { id: 1, text_1: "Chaos", text_2: " Void", father: null, color:"#2196F3" },
     { id: 2, text_1: "Tartarus", text_2: "Abyss", father: 1 ,color:"#F44336"},
     { id: 3, text_1: "Gaia", text_2: "Earth", father: 1,color:"#673AB7" },
@@ -15,7 +15,7 @@ var data_2 = [
     { id: 5, text_1: "Uranus", text_2: "Sky", father: 3,color:"#4CAF50" },
     { id: 6, text_1: "Ourea", text_2: "Mountains", father: 3,color:"#FF9800" }];
 
-    var data_3 = [
+    let data_3 = [
     { id: 1, text_1: "Chaos", text_2: "Void", father: null, color:"#2196F3" },
     { id: 2, text_1: "Tartarus", text_2: "Abyss", father: 1 ,color:"#F44336"},
     { id: 3, text_1: "Gaia", text_2: "Earth", father: 1,color:"#673AB7" },
@@ -28,7 +28,7 @@ var data_2 = [
     { id: 4.1, text_1: "Hope", text_2: "Life", father: 8,color:"#2eecc7" }
     ];
 
-var myTree = Treeviz.create({
+let myTree = Treeviz.create({
     htmlId: "tree",
     idKey: "id",
     hasFlatData: true,
@@ -54,12 +54,11 @@ var myTree = Treeviz.create({
 });
 myTree.refresh(data_1);
 
-var data_1_2 = [
-    { id: 1, text_1: "Chaos", text_2: "Void", father: 2, color:"#FF5722" },
-    { id: 2, text_1: "Tartarus", text_2: "Abyss", father: null, color:"#FFC107" },
-    { id: 3, text_1: "Gaia", text_2: "Earth", father: 2, color:"#8BC34A" },
-    { id: 4, text_1: "Eros", text_2: "Desire", father: 2,  color:"#00BCD4" }];
-
 setTimeout(() => {
-    myTree.refresh(data_1_2);
-}, 2000);
+    myTree.refresh(data_2);
+    
+    setTimeout(() => {
+      myTree.refresh(data_3);
+    }, 1500);
+
+}, 1500);
