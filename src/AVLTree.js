@@ -2,24 +2,23 @@ class AVLTree {
   constructor() {
     this.root = null;
   }
-  add(data,vizCallback) {
+  add(data, vizCallback) {
     if (this.root == null) this.root = new AVLTreeNode(data);
-    else 
-      this.root = this.root.add(data,vizCallback);
+    else this.root = this.root.add(data, vizCallback);
     vizCallback();
   }
-  remove(data) {
-    if(this.root != null)
-    this.root = this.root.remove(data);
+  remove(data, vizCallback) {
+    if (this.root != null) {
+      this.root = this.root.remove(data, vizCallback);
+      vizCallback();
+    }
   }
-  height(){
-    if(this.root != null)
-      return this.root.height;
+  height() {
+    if (this.root != null) return this.root.height;
     else return 0;
   }
   contain(data) {
-    if(this.root != null)
-      return this.root.contain(data);
+    if (this.root != null) return this.root.contain(data);
     else return false;
   }
 }
@@ -41,14 +40,14 @@ class AVLTreeNode {
     remove(data) {
       return this;
     }
-    add(data){
+    add(data) {
       return new AVLTreeNode(data);
     }
-    contain(data){
+    contain(data) {
       return false;
     }
-    toString(){
-      return "END"
+    toString() {
+      return "END";
     }
   })();
 
@@ -97,64 +96,53 @@ class AVLTreeNode {
   }
 
   getRightmost() {
-    if (this.hasRight())
-      return this.right.getRightmost();
-    else 
-      return this.data;
-    
+    if (this.hasRight()) return this.right.getRightmost();
+    else return this.data;
   }
 
-  getLeftmost(){
-    if(this.hasLeft())
-      return this.left.getLeftmost();
-    else
-      return this.data;
+  getLeftmost() {
+    if (this.hasLeft()) return this.left.getLeftmost();
+    else return this.data;
   }
 
   contain(data) {
-    if(this.data == data)
-      return true;
-    else if (data < this.data)
-      return this.left.contain(data);
-    else if (this.data < data)
-      return this.right.contain(data);
+    if (this.data == data) return true;
+    else if (data < this.data) return this.left.contain(data);
+    else if (this.data < data) return this.right.contain(data);
   }
 
-  remove(data) {
-    if(this.data == data){
-      if(this.isLeaf())
-        return AVLTreeNode.END;
+  remove(data, vizCallback) {
+    if (this.data == data) {
+      if (this.isLeaf()) return AVLTreeNode.END;
 
-      if (this.hasLeft()){ 
+      if (this.hasLeft()) {
         const rightmost = this.left.getRightmost();
-        this.left = this.left.remove(rightmost);
+        this.left = this.left.remove(rightmost, vizCallback);
         this.data = rightmost;
       } else if (this.hasRight()) {
         const leftmost = this.right.getLeftmost();
-        this.right = this.right.remove(leftmost);
+        this.right = this.right.remove(leftmost, vizCallback);
         this.data = leftmost;
       }
-    }
-    else if(data < this.data)
-      this.left = this.left.remove(data);
-    else if (this.data < data)  
-      this.right = this.right.remove(data);
-    
-    return this.fixBalance();
+    } else if (data < this.data)
+      this.left = this.left.remove(data, vizCallback);
+    else if (this.data < data)
+      this.right = this.right.remove(data, vizCallback);
 
-  }
-
-  add(data,vizCallback) {
-    if (data < this.data) 
-      this.left =  this.left.add(data,vizCallback)
-    else if (this.data < data) 
-      this.right = this.right.add(data,vizCallback);
     const fixed = this.fixBalance();
     vizCallback();
     return fixed;
   }
 
-   fixBalance() {
+  add(data, vizCallback) {
+    if (data < this.data) this.left = this.left.add(data, vizCallback);
+    else if (this.data < data) this.right = this.right.add(data, vizCallback);
+    const fixed = this.fixBalance();
+    vizCallback();
+    return fixed;
+  }
+
+  fixBalance() {
     if (!(this.balanceFactor == 2 || this.balanceFactor == -2)) return this;
 
     if (this.balanceFactor == 2) {
@@ -175,20 +163,22 @@ class AVLTreeNode {
     return this === AVLTreeNode.END;
   }
 
-  isLeaf(){
-    return (!this.hasLeft()) && (!this.hasRight());
+  isLeaf() {
+    return !this.hasLeft() && !this.hasRight();
   }
 
-  hasLeft(){
+  hasLeft() {
     return !this.left.isEnd();
   }
-  
-  hasRight(){
+
+  hasRight() {
     return !this.right.isEnd();
   }
-  
+
   toString() {
-    return `{data:${this.data}, left:${this.left.toString()}, right:${this.right.toString()}}`;
+    return `{data:${
+      this.data
+    }, left:${this.left.toString()}, right:${this.right.toString()}}`;
   }
 }
 
@@ -209,8 +199,5 @@ function bfs(tree) {
     }
   }
 }
-
-
-
 
 module.exports = AVLTree;

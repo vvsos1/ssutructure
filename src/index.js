@@ -113,6 +113,11 @@ const wait = millis =>
 
 
 // 0~500까지의 범위의 겹치지 않는 15개의 수를 뽑아 배열로 만든 뒤 이를 AVL Tree에 1초 간격으로 넣어가며 시각화
-new Array(15).fill(1).map(_=>(Math.random()*500).toFixed(0)).filter((elem,idx,arr) => arr.indexOf(elem) == -1 || arr.indexOf(elem) == idx).reduce(
-  (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(1000))
-  ,Promise.resolve());
+const arr = new Array(10).fill(1).map(_=>(Math.random()*500).toFixed(0)).filter((elem,idx,arr) => arr.indexOf(elem) == -1 || arr.indexOf(elem) == idx);
+
+arr.reduce(
+  (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(200))
+  ,Promise.resolve())
+  .then(_=>arr.reduce(
+    (acc,val) => acc.then(_=>tree.remove(val,vizCallback)).then(wait(200))
+    ,Promise.resolve()))
