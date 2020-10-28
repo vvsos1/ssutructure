@@ -10,8 +10,8 @@ const myTree = Treeviz.create({
   hasFlatData: true,
   relationnalField: "father",
   hasPanAndZoom: true,
-  nodeWidth: 120,
-  nodeHeight: 80,
+  nodeWidth: 80,
+  nodeHeight: 45,
   mainAxisNodeSpacing: 2,
   isHorizontal: false,
   renderNode: function(node) {
@@ -28,7 +28,7 @@ const myTree = Treeviz.create({
     );
   },
   linkWidth: nodeData => 5,
-  linkShape: "curve",
+  linkShape: "quadraticBeziers",
   linkColor: nodeData => "#B0BEC5",
   onNodeClick: nodeData => console.log(nodeData)
 });
@@ -68,8 +68,8 @@ function toColor(num) {
 // (AVLTreeNode,Integer) -> Array
 // AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
 function traversal(root, parentId) {
-  console.log("traversal() : root = " + root);
-  if (root == null || root.isEnd()) return [];
+  // console.log("traversal() : root = " + root);
+  if (root.isEnd()) return [];
 
   const id = Number.parseInt(root.data);
   
