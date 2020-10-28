@@ -5,10 +5,7 @@ branches:
   only:
     - master
 before_deploy: # 배포하기전 하는 작업들
-  - npm install -g browserify
-  - browserify src/index.js -o output/js/main.js # output/js 폴더에 번들링
-  - rm -rf node_modules # travis가 설치한 node_moduels를 삭제
-  - cp index.html output 
+  - build.sh
 script:
   - echo "skipping tests" # 테스트 스킵
 deploy:
