@@ -5,7 +5,7 @@ branches:
   only:
     - master
 before_deploy: # 배포하기전 하는 작업들
-  - build.sh
+  - ./build.sh
 script:
   - echo "skipping tests" # 테스트 스킵
 deploy:
