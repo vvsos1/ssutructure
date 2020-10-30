@@ -1,4 +1,4 @@
-const InsertSort = require('./InsertSort');
+const InsertionSort = require('./InsertionSort');
 const Block = require('../sort/Block');
 
 const container = document.querySelector('.data-container');
@@ -15,6 +15,6 @@ function generateBlocks(num = 20,container) {
 }
 
 const blocks = generateBlocks(20,container);
-const insertSort = new InsertSort(container,blocks,200,250);
+const insertionSort = new InsertionSort(container,blocks,200,250);
 
-insertSort.sort();
+insertionSort.sort();

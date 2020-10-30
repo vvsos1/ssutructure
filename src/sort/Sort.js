@@ -7,6 +7,9 @@ class Sort {
         this.container = container;
         this.delay = delay;
         this.animationDelay = animationDelay;
+        
+        // block 들의 애니메이션 딜레이를 설정
+        this.blocks.map(block => block.dom.style.transitionDuration = this.animationDelay+"ms");
     }
 
     // 추상 메소드
@@ -36,7 +39,7 @@ class Sort {
 
             block1.dom.style.transform = transform2;
             block2.dom.style.transform = transform1;
-
+            
             const nextOfTarget1 = block1.dom.nextSibling;
             const nextOfTarget2 = block2.dom.nextSibling;
 

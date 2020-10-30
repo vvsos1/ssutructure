@@ -1,6 +1,6 @@
 const Sort = require('../sort/Sort');
 
-class InsertSort extends Sort {
+class InsertionSort extends Sort {
 
     // container:DOM, delay:Number, animationDelay:Number
     constructor(container, blocks, delay, animationDelay) {
@@ -52,7 +52,7 @@ class InsertSort extends Sort {
 
 }
 
-module.exports = InsertSort;
+module.exports = InsertionSort;
 
 
 
