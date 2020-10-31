@@ -13,6 +13,7 @@ const myTree = Treeviz.create({
   nodeWidth: 80,
   nodeHeight: 45,
   mainAxisNodeSpacing: 2,
+  duration:300,
   isHorizontal: false,
   renderNode: function(node) {
     return (
@@ -77,7 +78,7 @@ function traversal(root, parentId) {
     id,
     text_1: root.data,
     father: parentId,
-    color: toColor(hashFunction(root.data)),
+    color: 'skyblue',
   };
 
   return [data]
@@ -98,26 +99,60 @@ const vizCallback = vizCallbackMaker(tree, myTree.refresh);
 // millis만큼 기다린 후 resolve되는 Promise 반환
 const wait = millis =>
   new Promise(res =>
-    setTimeout(() => {
-      res();
-    }, millis)
+    setTimeout(res, millis)
   );
 
-// [50, 30, 75, 10, 40, 60, 80, 20, 55, 65, 95, 70].forEach(i =>
-//   tree.add(i, vizCallback)
-// );
-
-// [50, 30, 75, 10, 40, 60, 80, 20, 55, 65, 95, 70].reduce(
-//   (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(1000))
-//   ,Promise.resolve());
 
 
-// 0~500까지의 범위의 겹치지 않는 15개의 수를 뽑아 배열로 만든 뒤 이를 AVL Tree에 1초 간격으로 넣어가며 시각화
-const arr = new Array(10).fill(1).map(_=>(Math.random()*500).toFixed(0)).filter((elem,idx,arr) => arr.indexOf(elem) == -1 || arr.indexOf(elem) == idx);
 
-arr.reduce(
-  (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(200))
-  ,Promise.resolve())
-  .then(_=>arr.reduce(
-    (acc,val) => acc.then(_=>tree.remove(val,vizCallback)).then(wait(200))
-    ,Promise.resolve()))
+// // 0~500까지의 범위의 겹치지 않는 15개의 수를 뽑아 배열로 만든 뒤 이를 AVL Tree에 1초 간격으로 넣어가며 시각화
+// const arr = new Array(10).fill(1).map(_=>(Math.random()*500).toFixed(0)).filter((elem,idx,arr) => arr.indexOf(elem) == -1 || arr.indexOf(elem) == idx);
+
+// arr.reduce(
+//   (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(200))
+//   ,Promise.resolve())
+//   .then(_=>arr.reduce(
+//     (acc,val) => acc.then(_=>tree.remove(val,vizCallback)).then(wait(200))
+//     ,Promise.resolve()))
+
+
+
+// 사용자로부터 새로운 데이터를 입력받는 Input Text
+const newDataInput = document.getElementById('new-data-input');
+
+// 새로운 데이터를 추가하는 Button
+const newDataAddBtn = document.getElementById('new-data-add-btn');
+
+// 기존 데이터를 삭제하는 Button
+const newDataRemoveBtn = document.getElementById('new-data-remove-btn');
+
+newDataAddBtn.onclick = e => {
+  // 아무것도 입력하지 않은 경우 바로 리턴
+  if (newDataInput.value.trim() == '')
+    return;
+
+  const newData = Number(newDataInput.value);
+
+  tree.add(newData,vizCallback);
+
+  // data clear
+  newDataInput.value = '';
+}
+
+newDataRemoveBtn.onclick = e => {
+   // 아무것도 입력하지 않은 경우
+   if (newDataInput.value.trim() == '')
+   return;
+
+   
+   const newData = Number(newDataInput.value);
+
+   // 트리에 없는 데이터인경우
+   if (!tree.contain(newData))
+    return;
+
+ tree.remove(newData,vizCallback);
+
+ // data clear
+ newDataInput.value = '';
+}

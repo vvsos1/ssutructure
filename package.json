@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/vvsos1/ssutructure#readme",
   "dependencies": {
-    "browserify": "^17.0.0",
     "treeviz": "^2.2.3"
   }
 }
