@@ -6,15 +6,60 @@ class Sort {
         this.blocks = blocks;
         this.container = container;
         this.delay = delay;
-        this.animationDelay = animationDelay;
         
         // block 들의 애니메이션 딜레이를 설정
-        this.blocks.map(block => block.dom.style.transitionDuration = this.animationDelay+"ms");
-    }
+        this.setAnimationDelay(animationDelay);
+    }   
+    
 
     // 추상 메소드
     sort() {
 
+    }
+
+    setBlockWidth(width, blockMargin = 2) {  // width:Number
+        const blockCount = this.blocks.length
+        
+        // 컨테이너 크기 넓히기
+        this.container.style.width = blockCount*(width+margin) + "px";
+        
+        
+        this.getBlocks()
+        .map((block,index)=> {
+            const dom = block.dom;
+
+            // 블록 애니메이션 속도를 0ms로 조정; 크기 변경을 즉각적으로 하기 위해
+            const prevTransitionDuration = dom.style.transitionDuration;
+            dom.style.transitionDuration = 0+'ms';
+
+            const transX = index * (width + blockMargin);
+            dom.style.transform = `translateX(${transX}px)`;
+
+            // 블록의 너비 조정
+            dom.style.width=width+"px";
+            
+
+            // 애니메이션 속도를 원래대로 조정
+            dom.style.transitionDuration = prevTransitionDuration;
+        });
+
+    }
+
+    addBlock(block) {
+        this.blocks.push(block);
+        const prevWidth = Number(window.getComputedStyle(this.container).getPropertyValue("width").replace('px',''));
+
+        this.container.style.width = (prevWidth + 30)+'px';
+        
+    }
+
+    setDelay(millis) {
+        this.delay = millis;
+    }
+
+    setAnimationDelay(millis) {
+        this.animationDelay = millis;
+        this.blocks.map(block => block.dom.style.transitionDuration = this.animationDelay+"ms");
     }
     
     // 모든 block들을 리턴하는 함수

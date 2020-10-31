@@ -20,22 +20,25 @@ class SelectionSort extends Sort {
             for (let j = i + 1; j < n; j += 1) {
                 // delay만큼 기다림
                 blocks[i].setColorRed();
-                await new Promise(resolve => setTimeout(resolve,this.delay));
+                await new Promise(resolve => setTimeout(resolve, this.delay));
                 let value1 = blocks[min].getValue();
                 let value2 = blocks[j].getValue();
                 if (value1 >= value2)
                     min = j;
-                if (i != min&&j==n-1) {
+                if (i != min && j == n - 1) {
                     await this.swap(blocks[min], blocks[i]);
-			min = i;
+                    min = i;
                     // 두 블록의 위치가 바뀌었으므로 기존 blocks를 업데이트
                     blocks = this.getBlocks();
                 }
-		blocks[i].setColorDefault();
+                blocks[i].setColorDefault();
                 blocks[j].setColorDefault();
             }
-        blocks[i].setColorGreen();
+            blocks[i].setColorGreen();
+        }
+
+        // 정렬이 끝났으므로 마지막 블록도 Green으로 색 변경
+        blocks[n-1].setColorGreen();
     }
-}
 }
 module.exports = SelectionSort;
