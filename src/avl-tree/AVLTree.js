@@ -1,17 +1,14 @@
 class AVLTree {
   constructor() {
-    this.root = null;
+    this.root = AVLTreeNode.END;
   }
   add(data, vizCallback) {
-    if (this.root == null) this.root = new AVLTreeNode(data);
-    else this.root = this.root.add(data, vizCallback);
+    this.root = this.root.add(data, vizCallback);
     vizCallback();
   }
   remove(data, vizCallback) {
-    if (this.root != null) {
-      this.root = this.root.remove(data, vizCallback);
-      vizCallback();
-    }
+    this.root = this.root.remove(data, vizCallback);
+    vizCallback();
   }
   height() {
     if (this.root != null) return this.root.height;

@@ -1,7 +1,11 @@
 // import * as Treeviz from 'treeviz';
-const Treeviz = require("treeviz");
+const Treeviz = require("../static/treeviz");
 
 const AVLTree = require("./AVLTree");
+
+const durationObject = {
+  duration:500
+};
 
 const myTree = Treeviz.create({
   htmlId: "tree",
@@ -12,7 +16,7 @@ const myTree = Treeviz.create({
   nodeWidth: 80,
   nodeHeight: 45,
   mainAxisNodeSpacing: 2,
-  duration: 300,
+  duration: ()=>durationObject.duration,
   isHorizontal: false,
   renderNode: function(node) {
     return (
@@ -116,6 +120,16 @@ const newDataAddBtn = document.getElementById("new-data-add-btn");
 
 // 기존 데이터를 삭제하는 Button
 const newDataRemoveBtn = document.getElementById("new-data-remove-btn");
+
+// 애니메이션 딜레이 Range
+const delayRange = document.getElementById("animation-delay-range");
+
+delayRange.oninput = e => {
+  const delay = Number(e.target.value);
+  durationObject.duration = delay;
+  console.log(`delay : ${delay}ms`);
+};
+
 
 newDataAddBtn.onclick = e => {
   // 아무것도 입력하지 않은 경우 바로 리턴
