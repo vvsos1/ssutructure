@@ -13,11 +13,13 @@ class BubbleSort extends Sort {
     const n = blocks.length;
 
     for (let i = 0; i < n - 1; i += 1) {
-      for (let j = 0; j < n - i - 1; j += 1) {
+      for (let j = 0; j < n - i - 1; j += 1) {       
         // 현재 선택된(정렬중인) 블록의 색을 Red로 바꿈
-
         blocks[j].setColorRed();
         blocks[j + 1].setColorRed();
+
+         // 사용자가 다음 스텝으로 넘어가기 전 까지(this.continue() or this.step()) 기다림
+         await this.wait();
 
         // delay만큼 기다림
         await new Promise(resolve => setTimeout(resolve, this.delay));

@@ -22,13 +22,15 @@ class InsertionSort extends Sort {
       const target = blocks[i].getValue();
 
       for (let j = 0; j < i; j++) {
-        //blocks[j].setColorRed();
+        blocks[j].setColorRed();
+
+        await this.wait();
 
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
         const value = blocks[j].getValue();
 
-        //blocks[j].setColorDefault();
+        blocks[j].setColorGreen();
         if (value > target) {
           destIndex = j;
           break;
@@ -36,6 +38,7 @@ class InsertionSort extends Sort {
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
+        await this.wait();
 
         await this.insertAt(blocks[i], destIndex);
 

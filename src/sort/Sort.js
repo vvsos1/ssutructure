@@ -4,6 +4,7 @@ class Sort {
     this.blocks = blocks;
     this.container = container;
     this.delay = delay;
+    this.isStop = false;
 
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
@@ -11,6 +12,33 @@ class Sort {
 
   // 추상 메소드
   sort() {}
+
+  wait() {
+    return new Promise(resolve => {
+      if (this.isStop){
+        // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
+      this.resolve = resolve;
+      } else {
+        resolve();
+      }
+    })
+  }
+
+  stop() {
+    this.isStop = true;
+  }
+
+  continue() {
+    this.isStop = false;
+    this.step();
+  }
+
+  step() {
+    if (this.resolve != null && this.resolve != undefined){
+      this.resolve();
+      this.resolve = null;
+    }
+  }
 
   setBlockWidth(width, blockMargin = 2) {
     // width:Number

@@ -12,7 +12,7 @@ const myTree = Treeviz.create({
   idKey: "id",
   hasFlatData: true,
   relationnalField: "father",
-  hasPanAndZoom: true,
+  hasPanAndZoom: false,
   nodeWidth: 80,
   nodeHeight: 45,
   mainAxisNodeSpacing: 2,

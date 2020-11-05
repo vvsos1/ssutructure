@@ -23,6 +23,10 @@ class Block {
     this.container = container;
   }
 
+  setColorYellow(){
+    this.dom.style.backgroundColor = "#FFFF00";
+  }
+
   // block을 선택된 블록의 색으로 바꾸는 함수
   setColorRed() {
     this.dom.style.backgroundColor = "#FF4949";
