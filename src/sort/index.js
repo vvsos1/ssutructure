@@ -23,7 +23,16 @@ const newDataInput = document.getElementById("new-data-input");
 const newDataAddBtn = document.getElementById("new-data-add-btn");
 
 // 정렬 시작 Button
-const sortStartBtn = document.getElementById("sort-start-btn");
+const sortBtn = document.getElementById("sort-btn");
+
+// 정렬 중지 Button
+const sortStopBtn = document.getElementById('sort-stop-btn');
+
+// 정렬 진행 Button
+const sortContinueBtn = document.getElementById('sort-continue-btn');
+
+// 정렬 스텝 Button
+const sortStepBtn = document.getElementById('sort-step-btn');
 
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
@@ -78,7 +87,7 @@ newDataAddBtn.onclick = e => {
 
 // isSortRunning은 현재 정렬이 진행중인지 표시하는 변수. true이면 sortStartBtn이 동작하지 않는다.
 let isSortRunning = false;
-sortStartBtn.onclick = e => {
+sortBtn.onclick = e => {
   if (isSortRunning) {
     return;
   }
@@ -95,3 +104,15 @@ sortStartBtn.onclick = e => {
   sort.getBlocks().forEach(block => block.setColorDefault());
   sort.sort().then(_ => (isSortRunning = false));
 };
+
+sortStopBtn.onclick = e => {
+  sort.stop();
+}
+
+sortContinueBtn.onclick = e => {
+  sort.continue();
+}
+
+sortStepBtn.onclick = e => {
+  sort.step();
+}
