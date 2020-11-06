@@ -1,6 +1,7 @@
 const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
 const InsertionSort = require("../insertion-sort/InsertionSort");
+const InsertionSort2 = require("../insertion-sort/InsertionSort2");
 const SelectionSort = require("../selection-sort/SelectionSort");
 
 // 정렬이 시각화 될 container
@@ -9,6 +10,7 @@ const container = document.querySelector(".data-container");
 // radio.checked 의 값을 읽어와서 사용
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
+const insertionSort2Radio = document.getElementById("insertion-sort2-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
 
 // 애니메이션 딜레이 Range
@@ -50,7 +52,9 @@ function getSortAlgorithm() {
   let SortAlgorithm;
   if (insertionSortRadio.checked) {
     SortAlgorithm = InsertionSort;
-  } else if (selectionSortRadio.checked) {
+  } else if (insertionSort2Radio.checked){
+    SortAlgorithm = InsertionSort2;
+  }else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
   } else {
     SortAlgorithm = BubbleSort;
