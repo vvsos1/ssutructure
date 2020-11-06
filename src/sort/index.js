@@ -2,6 +2,7 @@ const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
 const InsertionSort = require("../insertion-sort/InsertionSort");
 const SelectionSort = require("../selection-sort/SelectionSort");
+const SelectionSort2 = require("../selection-sort/SelectionSort2");
 
 // 정렬이 시각화 될 container
 const container = document.querySelector(".data-container");
@@ -10,6 +11,7 @@ const container = document.querySelector(".data-container");
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
+const selectionSort2Radio = document.getElementById("selection-sort2-radio");
 
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
@@ -52,6 +54,8 @@ function getSortAlgorithm() {
     SortAlgorithm = InsertionSort;
   } else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
+  } else if (selectionSort2Radio.checked) {
+    SortAlgorithm = SelectionSort2;
   } else {
     SortAlgorithm = BubbleSort;
   }
