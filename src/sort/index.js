@@ -1,5 +1,6 @@
 const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
+const BubbleSort2 = require("../bubble-sort/BubbleSort2");
 const InsertionSort = require("../insertion-sort/InsertionSort");
 const SelectionSort = require("../selection-sort/SelectionSort");
 const SelectionSort2 = require("../selection-sort/SelectionSort2");
@@ -9,6 +10,7 @@ const container = document.querySelector(".data-container");
 
 // radio.checked 의 값을 읽어와서 사용
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
+const bubbleSort2Radio = document.getElementById("bubble-sort2-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
 const selectionSort2Radio = document.getElementById("selection-sort2-radio");
@@ -28,13 +30,13 @@ const newDataAddBtn = document.getElementById("new-data-add-btn");
 const sortBtn = document.getElementById("sort-btn");
 
 // 정렬 중지 Button
-const sortStopBtn = document.getElementById('sort-stop-btn');
+const sortStopBtn = document.getElementById("sort-stop-btn");
 
 // 정렬 진행 Button
-const sortContinueBtn = document.getElementById('sort-continue-btn');
+const sortContinueBtn = document.getElementById("sort-continue-btn");
 
 // 정렬 스텝 Button
-const sortStepBtn = document.getElementById('sort-step-btn');
+const sortStepBtn = document.getElementById("sort-step-btn");
 
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
@@ -56,8 +58,10 @@ function getSortAlgorithm() {
     SortAlgorithm = SelectionSort;
   } else if (selectionSort2Radio.checked) {
     SortAlgorithm = SelectionSort2;
-  } else {
+  } else if (bubbleSortRadio.checked) {
     SortAlgorithm = BubbleSort;
+  } else if (bubbleSort2Radio.checked) {
+    SortAlgorithm = BubbleSort2;
   }
   return SortAlgorithm;
 }
@@ -111,12 +115,12 @@ sortBtn.onclick = e => {
 
 sortStopBtn.onclick = e => {
   sort.stop();
-}
+};
 
 sortContinueBtn.onclick = e => {
   sort.continue();
-}
+};
 
 sortStepBtn.onclick = e => {
   sort.step();
-}
+};
