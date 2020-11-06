@@ -1,5 +1,6 @@
 const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
+const BubbleSort2 = require("../bubble-sort/BubbleSort2");
 const InsertionSort = require("../insertion-sort/InsertionSort");
 const SelectionSort = require("../selection-sort/SelectionSort");
 
@@ -8,6 +9,7 @@ const container = document.querySelector(".data-container");
 
 // radio.checked 의 값을 읽어와서 사용
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
+const bubbleSort2Radio = document.getElementById("bubble-sort2-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
 
@@ -52,8 +54,10 @@ function getSortAlgorithm() {
     SortAlgorithm = InsertionSort;
   } else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
-  } else {
-    SortAlgorithm = BubbleSort;
+  } else if (bubbleSort2Radio.checked) {
+    SortAlgorithm = BubbleSort2;
+  } else{
+    SortAlgorithm =BubbleSort;
   }
   return SortAlgorithm;
 }
