@@ -4,8 +4,8 @@
 <head>
     <meta charset='utf-8'>
     <title>AVL Tree Visualize</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/tree.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/tree.css">
 </head>
 
 
@@ -31,9 +31,9 @@
         </nav>
 
         <!-- 메인 콘텐츠 컨테이너 -->
-        <div class="container-fluid d-flex mt-2 pt-4 align-items-start bg-white">
+        <div class="container-fluid d-flex my-2 py-4 align-items-start bg-white">
             <!-- 입력 폼 컨테이너-->
-            <div id="input-form-wrapper" class="d-inline-flex flex-column col-2">
+            <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
 
 
                 <!-- 딜레이 Range 컨테이너-->
@@ -55,19 +55,17 @@
                         </div>
                     </div>
                 </div>
-
-
+            </div>
             
-        </div>
-        <!--데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="m-0 ml-4 p-0">
-            <div id="tree" style="height:900px; width:900px"></div>
-        </div>
+            <!--데이터 시각화 부분 컨테이너-->
+            <div id="visualize-section-wrapper" class="col-md-8 my-2 ml-4 p-0">
+                <div id="tree" class="border border-info w-100" style="height: 900px"></div>
+            </div>
         </div>
     </body>
-    <script src="js/static/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/static/bootstrap.bundle.min.js"></script>
-    <script src="js/avl-tree/index.js"></script>
+    <script src="../static/jquery-3.5.1.slim.min.js"></script>
+    <script src="../static/bootstrap.bundle.min.js"></script>
+    <script src="../avl-tree/index.js"></script>
 
 
 </html>
