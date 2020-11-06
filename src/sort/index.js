@@ -2,6 +2,7 @@ const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
 const BubbleSort2 = require("../bubble-sort/BubbleSort2");
 const InsertionSort = require("../insertion-sort/InsertionSort");
+const InsertionSort2 = require("../insertion-sort/InsertionSort2");
 const SelectionSort = require("../selection-sort/SelectionSort");
 const SelectionSort2 = require("../selection-sort/SelectionSort2");
 
@@ -12,6 +13,7 @@ const container = document.querySelector(".data-container");
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
 const bubbleSort2Radio = document.getElementById("bubble-sort2-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
+const insertionSort2Radio = document.getElementById("insertion-sort2-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
 const selectionSort2Radio = document.getElementById("selection-sort2-radio");
 
@@ -54,7 +56,9 @@ function getSortAlgorithm() {
   let SortAlgorithm;
   if (insertionSortRadio.checked) {
     SortAlgorithm = InsertionSort;
-  } else if (selectionSortRadio.checked) {
+  } else if (insertionSort2Radio.checked){
+    SortAlgorithm = InsertionSort2;
+  }else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
   } else if (selectionSort2Radio.checked) {
     SortAlgorithm = SelectionSort2;
