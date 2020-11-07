@@ -40,6 +40,27 @@ class Sort {
     }
   }
 
+  shuffle() {
+    let blocks = this.blocks;
+    for (let i = blocks.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // 0 이상 i 미만의 무작위 인덱스
+      [blocks[i], blocks[j]] = [blocks[j], blocks[i]];  // 셔플
+    }
+
+    blocks.map((block,index) => {
+      const prevTransitionDuration = window.getComputedStyle(block.dom).transitionDuration;
+      block.dom.transitionDuration = 0+"ms";
+
+      block.dom.style.transform = `translateX(${index * 30}px)`;
+
+      this.container.insertBefore(block.dom,null); // 컨테이너의 맨 끝으로 이동
+
+      block.dom.transitionDuration = prevTransitionDuration;
+    });
+
+    this.blocks = blocks;
+  }
+
   setBlockWidth(width, blockMargin = 2) {
     // width:Number
     const blockCount = this.blocks.length;
@@ -88,7 +109,7 @@ class Sort {
     );
   }
 
-  // 모든 block들을 리턴하는 함수
+  // 모든 block들을 시각화되고있는 순서에 맞게 리턴하는 함수
   getBlocks() {
     const doms = Array.from(document.querySelectorAll(".block"));
 

@@ -40,6 +40,9 @@ const sortContinueBtn = document.getElementById("sort-continue-btn");
 // 정렬 스텝 Button
 const sortStepBtn = document.getElementById("sort-step-btn");
 
+// 블록 섞기 Button
+const blockShuffleBtn = document.getElementById("block-shuffle-btn");
+
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
   while (values.length < num) {
@@ -128,3 +131,7 @@ sortContinueBtn.onclick = e => {
 sortStepBtn.onclick = e => {
   sort.step();
 };
+
+blockShuffleBtn.onclick = e => {
+  sort.shuffle();
+}
