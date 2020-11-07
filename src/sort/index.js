@@ -130,7 +130,7 @@ newDataAddBtn.onclick = e => {
 
   const value = Number(newDataInput.value);
 
-  const newBlock = Block.createNewBlock(value, container);
+  const newBlock = Block.createNewBlock(value,container,Number(sizeRange.value));
   sort.addBlock(newBlock);
 };
 

@@ -1,6 +1,6 @@
 class Block {
   // static factory method; value와 container를 이용해 Block 객체를 만든다
-  static createNewBlock(value, container) {
+  static createNewBlock(value, container,blockWidth=28,blockMargin=2) {
     // value:Number, container:DOM
     const blockCount = container.childElementCount;
 
@@ -14,8 +14,9 @@ class Block {
     if (blockHight > maxBlockHight)
       blockHight = maxBlockHight;
     block.style.height = `${blockHight}px`;
+    block.style.width = `${blockWidth}px`;
     
-    block.style.transform = `translateX(${blockCount * 30}px)`;
+    block.style.transform = `translateX(${blockCount * (blockWidth+blockMargin)}px)`;
 
     const blockLabel = document.createElement("label");
     blockLabel.classList.add("block__id");
@@ -23,11 +24,12 @@ class Block {
 
     block.appendChild(blockLabel);
     container.appendChild(block);
-    return new Block(block);
+    return new Block(block,value);
   }
 
-  constructor(dom) {
+  constructor(dom,value) {
     this.dom = dom;
+    this.value = value;
   }
 
   setColorYellow(){
