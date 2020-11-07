@@ -14,6 +14,11 @@ const selectionSortRadio = document.getElementById("selection-sort-radio");
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
 
+// 애니메이션 딜레이 Input
+const delayInput = document.getElementById("new-delay-input");
+// 애니메이션 딜레이 Input Button
+const delayInputBtn = document.getElementById("new-delay-input-btn");
+
 // 시각화 블록 크기 Range
 const sizeRange = document.getElementById("size-range");
 
@@ -63,14 +68,43 @@ const blocks = generateUniqueBlocks(20, container);
 let sort = new (getSortAlgorithm())(container, blocks, 250, 250);
 
 delayRange.oninput = e => {
-  const delay = e.target.value;
+  const delay = Number(e.target.value);
   sort.setAnimationDelay(delay);
   sort.setDelay(delay);
+
+ 
+  // delayInput.value = Number(delayRange.max) + Number(delayRange.min)- delay; // delayInput과 값 동기화
 };
+
+// delayInput.oninput = e => {
+//   const delay = Number(delayRange.max) - Number(e.target.value);
+
+//   sort.setAnimationDelay(delay);
+//   sort.setDelay(delay);
+//   // delayRange와 값 동기화
+//   delayRange.value = delay;
+// }
+
+
+delayInputBtn.onclick = e => {
+
+  // 입력값이 범위를 넘어서면 경계값으로 설정
+  if (Number(delayInput.value) > Number(delayRange.max)){
+    delayInput.value = delayRange.max;
+  } else  if (Number(delayInput.value) < Number(delayRange.min)){
+    delayInput.value = delayRange.min;
+  } 
+
+  const delay = Number(delayRange.max) + Number(delayRange.min) - Number(delayInput.value);
+  console.log(`delayInputBtn click; delay : ${delay}ms`);
+  sort.setAnimationDelay(delay);
+  sort.setDelay(delay);
+
+}
 
 // TODO: Sort.setBlockWidth 완성한 뒤 size range의 invisible 풀기
 sizeRange.onchange = e => {
-  const size = e.target.value;
+  const size = Number(e.target.value);
   console.log("size: " + size);
   sort.setBlockWidth(size);
 };
