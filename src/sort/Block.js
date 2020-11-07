@@ -4,9 +4,17 @@ class Block {
     // value:Number, container:DOM
     const blockCount = container.childElementCount;
 
+    // 블록의 최대 높이는 컨테이너의 높이
+    const maxBlockHight = Number(window.getComputedStyle(container).height.replace('px',''));
+
     const block = document.createElement("div");
     block.classList.add("block");
-    block.style.height = `${value * 3}px`;
+
+    let blockHight = value * 3;
+    if (blockHight > maxBlockHight)
+      blockHight = maxBlockHight;
+    block.style.height = `${blockHight}px`;
+    
     block.style.transform = `translateX(${blockCount * 30}px)`;
 
     const blockLabel = document.createElement("label");
@@ -15,12 +23,11 @@ class Block {
 
     block.appendChild(blockLabel);
     container.appendChild(block);
-    return new Block(block, container);
+    return new Block(block);
   }
 
-  constructor(dom, container) {
+  constructor(dom) {
     this.dom = dom;
-    this.container = container;
   }
 
   setColorYellow(){
