@@ -40,7 +40,7 @@ class InsertionSort extends Sort {
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
-        await this.wait();
+        // await this.waitDetail();
 
         await this.insertAt(blocks[i], destIndex);
 

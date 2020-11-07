@@ -1,9 +1,9 @@
 // 이 클래스를 상속해서 sort 메소드 구현하기
 class Sort {
   // 세부적으로 모든 단계 표시
-  static STEP_DETAIL = Symbol.for();
+  static STEP_DETAIL = Symbol.for('STEP_DETAIL');
   // 블록 위치가 바뀌는 단계만 표시
-  static STEP_SIMPLE = Symbol.for();
+  static STEP_SIMPLE = Symbol.for('STEP_SIMPLE');
   
   constructor(container, blocks, delay = 200, animationDelay = 250) {
     // 정렬할 대상인 블록들
@@ -82,13 +82,15 @@ class Sort {
     }
 
     blocks.map((block, index) => {
+      block.setColorDefault();  // 블록 색 초기화
+
       const prevTransitionDuration = window.getComputedStyle(block.dom)
         .transitionDuration;
       block.dom.transitionDuration = 0 + "ms";
 
-      block.dom.style.transform = `translateX(${index * 30}px)`;
+      block.dom.style.transform = `translateX(${index * 30}px)`;  // 블록의 화면상 위치 조정
 
-      this.container.insertBefore(block.dom, null); // 컨테이너의 맨 끝으로 이동
+      this.container.insertBefore(block.dom, null); // 블록의 DOM을 컨테이너의 맨 끝으로 이동
 
       block.dom.transitionDuration = prevTransitionDuration;
     });

@@ -83,6 +83,9 @@ sizeRange.onchange = e => {
 };
 
 newDataAddBtn.onclick = e => {
+  if (isSortRunning)  // 정렬 중이라면 데이터 추가 불가능
+    return;
+
   // 아무것도 입력하지 않았다면
   if (newDataInput.value == "") return;
 
@@ -94,11 +97,34 @@ newDataAddBtn.onclick = e => {
 
 // isSortRunning은 현재 정렬이 진행중인지 표시하는 변수. true이면 sortStartBtn이 동작하지 않는다.
 let isSortRunning = false;
+
+
+// 정렬 도중엔 Input들을 비활성화
+function disableInputs(){
+  bubbleSortRadio.disabled = true;
+  insertionSortRadio.disabled = true;
+  selectionSortRadio.disabled = true;
+  newDataAddBtn.disabled = true;
+  blockShuffleBtn.disabled = true;
+}
+// 정렬이 끝난 후 Input들을 활성화
+function enableInputs() {
+  bubbleSortRadio.disabled = false;
+  insertionSortRadio.disabled = false;
+  selectionSortRadio.disabled = false;
+  newDataAddBtn.disabled = false;
+  blockShuffleBtn.disabled = false;
+}
+
+
 sortBtn.onclick = e => {
   if (isSortRunning) {
     return;
   }
-  isSortRunning = true;
+  
+  isSortRunning = true; 
+  disableInputs();// 정렬이 시작될 때 비활성화
+
   const SortAlgorithm = getSortAlgorithm();
 
   sort = new SortAlgorithm(
@@ -109,7 +135,10 @@ sortBtn.onclick = e => {
   );
 
   sort.getBlocks().forEach(block => block.setColorDefault());
-  sort.sort().then(_ => (isSortRunning = false));
+  sort.sort().then(_ => {
+    isSortRunning = false;
+    enableInputs(); // 정렬이 끝난 뒤 활성화
+  });
 };
 
 sortStopBtn.onclick = e => {
