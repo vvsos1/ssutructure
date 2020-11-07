@@ -138,6 +138,8 @@ function disableInputs(){
   bubbleSortRadio.disabled = true;
   insertionSortRadio.disabled = true;
   selectionSortRadio.disabled = true;
+
+  sortBtn.disabled = true;
   newDataAddBtn.disabled = true;
   blockShuffleBtn.disabled = true;
 }
@@ -146,6 +148,8 @@ function enableInputs() {
   bubbleSortRadio.disabled = false;
   insertionSortRadio.disabled = false;
   selectionSortRadio.disabled = false;
+
+  sortBtn.disabled = false;
   newDataAddBtn.disabled = false;
   blockShuffleBtn.disabled = false;
 }
