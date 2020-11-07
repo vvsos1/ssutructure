@@ -1,21 +1,15 @@
 const Block = require("../sort/Block");
 const BubbleSort = require("../bubble-sort/BubbleSort");
-const BubbleSort2 = require("../bubble-sort/BubbleSort2");
 const InsertionSort = require("../insertion-sort/InsertionSort");
-const InsertionSort2 = require("../insertion-sort/InsertionSort2");
 const SelectionSort = require("../selection-sort/SelectionSort");
-const SelectionSort2 = require("../selection-sort/SelectionSort2");
 
 // 정렬이 시각화 될 container
 const container = document.querySelector(".data-container");
 
-// radio.checked 의 값을 읽어와서 사용
+// 정렬 종류 Radio
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
-const bubbleSort2Radio = document.getElementById("bubble-sort2-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
-const insertionSort2Radio = document.getElementById("insertion-sort2-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
-const selectionSort2Radio = document.getElementById("selection-sort2-radio");
 
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
@@ -43,6 +37,10 @@ const sortStepBtn = document.getElementById("sort-step-btn");
 // 블록 섞기 Button
 const blockShuffleBtn = document.getElementById("block-shuffle-btn");
 
+// 스텝 타입 Radio
+const stepDetailRadio = document.getElementById('step-detail-radio');
+const stepSimpleRadio = document.getElementById('step-simple-radio');
+
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
   while (values.length < num) {
@@ -59,16 +57,10 @@ function getSortAlgorithm() {
   let SortAlgorithm;
   if (insertionSortRadio.checked) {
     SortAlgorithm = InsertionSort;
-  } else if (insertionSort2Radio.checked){
-    SortAlgorithm = InsertionSort2;
   }else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
-  } else if (selectionSort2Radio.checked) {
-    SortAlgorithm = SelectionSort2;
-  } else if (bubbleSortRadio.checked) {
+  }  else if (bubbleSortRadio.checked) {
     SortAlgorithm = BubbleSort;
-  } else if (bubbleSort2Radio.checked) {
-    SortAlgorithm = BubbleSort2;
   }
   return SortAlgorithm;
 }
@@ -129,9 +121,16 @@ sortContinueBtn.onclick = e => {
 };
 
 sortStepBtn.onclick = e => {
+  if (stepDetailRadio.checked)
+    sort.setStepTypeDetail();
+  else if (stepSimpleRadio.checked)
+    sort.setStepTypeSimple();
+
   sort.step();
 };
 
 blockShuffleBtn.onclick = e => {
+  if (isSortRunning)
+    return;
   sort.shuffle();
 }

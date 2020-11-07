@@ -1,10 +1,21 @@
 // 이 클래스를 상속해서 sort 메소드 구현하기
 class Sort {
+  // 세부적으로 모든 단계 표시
+  static STEP_DETAIL = Symbol.for();
+  // 블록 위치가 바뀌는 단계만 표시
+  static STEP_SIMPLE = Symbol.for();
+  
   constructor(container, blocks, delay = 200, animationDelay = 250) {
+    // 정렬할 대상인 블록들
     this.blocks = blocks;
+    // 블록을 시각화 할 컨테이너 DOM
     this.container = container;
+    // 정렬 스텝 사이 딜레이
     this.delay = delay;
+    // 정렬이 멈춘 상태
     this.isStop = false;
+
+    this.stepType = Sort.STEP_DETAIL;
 
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
@@ -13,15 +24,27 @@ class Sort {
   // 추상 메소드
   sort() {}
 
-  wait() {
+  
+  waitDetail() {
     return new Promise(resolve => {
-      if (this.isStop){
+      if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
-      this.resolve = resolve;
+        this.resolveDetail = resolve;
       } else {
         resolve();
       }
-    })
+    });
+  }
+
+  waitSimple(){
+    return new Promise(resolve => {
+      if (this.isStop && this.stepType == Sort.STEP_SIMPLE) {
+        // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
+        this.resolveSimple = resolve;
+      } else {
+        resolve();
+      }
+    });
   }
 
   stop() {
@@ -34,26 +57,38 @@ class Sort {
   }
 
   step() {
-    if (this.resolve != null && this.resolve != undefined){
-      this.resolve();
-      this.resolve = null;
-    }
+      if (this.resolveDetail != null && this.resolveDetail != undefined){
+        this.resolveDetail();
+        this.resolveDetail = null;
+      } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
+        this.resolveSimple();
+        this.resolveSimple = null;
+      }
+    
+  }
+
+  setStepTypeDetail(){
+    this.stepType = Sort.STEP_DETAIL;
+  }
+  setStepTypeSimple(){
+    this.stepType = Sort.STEP_SIMPLE;
   }
 
   shuffle() {
     let blocks = this.blocks;
     for (let i = blocks.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // 0 이상 i 미만의 무작위 인덱스
-      [blocks[i], blocks[j]] = [blocks[j], blocks[i]];  // 셔플
+      [blocks[i], blocks[j]] = [blocks[j], blocks[i]]; // 셔플
     }
 
-    blocks.map((block,index) => {
-      const prevTransitionDuration = window.getComputedStyle(block.dom).transitionDuration;
-      block.dom.transitionDuration = 0+"ms";
+    blocks.map((block, index) => {
+      const prevTransitionDuration = window.getComputedStyle(block.dom)
+        .transitionDuration;
+      block.dom.transitionDuration = 0 + "ms";
 
       block.dom.style.transform = `translateX(${index * 30}px)`;
 
-      this.container.insertBefore(block.dom,null); // 컨테이너의 맨 끝으로 이동
+      this.container.insertBefore(block.dom, null); // 컨테이너의 맨 끝으로 이동
 
       block.dom.transitionDuration = prevTransitionDuration;
     });
