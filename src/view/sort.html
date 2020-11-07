@@ -32,7 +32,7 @@
     <!-- 메인 콘텐츠 컨테이너 -->
     <div class="container-fluid d-flex mt-2 pb-3 pt-4 align-items-start bg-white">
         <!-- 입력 폼 컨테이너-->
-        <div id="input-form-wrapper" class="d-inline-flex flex-column col-2">
+        <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
 
             <!-- 정렬 타입 라디오 버튼 컨테이너-->
             <div id="sort-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
@@ -59,6 +59,15 @@
                     id="animation-delay-range">
             </div>
 
+            <!-- 딜레이 입력 폼 컨테이너 (js 수정 못했습니다...)--> 
+            <div class="m-0 mt-4 p-0">
+                <label for="new-data-input">속도 직접변경(10-1000)</label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="new-delay-input" class="form-control col-5 mr-2">
+                    <button type="button" id="new-delay-input-btn" class="btn btn-dark">변경</button>
+                </div>
+            </div>
+
             <!-- 크기 Range 컨테이너-->
             <div class="m-0 mt-4 p-0 d-flex flex-column invisible">
                 <label for="size-range">크기</label>
@@ -75,22 +84,22 @@
             </div>
 
             <!-- 정렬 버튼 컨테이너-->
-            <div class="m-0 mt-4 p-0">
+            <div class="m-0 mt-2 p-0">
                 <button id="sort-btn" type="button" class="btn btn-info">정렬</button>
             </div>
 
             <!-- 정렬 중지 버튼 컨테이너-->
-            <div class="m-0 mt-4 p-0">
+            <div class="m-0 mt-2 p-0">
                 <button id="sort-stop-btn" type="button" class="btn btn-info">중지</button>
             </div>
 
             <!-- 정렬 진행 버튼 컨테이너-->
-            <div class="m-0 mt-4 p-0">
+            <div class="m-0 mt-2 p-0">
                 <button id="sort-continue-btn" type="button" class="btn btn-info">진행</button>
             </div>
 
             <!-- 정렬 스텝 버튼 컨테이너-->
-            <div class="m-0 mt-4 p-0">
+            <div class="m-0 mt-2 p-0">
                 <button id="sort-step-btn" type="button" class="btn btn-info">한 단계 앞으로</button>
             </div>
 
@@ -113,8 +122,8 @@
             </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="m-0 ml-4 p-0">
-            <section class="data-container border border-primary"></section>
+        <div id="visualize-section-wrapper" class="col-md-6 m-0 ml-4 p-0">
+            <section class="data-container border border-info w-100" style="height: 500px"></section>
         </div>
     </div>
 </body>
