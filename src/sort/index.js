@@ -6,7 +6,7 @@ const SelectionSort = require("../selection-sort/SelectionSort");
 // 정렬이 시각화 될 container
 const container = document.querySelector(".data-container");
 
-// radio.checked 의 값을 읽어와서 사용
+// 정렬 종류 Radio
 const bubbleSortRadio = document.getElementById("bubble-sort-radio");
 const insertionSortRadio = document.getElementById("insertion-sort-radio");
 const selectionSortRadio = document.getElementById("selection-sort-radio");
@@ -31,13 +31,20 @@ const newDataAddBtn = document.getElementById("new-data-add-btn");
 const sortBtn = document.getElementById("sort-btn");
 
 // 정렬 중지 Button
-const sortStopBtn = document.getElementById('sort-stop-btn');
+const sortStopBtn = document.getElementById("sort-stop-btn");
 
 // 정렬 진행 Button
-const sortContinueBtn = document.getElementById('sort-continue-btn');
+const sortContinueBtn = document.getElementById("sort-continue-btn");
 
 // 정렬 스텝 Button
-const sortStepBtn = document.getElementById('sort-step-btn');
+const sortStepBtn = document.getElementById("sort-step-btn");
+
+// 블록 섞기 Button
+const blockShuffleBtn = document.getElementById("block-shuffle-btn");
+
+// 스텝 타입 Radio
+const stepDetailRadio = document.getElementById('step-detail-radio');
+const stepSimpleRadio = document.getElementById('step-simple-radio');
 
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
@@ -55,9 +62,9 @@ function getSortAlgorithm() {
   let SortAlgorithm;
   if (insertionSortRadio.checked) {
     SortAlgorithm = InsertionSort;
-  } else if (selectionSortRadio.checked) {
+  }else if (selectionSortRadio.checked) {
     SortAlgorithm = SelectionSort;
-  } else {
+  }  else if (bubbleSortRadio.checked) {
     SortAlgorithm = BubbleSort;
   }
   return SortAlgorithm;
@@ -110,6 +117,9 @@ sizeRange.onchange = e => {
 };
 
 newDataAddBtn.onclick = e => {
+  if (isSortRunning)  // 정렬 중이라면 데이터 추가 불가능
+    return;
+
   // 아무것도 입력하지 않았다면
   if (newDataInput.value == "") return;
 
@@ -121,11 +131,38 @@ newDataAddBtn.onclick = e => {
 
 // isSortRunning은 현재 정렬이 진행중인지 표시하는 변수. true이면 sortStartBtn이 동작하지 않는다.
 let isSortRunning = false;
+
+
+// 정렬 도중엔 Input들을 비활성화
+function disableInputs(){
+  bubbleSortRadio.disabled = true;
+  insertionSortRadio.disabled = true;
+  selectionSortRadio.disabled = true;
+
+  sortBtn.disabled = true;
+  newDataAddBtn.disabled = true;
+  blockShuffleBtn.disabled = true;
+}
+// 정렬이 끝난 후 Input들을 활성화
+function enableInputs() {
+  bubbleSortRadio.disabled = false;
+  insertionSortRadio.disabled = false;
+  selectionSortRadio.disabled = false;
+
+  sortBtn.disabled = false;
+  newDataAddBtn.disabled = false;
+  blockShuffleBtn.disabled = false;
+}
+
+
 sortBtn.onclick = e => {
   if (isSortRunning) {
     return;
   }
-  isSortRunning = true;
+  
+  isSortRunning = true; 
+  disableInputs();// 정렬이 시작될 때 비활성화
+
   const SortAlgorithm = getSortAlgorithm();
 
   sort = new SortAlgorithm(
@@ -136,17 +173,31 @@ sortBtn.onclick = e => {
   );
 
   sort.getBlocks().forEach(block => block.setColorDefault());
-  sort.sort().then(_ => (isSortRunning = false));
+  sort.sort().then(_ => {
+    isSortRunning = false;
+    enableInputs(); // 정렬이 끝난 뒤 활성화
+  });
 };
 
 sortStopBtn.onclick = e => {
   sort.stop();
-}
+};
 
 sortContinueBtn.onclick = e => {
   sort.continue();
-}
+};
 
 sortStepBtn.onclick = e => {
+  if (stepDetailRadio.checked)
+    sort.setStepTypeDetail();
+  else if (stepSimpleRadio.checked)
+    sort.setStepTypeSimple();
+
   sort.step();
+};
+
+blockShuffleBtn.onclick = e => {
+  if (isSortRunning)
+    return;
+  sort.shuffle();
 }

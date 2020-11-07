@@ -35,7 +35,7 @@
         <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
 
             <!-- 정렬 타입 라디오 버튼 컨테이너-->
-            <div id="radio-wrapper" class="d-flex flex-column m-0 p-0 ">
+            <div id="sort-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
                 <div class="custom-control custom-radio pb-2">
                     <input type="radio" id="bubble-sort-radio" name="sort-type-radio" class="custom-control-input"
                         checked>
@@ -101,6 +101,24 @@
             <!-- 정렬 스텝 버튼 컨테이너-->
             <div class="m-0 mt-2 p-0">
                 <button id="sort-step-btn" type="button" class="btn btn-info">한 단계 앞으로</button>
+            </div>
+
+            <!-- 스텝 타입 라디오 버튼 컨테이너-->
+            <div id="step-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="step-detail-radio" name="step-type-radio" class="custom-control-input"
+                        checked>
+                    <label class="custom-control-label" for="step-detail-radio">detail</label>
+                </div>
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="step-simple-radio" name="step-type-radio" class="custom-control-input">
+                    <label class="custom-control-label" for="step-simple-radio">simple</label>
+                </div>
+            </div>
+
+            <!-- 블록 셔플 버튼 컨테이너-->
+            <div class="m-0 mt-4 p-0">
+                <button id="block-shuffle-btn" type="button" class="btn btn-info">블록 섞기</button>
             </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->

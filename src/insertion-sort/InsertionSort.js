@@ -14,6 +14,8 @@ class InsertionSort extends Sort {
 
     blocks[0].setColorGreen();
 
+    await this.waitSimple();
+
     for (let i = 1; i < n; i += 1) {
       blocks[i].setColorRed();
 
@@ -24,7 +26,7 @@ class InsertionSort extends Sort {
       for (let j = 0; j < i; j++) {
         blocks[j].setColorRed();
 
-        await this.wait();
+        await this.waitDetail();
 
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
@@ -38,7 +40,7 @@ class InsertionSort extends Sort {
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
-        await this.wait();
+        // await this.waitDetail();
 
         await this.insertAt(blocks[i], destIndex);
 
@@ -46,6 +48,7 @@ class InsertionSort extends Sort {
       }
       blocks[i].setColorGreen();
       blocks = this.getBlocks();
+      await this.waitSimple();
     }
   }
 }
