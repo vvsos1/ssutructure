@@ -103,7 +103,7 @@ class Sort {
     const blockCount = this.blocks.length;
 
     // 컨테이너 크기 넓히기
-    this.container.style.width = blockCount * (width + margin) + "px";
+    this.container.style.width = blockCount * (width + blockMargin) + "px";
 
     this.getBlocks().map((block, index) => {
       const dom = block.dom;
