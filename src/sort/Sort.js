@@ -1,9 +1,6 @@
 // 이 클래스를 상속해서 sort 메소드 구현하기
 class Sort {
-  // 세부적으로 모든 단계 표시
-  static STEP_DETAIL = Symbol.for('STEP_DETAIL');
-  // 블록 위치가 바뀌는 단계만 표시
-  static STEP_SIMPLE = Symbol.for('STEP_SIMPLE');
+ 
   
   constructor(container, blocks, delay = 200, animationDelay = 250,blockWidth = 28,blockMargin = 2) {
     // 정렬할 대상인 블록들
@@ -226,5 +223,11 @@ class Sort {
     });
   }
 }
+
+
+ // 세부적으로 모든 단계 표시
+ Sort.STEP_DETAIL = Symbol.for('STEP_DETAIL');
+ // 블록 위치가 바뀌는 단계만 표시
+ Sort.STEP_SIMPLE = Symbol.for('STEP_SIMPLE');
 
 module.exports = Sort;
