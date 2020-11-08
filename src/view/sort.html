@@ -61,7 +61,7 @@
 
             <!-- 딜레이 입력 폼 컨테이너 (js 수정 못했습니다...)--> 
             <div class="m-0 mt-4 p-0">
-                <label for="new-data-input">속도 직접변경(10-1000)</label>
+                <label for="new-delay-input">속도 직접변경(10-1000)</label>
                 <div class="row m-0 p-0">
                     <input type="number" id="new-delay-input" class="form-control col-5 mr-2">
                     <button type="button" id="new-delay-input-btn" class="btn btn-dark">변경</button>
@@ -69,9 +69,9 @@
             </div>
 
             <!-- 크기 Range 컨테이너-->
-            <div class="m-0 mt-4 p-0 d-flex flex-column invisible">
+            <div class="m-0 mt-4 p-0 d-flex flex-column">
                 <label for="size-range">크기</label>
-                <input type="range" min="18" max="38" step="1" class="custom-range col-10 " id="size-range">
+                <input type="range" min="18" max="38" step="1" value="28" class="custom-range col-10 " id="size-range">
             </div>
 
             <!-- 사용자 데이터 입력 폼 컨테이너 -->
@@ -123,7 +123,7 @@
         </div>
         <!--데이터 시각화 부분 컨테이너-->
         <div id="visualize-section-wrapper" class="col-md-6 m-0 ml-4 p-0">
-            <section class="data-container border border-info w-100" style="height: 500px"></section>
+            <section class="data-container border border-info m-0" style="height: 500px"></section>
         </div>
     </div>
 </body>

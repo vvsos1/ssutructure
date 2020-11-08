@@ -49,7 +49,7 @@ const stepSimpleRadio = document.getElementById('step-simple-radio');
 function generateUniqueBlocks(num = 20, container) {
   const values = [];
   while (values.length < num) {
-    const value = Math.floor(Math.random() * 100);
+    const value = Math.floor(Math.random() * 165 + 1);
     if (!values.includes(value)) {
       values.push(value);
     }
@@ -123,9 +123,14 @@ newDataAddBtn.onclick = e => {
   // 아무것도 입력하지 않았다면
   if (newDataInput.value == "") return;
 
+  // 블록의 개수를 30개로 제한 
+  if (sort.blocks.length >= 30){
+    return;
+  }
+
   const value = Number(newDataInput.value);
 
-  const newBlock = Block.createNewBlock(value, container);
+  const newBlock = Block.createNewBlock(value,container,Number(sizeRange.value));
   sort.addBlock(newBlock);
 };
 
