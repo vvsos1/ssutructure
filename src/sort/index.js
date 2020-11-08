@@ -150,6 +150,7 @@ function disableInputs() {
   selectionSortRadio.disabled = true;
   quickSortRadio.disabled = true;
 
+  sizeRange.disabled = true;
   sortBtn.disabled = true;
   newDataAddBtn.disabled = true;
   blockShuffleBtn.disabled = true;
@@ -161,6 +162,7 @@ function enableInputs() {
   selectionSortRadio.disabled = false;
   quickSortRadio.disabled = false;
 
+  sizeRange.disabled = false;
   sortBtn.disabled = false;
   newDataAddBtn.disabled = false;
   blockShuffleBtn.disabled = false;
