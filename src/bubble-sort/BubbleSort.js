@@ -2,8 +2,8 @@ const Sort = require("../sort/Sort");
 
 class BubbleSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
-  constructor(container, blocks, delay, animationDelay) {
-    super(container, blocks, delay, animationDelay);
+  constructor(...args) {
+    super(...args);
   }
 
   async sort() {

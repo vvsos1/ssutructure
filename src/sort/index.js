@@ -182,7 +182,9 @@ sortBtn.onclick = e => {
     container,
     sort.getBlocks(),
     sort.delay,
-    sort.animationDelay
+    sort.animationDelay,
+    sort.blockWidth,
+    sort.blockMargin
   );
 
   sort.getBlocks().forEach(block => block.setColorDefault());

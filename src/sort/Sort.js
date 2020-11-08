@@ -89,6 +89,7 @@ class Sort {
         .transitionDuration;
       block.dom.transitionDuration = 0 + "ms";
 
+      console.log(`i : ${index}, value:${block.getValue()}, this.blockWidth:${this.blockWidth}, this.blockMargin :${this.blockMargin}`);
       const transX = index * (this.blockWidth+this.blockMargin);
 
       block.dom.style.transform = `translateX(${transX}px)`;  // 블록의 화면상 위치 조정

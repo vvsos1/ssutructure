@@ -2,8 +2,8 @@ const Sort = require("../sort/Sort");
 
 class QuickSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
-  constructor(container, blocks, delay, animationDelay) {
-    super(container, blocks, delay, animationDelay);
+  constructor(...args) {
+    super(...args);
   }
   async sort(p = 0, r = this.blocks.length - 1) {
     if (p < r) {
