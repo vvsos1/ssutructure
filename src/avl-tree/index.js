@@ -37,37 +37,6 @@ const myTree = Treeviz.create({
   onNodeClick: nodeData => console.log(nodeData)
 });
 
-// 해시 함수; AVL 트리 노드의 data 값으로 자신의 Color를 만들기 위해
-function hashFunction(str) {
-  let hash = 0;
-  if (str.length == 0) {
-    return hash;
-  }
-  for (let i = 0; i < str.length; i++) {
-    let char = str.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash;
-}
-// 숫자를 16진수 color 코드로 변환
-function toColor(num) {
-  num >>>= 0;
-  const b = num & 0xff,
-    g = (num & 0xff00) >>> 8,
-    r = (num & 0xff0000) >>> 16,
-    a = ((num & 0xff000000) >>> 24) / 255;
-
-  let hexColor = "#";
-  for (let color of [a, r, g, b]) {
-    let hex = color.toString(16);
-    if (hex.length == 1) {
-      hex = "0" + hex;
-    }
-    hexColor += hex;
-  }
-  return hexColor;
-}
 
 // (AVLTreeNode,Integer) -> Array
 // AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
@@ -102,15 +71,6 @@ const vizCallback = vizCallbackMaker(tree, myTree.refresh);
 // millis만큼 기다린 후 resolve되는 Promise 반환
 const wait = millis => new Promise(res => setTimeout(res, millis));
 
-// // 0~500까지의 범위의 겹치지 않는 15개의 수를 뽑아 배열로 만든 뒤 이를 AVL Tree에 1초 간격으로 넣어가며 시각화
-// const arr = new Array(10).fill(1).map(_=>(Math.random()*500).toFixed(0)).filter((elem,idx,arr) => arr.indexOf(elem) == -1 || arr.indexOf(elem) == idx);
-
-// arr.reduce(
-//   (acc,val) => acc.then(_=>tree.add(val,vizCallback)).then(wait(200))
-//   ,Promise.resolve())
-//   .then(_=>arr.reduce(
-//     (acc,val) => acc.then(_=>tree.remove(val,vizCallback)).then(wait(200))
-//     ,Promise.resolve()))
 
 // 사용자로부터 새로운 데이터를 입력받는 Input Text
 const newDataInput = document.getElementById("new-data-input");
@@ -127,7 +87,6 @@ const delayRange = document.getElementById("animation-delay-range");
 delayRange.oninput = e => {
   const delay = Number(e.target.value);
   durationObject.duration = delay;
-  console.log(`delay : ${delay}ms`);
 };
 
 

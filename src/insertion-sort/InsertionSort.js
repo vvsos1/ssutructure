@@ -2,17 +2,27 @@ const Sort = require("../sort/Sort");
 
 class InsertionSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
-  constructor(container, blocks, delay, animationDelay) {
-    super(container, blocks, delay, animationDelay);
+  constructor(...args) {
+    super(...args);
   }
 
   async sort() {
+    // 이미 정렬중인 경우 바로 리턴
+    if (this.isSortRunning)
+      return;
+    this.isSortRunning = true;
+
+    // 블록 색상을 기본으로 변경
+    this.blocks.forEach(block=>block.setColorDefault());
+
     // block들 가져오기
-    let blocks = this.getBlocks();
+    let blocks = this.blocks;
     // block들의 총 개수
     const n = blocks.length;
 
     blocks[0].setColorGreen();
+
+    await this.waitSimple();
 
     for (let i = 1; i < n; i += 1) {
       blocks[i].setColorRed();
@@ -24,7 +34,7 @@ class InsertionSort extends Sort {
       for (let j = 0; j < i; j++) {
         blocks[j].setColorRed();
 
-        await this.wait();
+        await this.waitDetail();
 
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
@@ -38,15 +48,18 @@ class InsertionSort extends Sort {
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
-        await this.wait();
+        // await this.waitDetail();
 
         await this.insertAt(blocks[i], destIndex);
 
         blocks[destIndex].setColorGreen();
       }
       blocks[i].setColorGreen();
-      blocks = this.getBlocks();
+      this.refreshBlocks();
+      await this.waitSimple();
     }
+
+    this.isSortRunning = false;
   }
 }
 
