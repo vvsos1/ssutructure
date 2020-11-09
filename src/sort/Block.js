@@ -48,8 +48,19 @@ class Block {
 
   // block을 정렬이 끝난 블록의 색으로 바꾸는 함수
   setColorGreen() {
-    this.dom.style.backgroundColor = "#13CE66";
+    this.dom.style.backgroundColor = "#13CE66"; 
   }
+
+  // block을 Pivot 블록의 색으로 바꾸는 함수
+  setColorPivot(){
+    this.dom.style.backgroundColor = "#FF009D";  
+  }
+
+  // block을 경계를 나타내는 블록의 색으로 바꾸는 함수
+  setColorBoundary(){
+    this.dom.style.backgroundColor = "#800080"; // 보라
+  }
+
   // block의 value를 반환하는 함수
   getValue() {
     return Number(this.dom.childNodes[0].innerHTML);
