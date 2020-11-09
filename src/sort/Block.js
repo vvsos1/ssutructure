@@ -4,8 +4,8 @@ class Block {
     // value:Number, container:DOM
     const blockCount = container.childElementCount;
 
-    // 블록의 최대 높이는 컨테이너의 높이
-    const maxBlockHight = Number(window.getComputedStyle(container).height.replace('px',''));
+    // 블록의 최대 높이는 컨테이너의 높이 - 24px
+    const maxBlockHight = Number(window.getComputedStyle(container).height.replace('px','')) - 24;
 
     const block = document.createElement("div");
     block.classList.add("block");
@@ -64,6 +64,28 @@ class Block {
   // block의 value를 반환하는 함수
   getValue() {
     return Number(this.dom.childNodes[0].innerHTML);
+  }
+
+  setTransitionDuration(millis){
+    this.dom.style.transitionDuration=`${millis}ms`;
+  }
+
+  getTransitionDuration(){
+    return Number(window.getComputedStyle(this.dom).transitionDuration.replace('s',0));
+  }
+
+  setXPosition(x){
+    this.dom.style.transform = `translateX(${x}px)`;
+  }
+
+  getXPosition(){
+    const regExpTransX = /[\w]+\([ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?([\d]+)[ ]?,[ ]?[\d]+[ ]?\)/;
+    const transform =window.getComputedStyle(this.dom).transform; 
+    return regExpTransX.exec(transform)[1];
+  }
+
+  setWidth(px){
+    this.dom.style.width = `${px}px`;
   }
 }
 

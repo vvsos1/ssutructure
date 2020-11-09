@@ -48,15 +48,15 @@ const blockShuffleBtn = document.getElementById("block-shuffle-btn");
 const stepDetailRadio = document.getElementById("step-detail-radio");
 const stepSimpleRadio = document.getElementById("step-simple-radio");
 
-function generateUniqueBlocks(num = 20, container) {
+function generateUniqueValues(count = 20) {
   const values = [];
-  while (values.length < num) {
+  while (values.length < count) {
     const value = Math.floor(Math.random() * 165 + 1);
     if (!values.includes(value)) {
       values.push(value);
     }
   }
-  return values.map(value => Block.createNewBlock(value, container));
+  return values;
 }
 
 // sort type radio로 부터 값을 읽어서 Sort Algorithm을 결정
@@ -74,16 +74,16 @@ function getSortAlgorithm() {
   return SortAlgorithm;
 }
 
-const blocks = generateUniqueBlocks(20, container);
 
-let sort = new (getSortAlgorithm())(container, blocks, 250, 250);
+let sort = new (getSortAlgorithm())(container);
+generateUniqueValues().forEach(value => sort.addBlock(value));
 
 delayRange.oninput = e => {
   const delay = Number(e.target.value);
   sort.setAnimationDelay(delay);
   sort.setDelay(delay);
 
-  // delayInput.value = Number(delayRange.max) + Number(delayRange.min)- delay; // delayInput과 값 동기화
+  delayInput.value = Number(delayRange.max) + Number(delayRange.min)- delay; // delayInput과 값 동기화
 };
 
 // delayInput.oninput = e => {
@@ -105,9 +105,10 @@ delayInputBtn.onclick = e => {
 
   const delay =
     Number(delayRange.max) + Number(delayRange.min) - Number(delayInput.value);
-  console.log(`delayInputBtn click; delay : ${delay}ms`);
   sort.setAnimationDelay(delay);
   sort.setDelay(delay);
+  // delayRange와 값 동기화
+  delayRange.value = delay;
 };
 
 // TODO: Sort.setBlockWidth 완성한 뒤 size range의 invisible 풀기
@@ -118,26 +119,12 @@ sizeRange.onchange = e => {
 };
 
 newDataAddBtn.onclick = e => {
-  if (isSortRunning)
-    // 정렬 중이라면 데이터 추가 불가능
-    return;
-
   // 아무것도 입력하지 않았다면
   if (newDataInput.value == "") return;
 
-  // 블록의 개수를 30개로 제한
-  if (sort.blocks.length >= 30) {
-    return;
-  }
-
   const value = Number(newDataInput.value);
 
-  const newBlock = Block.createNewBlock(
-    value,
-    container,
-    Number(sizeRange.value)
-  );
-  sort.addBlock(newBlock);
+  sort.addBlock(value);
 };
 
 // isSortRunning은 현재 정렬이 진행중인지 표시하는 변수. true이면 sortStartBtn이 동작하지 않는다.
@@ -169,29 +156,21 @@ function enableInputs() {
 }
 
 sortBtn.onclick = e => {
-  if (isSortRunning) {
-    return;
-  }
 
-  isSortRunning = true;
   disableInputs(); // 정렬이 시작될 때 비활성화
 
   const SortAlgorithm = getSortAlgorithm();
 
   sort = new SortAlgorithm(
-    container,
-    sort.getBlocks(),
+    sort.container,
+    sort.blocks,
     sort.delay,
     sort.animationDelay,
     sort.blockWidth,
     sort.blockMargin
   );
 
-  sort.getBlocks().forEach(block => block.setColorDefault());
-  sort.sort().then(_ => {
-    isSortRunning = false;
-    enableInputs(); // 정렬이 끝난 뒤 활성화
-  });
+  sort.sort().then(enableInputs)
 };
 
 sortStopBtn.onclick = e => {
@@ -210,6 +189,5 @@ sortStepBtn.onclick = e => {
 };
 
 blockShuffleBtn.onclick = e => {
-  if (isSortRunning) return;
   sort.shuffle();
 };

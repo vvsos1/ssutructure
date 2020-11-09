@@ -7,8 +7,16 @@ class InsertionSort extends Sort {
   }
 
   async sort() {
+    // 이미 정렬중인 경우 바로 리턴
+    if (this.isSortRunning)
+      return;
+    this.isSortRunning = true;
+
+    // 블록 색상을 기본으로 변경
+    this.blocks.forEach(block=>block.setColorDefault());
+
     // block들 가져오기
-    let blocks = this.getBlocks();
+    let blocks = this.blocks;
     // block들의 총 개수
     const n = blocks.length;
 
@@ -47,9 +55,11 @@ class InsertionSort extends Sort {
         blocks[destIndex].setColorGreen();
       }
       blocks[i].setColorGreen();
-      blocks = this.getBlocks();
+      this.refreshBlocks();
       await this.waitSimple();
     }
+
+    this.isSortRunning = false;
   }
 }
 
