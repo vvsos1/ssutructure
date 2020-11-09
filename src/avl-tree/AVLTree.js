@@ -179,22 +179,4 @@ class AVLTreeNode {
   }
 }
 
-function bfs(tree) {
-  const root = tree.root;
-  const queue = [root];
-  let marked = [];
-  while (queue.filter(node => node !== AVLTreeNode.END).length !== 0) {
-    const outputStr = queue.join(" | ");
-    marked = marked.concat(queue);
-    const length = queue.length;
-    for (let i = 0; i < length; i++) {
-      let cursor = queue.shift();
-      if (cursor !== AVLTreeNode.END) {
-        queue.push(cursor.left);
-        queue.push(cursor.right);
-      }
-    }
-  }
-}
-
 module.exports = AVLTree;
