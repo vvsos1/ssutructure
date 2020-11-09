@@ -1,10 +1,10 @@
-const Block = require('./Block');
+const Block = require("./Block");
 
 // 이 클래스를 상속해서 sort 메소드 구현하기
 class Sort {
   constructor(
     container,
-    blocks=[],
+    blocks = [],
     delay = 200,
     animationDelay = 250,
     blockWidth = 28,
@@ -117,7 +117,6 @@ class Sort {
 
     // 블록 크기 바꾸기
     this.blocks.map((block, index) => {
-
       // 블록 애니메이션 속도를 0ms로 조정; 크기 변경을 즉각적으로 하기 위해
       const prevDuration = block.getTransitionDuration();
       block.setTransitionDuration(0);
@@ -126,7 +125,7 @@ class Sort {
       block.setXPosition(newX);
 
       // 블록의 너비 조정
-      block.setWidth(blockWidth)
+      block.setWidth(blockWidth);
 
       // 애니메이션 속도를 원래대로 조정
       block.setTransitionDuration(prevDuration);
@@ -135,10 +134,14 @@ class Sort {
 
   addBlock(blockValue) {
     // 블록 개수 제한
-    if (this.blocks.length > 30)
-      return;
+    if (this.blocks.length > 30) return;
 
-    const block = Block.createNewBlock(blockValue,this.container,this.blockWidth,this.blockMargin);
+    const block = Block.createNewBlock(
+      blockValue,
+      this.container,
+      this.blockWidth,
+      this.blockMargin
+    );
 
     this.blocks.push(block);
     const prevWidth = Number(
@@ -158,8 +161,8 @@ class Sort {
 
   setAnimationDelay(millis) {
     this.animationDelay = millis;
-    this.blocks.forEach(
-      block => block.setTransitionDuration(this.animationDelay)
+    this.blocks.forEach(block =>
+      block.setTransitionDuration(this.animationDelay)
     );
   }
 
@@ -172,66 +175,42 @@ class Sort {
 
   // target1과 tatget2의 위치를 바꿈
   // target1이 항상 target2보다 앞에 있어야 함
-  swap(block1, block2) {
+  async swap(block1, block2) {
     // block1: Block, block2: Block
-    return new Promise(resolve => {
-      const style1 = window.getComputedStyle(block1.dom);
-      const style2 = window.getComputedStyle(block2.dom);
 
-      const transform1 = style1.getPropertyValue("transform");
-      const transform2 = style2.getPropertyValue("transform");
+    const x1 = block1.getXPosition();
+    const x2 = block2.getXPosition();
 
-      block1.dom.style.transform = transform2;
-      block2.dom.style.transform = transform1;
+    block1.setXPosition(x2);
+    block2.setXPosition(x1);
 
-      const nextOfTarget1 = block1.dom.nextSibling;
-      const nextOfTarget2 = block2.dom.nextSibling;
-
-      // 애니메이션이 끝나기를 기다림.
-      window.requestAnimationFrame(() => {
-        setTimeout(() => {
-          this.container.insertBefore(block1.dom, nextOfTarget2);
-          this.container.insertBefore(block2.dom, nextOfTarget1);
-          resolve();
-        }, this.animationDelay);
-      });
-    });
+    // 애니메이션이 끝나기를 기다림.
+    await block1.swapBlock(block2);
   }
 
   // target을 destIndex 자리에 넣고 원래 destIndex의 element부터 한 칸씩 뒤로 미는 함수
   // target은 항상 destIndex보다 뒤에 있어야함
-  insertAt(block, destIndex) {
-    return new Promise(resolve => {
-      const arr = Array.from(document.querySelectorAll(".block"));
+  async insertAt(block, destIndex) {
+    const blocks = this.blocks;
 
-      // target의 인덱스
-      const targetIndex = arr.indexOf(block.dom);
+    // target의 인덱스
+    const targetIndex = blocks.indexOf(block);
 
-      // destInde와 target 사이에 있는 블록들
-      const betweens = arr.filter((_, i) => destIndex <= i && i < targetIndex);
+    // destIndex와 target 사이에 있는 블록들
+    const betweens = blocks.filter((_, i) => destIndex <= i && i < targetIndex);
 
-      const style1 = window.getComputedStyle(block.dom);
-      const styleRest = betweens.map(dom => window.getComputedStyle(dom));
+    // x 좌표
+    const x1 = block1.getXPosition();
+    const xRest = betweens.map(b => b.getXPosition());
 
-      const transform1 = style1.getPropertyValue("transform");
-      const transformRest = styleRest.map(style =>
-        style.getPropertyValue("transform")
-      );
+    block.setXPosition(xRest[0]);
+    for (let i = 0; i < betweens.length - 1; i++) {
+      betweens[i].setXPosition(xRest[i + 1]);
+    }
+    betweens[betweens.length - 1].setXPosition(x1);
 
-      block.dom.style.transform = transformRest[0];
-      for (let i = 0; i < betweens.length - 1; i++) {
-        betweens[i].style.transform = transformRest[i + 1];
-      }
-      betweens[betweens.length - 1].style.transform = transform1;
-
-      // 애니메이션이 끝나기를 기다림.
-      window.requestAnimationFrame(() => {
-        setTimeout(() => {
-          this.container.insertBefore(block.dom, betweens[0]);
-          resolve();
-        }, this.animationDelay);
-      });
-    });
+    // 애니메이션이 끝나기를 기다림.
+    await block.insertBefore(betweens[0]);
   }
 }
 
