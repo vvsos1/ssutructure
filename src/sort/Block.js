@@ -1,22 +1,23 @@
 class Block {
   // static factory method; value와 container를 이용해 Block 객체를 만든다
-  static createNewBlock(value, container,blockWidth=28,blockMargin=2) {
+  static createNewBlock(value, container, blockWidth = 28, blockMargin = 2) {
     // value:Number, container:DOM
     const blockCount = container.childElementCount;
 
     // 블록의 최대 높이는 컨테이너의 높이 - 24px
-    const maxBlockHight = Number(window.getComputedStyle(container).height.replace('px','')) - 24;
+    const maxBlockHight =
+      Number(window.getComputedStyle(container).height.replace("px", "")) - 24;
 
     const block = document.createElement("div");
     block.classList.add("block");
 
     let blockHight = value * 3;
-    if (blockHight > maxBlockHight)
-      blockHight = maxBlockHight;
+    if (blockHight > maxBlockHight) blockHight = maxBlockHight;
     block.style.height = `${blockHight}px`;
     block.style.width = `${blockWidth}px`;
-    
-    block.style.transform = `translateX(${blockCount * (blockWidth+blockMargin)}px)`;
+
+    block.style.transform = `translateX(${blockCount *
+      (blockWidth + blockMargin)}px)`;
 
     const blockLabel = document.createElement("label");
     blockLabel.classList.add("block__id");
@@ -24,37 +25,68 @@ class Block {
 
     block.appendChild(blockLabel);
     container.appendChild(block);
-    return new Block(block,value);
+    return new Block(value, block, container);
   }
 
-  constructor(dom,value) {
+  swapBlock(block) {
+    const animationDelay = this.getTransitionDuration()*1000;
+    return new Promise(resolve => {
+      window.requestAnimationFrame(() => {
+        setTimeout(() => {
+          const nextOfTarget1 = this.dom.nextSibling;
+          const nextOfTarget2 = block.dom.nextSibling;
+
+          this.container.insertBefore(this.dom, nextOfTarget2);
+          this.container.insertBefore(block.dom, nextOfTarget1);
+          resolve();
+        }, animationDelay);
+      });
+    });
+  }
+
+  insertBefore(block) {
+    const animationDelay = this.getTransitionDuration()*1000;
+    return new Promise(resolve => {
+      window.requestAnimationFrame(() => {
+        setTimeout(() => {
+          this.container.insertBefore(this.dom, block);
+          resolve();
+        }, animationDelay);
+      });
+    });
+  }
+
+  constructor(value, dom, container) {
     this.dom = dom;
     this.value = value;
+    this.container = container;
   }
 
-  setTransitionDuration(millis){
-    this.dom.style.transitionDuration=`${millis}ms`;
+  setTransitionDuration(millis) {
+    this.dom.style.transitionDuration = `${millis}ms`;
   }
 
-  getTransitionDuration(){
-    return Number(window.getComputedStyle(this.dom).transitionDuration.replace('s',0));
+  getTransitionDuration() {
+    return Number(
+      window.getComputedStyle(this.dom).transitionDuration.replace("s", 0)
+    );
   }
 
-  setXPosition(x){
+  setXPosition(x) {
     this.dom.style.transform = `translateX(${x}px)`;
   }
 
-  getXPosition(){
+  getXPosition() {
     const regExpTransX = /[\w]+\([ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?([\d]+)[ ]?,[ ]?[\d]+[ ]?\)/;
-    const transform =window.getComputedStyle(this.dom).transform; 
+    const transform = window.getComputedStyle(this.dom).transform;
     return regExpTransX.exec(transform)[1];
   }
 
-  setWidth(px){
+  setWidth(px) {
     this.dom.style.width = `${px}px`;
   }
 
-  setColorYellow(){
+  setColorYellow() {
     this.dom.style.backgroundColor = "#FFFF00";
   }
 
@@ -70,16 +102,16 @@ class Block {
 
   // block을 정렬이 끝난 블록의 색으로 바꾸는 함수
   setColorGreen() {
-    this.dom.style.backgroundColor = "#13CE66"; 
+    this.dom.style.backgroundColor = "#13CE66";
   }
 
   // block을 Pivot 블록의 색으로 바꾸는 함수
-  setColorPivot(){
-    this.dom.style.backgroundColor = "#FF009D";  
+  setColorPivot() {
+    this.dom.style.backgroundColor = "#FF009D";
   }
 
   // block을 경계를 나타내는 블록의 색으로 바꾸는 함수
-  setColorBoundary(){
+  setColorBoundary() {
     this.dom.style.backgroundColor = "#800080"; // 보라
   }
 
@@ -87,7 +119,6 @@ class Block {
   getValue() {
     return this.value;
   }
-
 }
 
 module.exports = Block;
