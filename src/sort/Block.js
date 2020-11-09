@@ -32,6 +32,28 @@ class Block {
     this.value = value;
   }
 
+  setTransitionDuration(millis){
+    this.dom.style.transitionDuration=`${millis}ms`;
+  }
+
+  getTransitionDuration(){
+    return Number(window.getComputedStyle(this.dom).transitionDuration.replace('s',0));
+  }
+
+  setXPosition(x){
+    this.dom.style.transform = `translateX(${x}px)`;
+  }
+
+  getXPosition(){
+    const regExpTransX = /[\w]+\([ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?([\d]+)[ ]?,[ ]?[\d]+[ ]?\)/;
+    const transform =window.getComputedStyle(this.dom).transform; 
+    return regExpTransX.exec(transform)[1];
+  }
+
+  setWidth(px){
+    this.dom.style.width = `${px}px`;
+  }
+
   setColorYellow(){
     this.dom.style.backgroundColor = "#FFFF00";
   }
@@ -63,30 +85,9 @@ class Block {
 
   // block의 value를 반환하는 함수
   getValue() {
-    return Number(this.dom.childNodes[0].innerHTML);
+    return this.value;
   }
 
-  setTransitionDuration(millis){
-    this.dom.style.transitionDuration=`${millis}ms`;
-  }
-
-  getTransitionDuration(){
-    return Number(window.getComputedStyle(this.dom).transitionDuration.replace('s',0));
-  }
-
-  setXPosition(x){
-    this.dom.style.transform = `translateX(${x}px)`;
-  }
-
-  getXPosition(){
-    const regExpTransX = /[\w]+\([ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?[\d]+[ ]?,[ ]?([\d]+)[ ]?,[ ]?[\d]+[ ]?\)/;
-    const transform =window.getComputedStyle(this.dom).transform; 
-    return regExpTransX.exec(transform)[1];
-  }
-
-  setWidth(px){
-    this.dom.style.width = `${px}px`;
-  }
 }
 
 module.exports = Block;
