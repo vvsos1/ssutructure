@@ -7,8 +7,17 @@ class SelectionSort extends Sort {
   }
 
   async sort() {
+    // 이미 정렬중인 경우 바로 리턴
+    if (this.isSortRunning)
+      return;
+    
+    this.isSortRunning = true;
+
+    // 블록 색상을 기본으로 변경
+    this.blocks.forEach(block=>block.setColorDefault());
+
     // block들 가져오기
-    let blocks = this.getBlocks();
+    let blocks = this.blocks;
     // block들의 총 개수
     const n = blocks.length;
     let min;
@@ -29,7 +38,7 @@ class SelectionSort extends Sort {
           await this.swap(blocks[min], blocks[i]); // 블럭 체인지
           min = i; // min값초기화
           blocks[min].setColorDefault(); // 위치가 바뀌는  대상블록색깔 파란색으로
-          blocks = this.getBlocks(); //두 블록의 위치가 바뀌었으므로 기존 blocks를 업데이트
+          this.refreshBlocks(); //두 블록의 위치가 바뀌었으므로 blocks를 업데이트
         }
         await this.waitDetail();
         blocks[j].setColorDefault(); // 빨간색 블럭을 다시 파란색으로
@@ -39,6 +48,8 @@ class SelectionSort extends Sort {
 
     // 정렬이 끝났으므로 마지막 블록도 Green으로 색 변경
     blocks[n - 1].setColorGreen();
+
+    this.isSortRunning = false;
   }
 }
 module.exports = SelectionSort;
