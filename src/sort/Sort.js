@@ -31,12 +31,15 @@ class Sort {
 
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
+
+    this.memetoStack = [];
   }
 
   // 추상 메소드
   sort() {}
 
-  waitDetail() {
+  waitDetail(memento) {
+    this.memetoStack.push(memento);
     return new Promise(resolve => {
       if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
@@ -47,7 +50,8 @@ class Sort {
     });
   }
 
-  waitSimple() {
+  waitSimple(memento) {
+    this.memetoStack.push(memento);
     return new Promise(resolve => {
       if (this.isStop && this.stepType == Sort.STEP_SIMPLE) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
@@ -73,6 +77,16 @@ class Sort {
       this.resolveDetail = null;
     } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
       this.resolveSimple();
+      this.resolveSimple = null;
+    }
+  }
+
+  stepBack(){
+    if (this.resolveDetail != null && this.resolveDetail != undefined) {
+      this.resolveDetail(this.memetoStack.pop());
+      this.resolveDetail = null;
+    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
+      this.resolveSimple(this.memetoStack.pop());
       this.resolveSimple = null;
     }
   }
