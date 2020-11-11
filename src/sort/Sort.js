@@ -200,7 +200,7 @@ class Sort {
     const betweens = blocks.filter((_, i) => destIndex <= i && i < targetIndex);
 
     // x 좌표
-    const x1 = block1.getXPosition();
+    const x1 = block.getXPosition();
     const xRest = betweens.map(b => b.getXPosition());
 
     block.setXPosition(xRest[0]);

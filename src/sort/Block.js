@@ -49,7 +49,7 @@ class Block {
     return new Promise(resolve => {
       window.requestAnimationFrame(() => {
         setTimeout(() => {
-          this.container.insertBefore(this.dom, block);
+          this.container.insertBefore(this.dom, block.dom);
           resolve();
         }, animationDelay);
       });
