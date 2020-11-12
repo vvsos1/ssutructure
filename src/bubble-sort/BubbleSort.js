@@ -33,7 +33,6 @@ class BubbleSort extends Sort {
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
           ({i,j} = memento);
-          console.log(`type : back, i : ${i}, j : ${j}}`);
           // TODO: 
           memento.blocks.forEach((prevBlock,index) => {
             const {color, xPosition,value} = prevBlock;
