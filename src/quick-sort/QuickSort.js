@@ -11,6 +11,7 @@ class QuickSort extends Sort {
     // 초기 호출일 경우
     if (p === 0 && r === this.blocks.length - 1) {
       this.isSortRunning = true;
+      
       // 블록 색상을 기본으로 변경
       this.blocks.forEach(block => block.setColorDefault());
     }

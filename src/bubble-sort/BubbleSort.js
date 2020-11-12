@@ -12,6 +12,9 @@ class BubbleSort extends Sort {
       return;
     this.isSortRunning = true;
 
+    // 상태 저장 스택 초기화
+    this.memetoStack = [];
+
     // 블록 색상을 기본으로 변경
     this.blocks.forEach(block=>block.setColorDefault());
     // block들 가져오기
