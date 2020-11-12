@@ -38,9 +38,10 @@ class SelectionSort extends Sort {
           ({i,j} = memento);
           // TODO: 
           memento.blocks.forEach((prevBlock,index) => {
-            const {color, xPosition,value} = prevBlock;
+            const {color, xPosition,value,width} = prevBlock;
             const block = this.blocks[index];
             block.setValue(value);
+            block.setWidth(width);
             block.setColor(color);
             block.setXPosition(xPosition);
           });
