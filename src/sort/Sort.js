@@ -38,26 +38,24 @@ class Sort {
   // 추상 메소드
   sort() {}
 
-  waitDetail(memento) {
-    this.memetoStack.push(memento);
+  waitDetail() {
     return new Promise(resolve => {
       if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolveDetail = resolve;
       } else {
-        resolve();
+        resolve({ type: "continue" });
       }
     });
   }
 
-  waitSimple(memento) {
-    this.memetoStack.push(memento);
+  waitSimple() {
     return new Promise(resolve => {
       if (this.isStop && this.stepType == Sort.STEP_SIMPLE) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolveSimple = resolve;
       } else {
-        resolve();
+        resolve({ type: "continue" });
       }
     });
   }
@@ -73,22 +71,39 @@ class Sort {
 
   step() {
     if (this.resolveDetail != null && this.resolveDetail != undefined) {
-      this.resolveDetail();
+      this.resolveDetail({ type: "step" });
       this.resolveDetail = null;
     } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      this.resolveSimple();
+      this.resolveSimple({ type: "step" });
       this.resolveSimple = null;
     }
   }
 
-  stepBack(){
+  stepBack() {
     if (this.resolveDetail != null && this.resolveDetail != undefined) {
-      this.resolveDetail(this.memetoStack.pop());
-      this.resolveDetail = null;
+      if (this.memetoStack.length != 0) {
+        this.resolveDetail({
+          type: "back",
+          memento: this.memetoStack.pop()
+        });
+        this.resolveDetail = null;
+      }
     } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      this.resolveSimple(this.memetoStack.pop());
-      this.resolveSimple = null;
+      // TODO : detail 방식의 sort rollback 구현
+      // let memento;
+      // do {
+      //   memento = this.memetoStack.pop();
+      // } while (this.memetoStack.length != 0 && memento.type != "simple");
+
+      if (this.memetoStack.length != 0) {
+        this.resolveSimple({ type: "back", memento: memento });
+        this.resolveSimple = null;
+      }
     }
+  }
+
+  pushMemento( memento) {
+    this.memetoStack.push(memento);
   }
 
   setStepTypeDetail() {
@@ -214,7 +229,7 @@ class Sort {
     const betweens = blocks.filter((_, i) => destIndex <= i && i < targetIndex);
 
     // x 좌표
-    const x1 = block1.getXPosition();
+    const x1 = block.getXPosition();
     const xRest = betweens.map(b => b.getXPosition());
 
     block.setXPosition(xRest[0]);
