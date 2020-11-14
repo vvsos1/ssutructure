@@ -1,5 +1,4 @@
 rm -r output  # 기존의 output 폴더 삭제
-browserify src/avl-tree/index.js -do output/js/avl-tree/index.js # avl tree 페이지에 들어갈 js를 번들링
 browserify src/tree/index.js -do output/js/tree/index.js # tree 페이지에 들어갈 js를 번들링
 browserify src/sort/index.js -do output/js/sort/index.js # sort 페이지에 들어갈 js를 번들링
 mkdir output/js/static

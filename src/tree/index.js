@@ -95,12 +95,18 @@ RedBlackTreeRadio.onchange = (e) => {
   console.log(`red black tree checked`);
   tree = new RedBlackTree();
   vizCallback = vizCallbackMaker(tree, myTree.refresh);
+
+  // RedBlackTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
+  newDataRemoveBtn.disabled = true;
 };
 
 AVLTreeRadio.onchange = (e) => {
   console.log(`avl tree checked`);
   tree = new AVLTree();
   vizCallback = vizCallbackMaker(tree, myTree.refresh);
+
+  // AVLTree 삭제 버튼 활성화
+  newDataRemoveBtn.disabled = false;
 };
 
 delayRange.oninput = (e) => {
