@@ -15,11 +15,18 @@ const DataAddBtn = document.getElementById("data-add-btn");
 const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
 
+const ContainerA = document.getElementById("a-container");
+const ContainerB = document.getElementById("b-container");
+
 let hashtable = new LinearProbing();
 
 quadraticProbingRadio.onchange = (e) => {
     console.log(`quadratic probing checked`);
     hashtable = new QuadraticProbing();
+    ContainerA.classList.remove("invisible")
+    ContainerA.classList.add("visible");
+    ContainerB.classList.remove("invisible")
+    ContainerB.classList.add("visible");
 };
 
 let searchedIndex = null;
