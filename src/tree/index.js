@@ -1,10 +1,11 @@
 // import * as Treeviz from 'treeviz';
 const Treeviz = require("../static/treeviz");
 
-const AVLTree = require("./AVLTree");
+const AVLTree = require("../avl-tree/AVLTree");
+const RedBlackTree = require("../red-black-tree/RedBlackTree");
 
 const durationObject = {
-  duration:500
+  duration: 500,
 };
 
 const myTree = Treeviz.create({
@@ -18,9 +19,9 @@ const myTree = Treeviz.create({
   nodeWidth: 80,
   nodeHeight: 45,
   mainAxisNodeSpacing: 2,
-  duration: ()=>durationObject.duration,
+  duration: () => durationObject.duration,
   isHorizontal: false,
-  renderNode: function(node) {
+  renderNode: function (node) {
     return (
       "<div class='box' style='cursor:pointer;height:" +
       node.settings.nodeHeight +
@@ -28,17 +29,18 @@ const myTree = Treeviz.create({
       node.settings.nodeWidth +
       "px;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:" +
       node.data.color +
-      ";border-radius:5px;'><div><strong>" +
+      ";border-radius:5px;'><div><strong style='color:"+
+      node.data.textColor+
+      "'>" +
       node.data.text_1 +
       "</strong></div></div>"
     );
   },
-  linkWidth: nodeData => 5,
+  linkWidth: (nodeData) => 5,
   linkShape: "quadraticBeziers",
-  linkColor: nodeData => "#B0BEC5",
-  onNodeClick: nodeData => console.log(nodeData)
+  linkColor: (nodeData) => "#B0BEC5",
+  onNodeClick: (nodeData) => console.log(nodeData),
 });
-
 
 // (AVLTreeNode,Integer) -> Array
 // AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
@@ -52,7 +54,8 @@ function traversal(root, parentId) {
     id,
     text_1: root.data,
     father: parentId,
-    color: root.getColor()
+    color: root.getColor(),
+    textColor: root.getColor()=='red'?'black' : root.getColor()=='black'?'red':'black'
   };
 
   return [data]
@@ -66,13 +69,15 @@ const vizCallbackMaker = (tree, vizRefreshFunction) => () => {
   vizRefreshFunction(datas);
 };
 
-const tree = new AVLTree();
+let tree = new AVLTree();
 
-const vizCallback = vizCallbackMaker(tree, myTree.refresh);
+let vizCallback = vizCallbackMaker(tree, myTree.refresh);
 
 // millis만큼 기다린 후 resolve되는 Promise 반환
-const wait = millis => new Promise(res => setTimeout(res, millis));
+const wait = (millis) => new Promise((res) => setTimeout(res, millis));
 
+const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
+const AVLTreeRadio = document.getElementById("avl-tree-radio");
 
 // 사용자로부터 새로운 데이터를 입력받는 Input Text
 const newDataInput = document.getElementById("new-data-input");
@@ -86,25 +91,45 @@ const newDataRemoveBtn = document.getElementById("new-data-remove-btn");
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
 
-delayRange.oninput = e => {
+RedBlackTreeRadio.onchange = (e) => {
+  console.log(`red black tree checked`);
+  tree = new RedBlackTree();
+  vizCallback = vizCallbackMaker(tree, myTree.refresh);
+};
+
+AVLTreeRadio.onchange = (e) => {
+  console.log(`avl tree checked`);
+  tree = new AVLTree();
+  vizCallback = vizCallbackMaker(tree, myTree.refresh);
+};
+
+delayRange.oninput = (e) => {
   const delay = Number(e.target.value);
   durationObject.duration = delay;
 };
 
-
-newDataAddBtn.onclick = e => {
+newDataAddBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우 바로 리턴
   if (newDataInput.value.trim() == "") return;
 
   const newData = Number(newDataInput.value);
 
+  console.log(
+    `newDataAddBtn clicked; data : ${newData}, tree : ${
+      tree instanceof RedBlackTree
+        ? "RedBlackTree"
+        : tree instanceof AVLTree
+        ? "AVLTree"
+        : "unknown"
+    }`
+  );
   tree.add(newData, vizCallback);
 
   // data clear
   newDataInput.value = "";
 };
 
-newDataRemoveBtn.onclick = e => {
+newDataRemoveBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우
   if (newDataInput.value.trim() == "") return;
 

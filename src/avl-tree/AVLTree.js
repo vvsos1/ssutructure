@@ -15,8 +15,7 @@ class AVLTree {
     else return 0;
   }
   contain(data) {
-    if (this.root != null) return this.root.contain(data);
-    else return false;
+    return this.root.contain(data);
   }
 }
 
@@ -47,6 +46,10 @@ class AVLTreeNode {
       return "END";
     }
   })();
+
+  getColor() {
+    return "skyblue";
+  }
 
   constructor(data, left = AVLTreeNode.END, right = AVLTreeNode.END) {
     this.data = data;
