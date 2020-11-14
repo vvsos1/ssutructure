@@ -48,11 +48,11 @@ class QuadraticProbing {
 	while (flag) {
 	     let hashedKey = this.hashFunction(key, order++);
 	
-	     if (this.hashTable[hashedKey] == undefined)
-		throw "Key Not Found!"
 	     if (this.hashTable[hashedKey] == key)
 		return hashedKey;
-
+	     else
+		throw "Key Not Found!"
+	
 	     for (let i = 0; i < this.tableSize; i++) {
 		if (this.hashTable[i] == undefined || this.hashTable[i] == null)
 			break ;
