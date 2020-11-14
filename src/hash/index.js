@@ -1,25 +1,28 @@
-const QuadraticProbing = require("./QuadraticProbing");
+const LinearProbing = require("../linear-probing/LinearProbing");
+const QuadraticProbing = require("../quadratic-probing/QuadraticProbing");
 
 const p5 = require("p5");
 
-// 사용자로부터 새로운 데이터를 입력받는 Input Text
-const DataInput = document.getElementById("new-data-input");
-// 새로운 데이터를 추가하는 Button
-const DataAddBtn = document.getElementById("new-data-add-btn");
+// 해시테이블 종류 Radio
+const linearProbingRadio = document.getElementById("linear-probing-radio");
+const quadraticProbingRadio = document.getElementById("quadratic-probing-radio");
 
-// 사용자로부터 삭제할 데이터를 입력받는 Delete Text
+// 데이터 입력 
+const DataAdd = document.getElementById("data-add");
 const DataDelete = document.getElementById("data-delete");
-// 데이터를 삭제하는 Button
-const DataDeleteBtn = document.getElementById("data-delete-btn");
-
-// 사용자로부터 검색할 데이터를 입력받는 Search Text
 const DataSearch = document.getElementById("data-search");
-// 데이터를 검색하는 Button
+const DataAddBtn = document.getElementById("data-add-btn");
+const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
 
-let searchedIndex = null;
+let hashtable = new LinearProbing();
 
-let quadratic;
+quadraticProbingRadio.onchange = (e) => {
+    console.log(`quadratic probing checked`);
+    hashtable = new QuadraticProbing();
+};
+
+let searchedIndex = null;
 
 function modalPopUp(error) {
     const modelBody = document.querySelector('#model-body')
@@ -38,25 +41,24 @@ function setting(p) {
 	p.displayWidth/4,
       y: 
 	DataDelete.getBoundingClientRect().left +
-        20 + (p.windowHeight / (quadratic.tableSize * 1.2)) * index,
+        20 + (p.windowHeight / (hashtable.tableSize * 1.2)) * index,
     });
   }
   function setup() {
     p.createCanvas(p.displayWidth/2, p.windowHeight);
-    quadratic = new QuadraticProbing();
 
     DataAddBtn.onclick = function () {
       searchedIndex = null;
-      const key = DataInput.value;
+      const key = DataAdd.value;
       if (key) {
-	  try {
+          try {
               console.log(`DataAddBtn click; data : ${key}`);
-              quadratic.insert(key);
-              DataInput.value = "";
+              hashtable.insert(key);
+              DataAdd.value = "";
           } catch (error) {
 	      console.error(error);
 	      modalPopUp(error);
-          }
+	  }
       }
       clearAndRedraw();
     };
@@ -66,7 +68,7 @@ function setting(p) {
       const key = DataDelete.value;
       if (key) {
 	  try {
-              quadratic.delete(key);
+              hashtable.delete(key);
               DataDelete.value = "";
           } catch (error) {
 	      console.error(error);
@@ -81,13 +83,13 @@ function setting(p) {
       const key = DataSearch.value;
       if (key) {
 	  try {
-              searchedIndex = quadratic.search(key);
+       	      searchedIndex = hashtable.search(key);
               DataSearch.value = "";
           } catch (error) {
-	      console.error(error);
-	      modalPopUp(error);
-	  }
-      }
+              console.error(error);
+              modalPopUp(error);
+          }
+      } 
       clearAndRedraw();
     };
 
@@ -99,8 +101,8 @@ function setting(p) {
   }
 
   function draw() {
-    for (let i = 0; i < quadratic.tableSize; ++i) {
-      let key = quadratic.hashTable[i];
+    for (let i = 0; i < hashtable.tableSize; ++i) {
+      let key = hashtable.hashTable[i];
       if (key === null) {
         key = "DEL";
         p.fill("orange");

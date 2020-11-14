@@ -30,29 +30,52 @@
           </ul>
        </div>
     </nav> 
+
     <!-- 메인 콘텐츠 컨테이너-->
     <div class="container-fluid d-flex mt-2 pb-3 pt-4 align-items-start bg-white">
+
       <!-- 입력 폼 컨테이너-->
       <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
+
     	<!-- 해시 타입 라디오 버튼 컨테이너-->
         <div id="hash-type-radio-wrapper" class="d-flex flex-column m-0 p-0">
            <div class="custom-control custom-radio pb-2">   
-             <input type="radio" id="linear-probing-radio" name="hash-type-radio" class="custom-control-input"
-                  checked>
+             <input type="radio" id="linear-probing-radio" name="hash-type-radio" class="custom-control-input" checked>
              <label class="custom-control-label" for="linear-probing-radio">Linear Probing</label>
            </div>
+	   <div class="custom-control custom-radio pb-2">
+	     <input type="radio" id="quadratic-probing-radio" name="hash-type-radio" class="custom-control-input">
+	     <label class="custom-control-label" for="quadratic-probing-radio">Quadratic Probing</label>
+	   </div>
         </div>
 
-        <!-- 사용자 데이터 입력 폼 컨테이너-->
-        <div class="m-0 mt-4 p-0">
-           <label for="new-data-input">데이터</label>
+        <!-- 사용자 함수(a) 입력 폼 컨테이터-->
+	<div class="m-0 mt-4 p-0">
+           <label for="new-expression-input">h(k, i) = h(k) + bi + ai^2</label>
            <div class="row m-0 p-0">
-              <input type="number" id="new-data-input" class="form-control col-5 mr-2">
-              <button type="button" id="new-data-add-btn" class="btn btn-dark">Add</button>
+              <input type="number" id="a-input" class="form-control col-5 mr-2">
+              <button type="button" id="a-btn" class="btn btn-dark">a</button>
            </div>
         </div>
 
-        <!-- 사용자 데이터 입력 폼 컨테이너-->
+        <!-- 사용자 함수(b) 입력 폼 컨테이너-->
+        <div class="m-0 mt-4 p-0">
+           <div class="row m-0 p-0">
+              <input type="number" id="b-input" class="form-control col-5 mr-2">
+              <button type="button" id="b-btn" class="btn btn-dark">b</button>
+           </div>
+        </div>
+
+        <!-- 사용자 데이터 입력(추가) 폼 컨테이너-->
+        <div class="m-0 mt-4 p-0">
+           <label for="data-add">데이터</label>
+           <div class="row m-0 p-0">
+              <input type="number" id="data-add" class="form-control col-5 mr-2">
+              <button type="button" id="data-add-btn" class="btn btn-dark">Add</button>
+           </div>
+        </div>
+
+        <!-- 사용자 데이터 입력(삭제) 폼 컨테이너-->
         <div class="m-0 mt-4 p-0">
            <label for="data-delete">데이터</label>
            <div class="row m-0 p-0">
@@ -61,7 +84,7 @@
            </div>
         </div>
 
-        <!-- 사용자 데이터 입력 폼 컨테이너-->
+        <!-- 사용자 데이터 입력(검색) 폼 컨테이너-->
         <div class="m-0 mt-4 p-0">
            <label for="data-search">데이터</label>
            <div class="row m-0 p-0">
@@ -72,6 +95,7 @@
 
        </div>
   
+      <!-- 데이터 시각화 부분 컨테이너-->
       <div id="visualize-section-wrapper" class="col-md-6 m-0 ml-4 p-0">
          <div id="container"></div>
       </div>
@@ -101,10 +125,7 @@
     <script src="js/static/popper.min.js"></script>
     <script src="js/static/bootstrap.min.js"></script>
 
-    <!-- <script src="js/static/p5.min.js"></script>
-    <script src="js/static/p5.dom.min.js"></script>
-    <script src="js/linear-probing/LinearHash.js"></script> -->
-    <script src="js/linear-probing/sketch.js"></script>
+    <script src="js/hash/index.js"></script>
 
   </body>
 

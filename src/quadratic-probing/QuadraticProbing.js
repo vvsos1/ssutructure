@@ -2,9 +2,6 @@
 const inputA = document.getElementById("a-input");
 const inputB = document.getElementById("b-input");
 
-const btnA = document.getElementById("a-btn");
-const btnB = document.getElementById("b-btn");
-
 class QuadraticProbing {
     // 해시 테이블 생성자 함수
     constructor(tableSize = 5) {
