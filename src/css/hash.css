@@ -1,3 +1,20 @@
 body {
-    background-color: #bbdeed;
+  background-color: #bbdeed;
+}
+
+h1 {
+  color: goldenrod;
+}
+
+canvas {
+  background-color: rgb(74, 23, 105);
+}
+
+.modal-header,
+h4,
+.close {
+  background-color: red;
+  color: white !important;
+  text-align: center;
+  font-size: 30px;
 }

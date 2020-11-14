@@ -1,4 +1,6 @@
-const LinearHash = require("./LinearHash");
+// const LinearHash = require("./LinearHash");
+
+// const p5 = require("p5");
 
 // 사용자로부터 새로운 데이터를 입력받는 Input Text
 const DataInput = document.getElementById("new-data-input");
@@ -11,88 +13,95 @@ const DataDelete = document.getElementById("data-delete");
 const DataDeleteBtn = document.getElementById("data-delete-btn");
 
 // 사용자로부터 검색할 데이터를 입력받는 Search Text
-const DataSearch = document.getElementById("data-delete");
+const DataSearch = document.getElementById("data-search");
 // 데이터를 검색하는 Button
 const DataSearchBtn = document.getElementById("data-search-btn");
 
-let searchedIndex = null
+let searchedIndex = null;
 
-function clearAndRedraw() {
-    clear()
-    redraw()
-}
+let linear;
 
-function setup() {
+function setting(p) {
+  function clearAndRedraw() {
+    p.clear();
+    p.redraw();
+  }
+  function getCirclePosition(index) {
+    return Object.freeze({
+      x:
+        DataDelete.getBoundingClientRect().left +
+        30 +
+        ((p.displayWidth/2) / linear.tableSize) * index,
+      // y: DataDelete.y + DataDelete.height + 50
+      y: p.windowHeight / 2.25,
+    });
+  }
+  function setup() {
+    p.createCanvas(p.displayWidth/2, p.windowHeight);
     linear = new LinearHash();
 
-    DataAddBtn.onClick = function() {
-	searchedIndex = null;
-	const key = DataInput.value();
-	if (key) {
-		linear.insert(key);
-    	}
-	clearAndRedraw();
+    DataAddBtn.onclick = function () {
+      searchedIndex = null;
+      const key = DataInput.value;
+      if (key) {
+        console.log(`DataAddBtn click; data : ${key}`);
+        linear.insert(key);
+        DataInput.value = "";
+      }
+      clearAndRedraw();
     };
 
-    DataDeleteBtn.onClick = function() {
-	searchedIndex = null;
-	const key = DataDelete.value();
-	if (key) {
-		linear.delete(key);
-	}
-	clearAndRedraw();
+    DataDeleteBtn.onclick = function () {
+      searchedIndex = null;
+      const key = DataDelete.value;
+      if (key) {
+        linear.delete(key);
+        DataDelete.value = "";
+      }
+      clearAndRedraw();
     };
 
-    DataSearchBtn.onClick = function() {
-	searchedIndex = null;
-	const key = DataSearch.value();
-	if (key) {
-		linear.search(key);
-	}
-	clearAndRedraw();
+    DataSearchBtn.onclick = function () {
+      searchedIndex = null;
+      const key = DataSearch.value;
+      if (key) {
+        linear.search(key);
+        DataSearch.value = "";
+      }
+      clearAndRedraw();
     };
 
-    textAlign(CENTER, CENTER)
-    textSize(30)
-    ellipseMode(CENTER)
-    strokeWeight(3)
-    noLoop()
-}
+    p.textAlign(p.CENTER, p.CENTER);
+    p.textSize(30);
+    p.ellipseMode(p.CENTER);
+    p.strokeWeight(3);
+    p.noLoop();
+  }
 
-
-
-
-function draw() {
+  function draw() {
     for (let i = 0; i < linear.tableSize; ++i) {
-        let key = linear.hashTable[i]
-        if (key === null) {
-            key = "DEL"
-            fill('orange')
-        }
-        c = getCirclePosition(i)
-        if (key !== undefined)
-            stroke('orange')
-        if (searchedIndex === i)
-            stroke('#bbdeed')
-        circle(c.x, c.y, 70)
-        if (key !== undefined) {
-            if (key == "DEL")
-                fill(255)
-            else if (i === searchedIndex)
-                fill('#bbdeed')
-            else
-                fill('orange')
-            text(key, c.x, c.y)
-            fill(255)
-            stroke('black')
-        }
+      let key = linear.hashTable[i];
+      if (key === null) {
+        key = "DEL";
+        p.fill("orange");
+      }
+      c = getCirclePosition(i);
+      if (key !== undefined) p.stroke("orange");
+      if (searchedIndex === i) p.stroke("#bbdeed");
+      p.circle(c.x, c.y, 70);
+      if (key !== undefined) {
+        if (key == "DEL") p.fill(255);
+        else if (i === searchedIndex) p.fill("#bbdeed");
+        else p.fill("orange");
+        p.text(key, c.x, c.y);
+        p.fill(255);
+        p.stroke("black");
+      }
     }
+  }
+
+  p.setup = setup;
+  p.draw = draw;
 }
 
-function getCirclePosition(index) {
-    return Object.freeze({
-        x: DataDelete.x + 30 + (displayWidth / linear.tableSize) * index,
-        // y: DataDelete.y + DataDelete.height + 50
-        y: windowHeight / 2.25
-    })
-}
+new p5(setting,document.getElementById('container'));

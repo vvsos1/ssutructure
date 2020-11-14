@@ -49,4 +49,4 @@ class LinearHash {
     }
 }
 
-module.exports = LinearHash;
+// module.exports = LinearHash;

@@ -1,6 +1,9 @@
 rm -r output  # 기존의 output 폴더 삭제
 browserify src/avl-tree/index.js -do output/js/avl-tree/index.js # avl tree 페이지에 들어갈 js를 번들링
 browserify src/sort/index.js -do output/js/sort/index.js # sort 페이지에 들어갈 js를 번들링
+# browserify src/linear-hash/sketch.js -do output/js/linear-hash/sketch.js  # linear hash 페이지에 들어갈 js 번들링
+mkdir output/js/linear-hash
+cp src/linear-hash/* output/js/linear-hash
 mkdir output/js/static
 cp src/static/* output/js/static # static js파일 (jquery, bootstrap) 복사
 cp src/view/*.html output # view 파일들 복사
