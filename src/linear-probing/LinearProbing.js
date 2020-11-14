@@ -36,10 +36,8 @@ class LinearProbing {
 
 	    if (this.hashTable[hashedKey] == key)
 		    return hashedKey;
-            else if (this.hashTable[hashedKey] == null ||
-			this.hashTable[hashedKey] == undefined)
-                    throw "Key Not Found!"
         }
+	throw "Key Not Found!"
     }
     // 삭제 함수
     delete(key) {
