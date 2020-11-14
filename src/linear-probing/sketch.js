@@ -1,4 +1,4 @@
-const LinearHash = require("./LinearHash");
+const LinearProbing = require("./LinearProbing");
 
 const p5 = require("p5");
 
@@ -21,6 +21,12 @@ let searchedIndex = null;
 
 let linear;
 
+function modalPopUp(error) {
+    const modelBody = document.querySelector('#model-body')
+    modelBody.querySelector('p').innerText = error
+    $('#errorModel').modal()
+}
+
 function setting(p) {
   function clearAndRedraw() {
     p.clear();
@@ -32,20 +38,25 @@ function setting(p) {
 	p.displayWidth/4,
       y: 
 	DataDelete.getBoundingClientRect().left +
-        30 + ((p.displayWidth/2) / linear.tableSize) * index,
+        20 + (p.windowHeight / (linear.tableSize * 1.2)) * index,
     });
   }
   function setup() {
     p.createCanvas(p.displayWidth/2, p.windowHeight);
-    linear = new LinearHash();
+    linear = new LinearProbing();
 
     DataAddBtn.onclick = function () {
       searchedIndex = null;
       const key = DataInput.value;
       if (key) {
-        console.log(`DataAddBtn click; data : ${key}`);
-        linear.insert(key);
-        DataInput.value = "";
+          try {
+              console.log(`DataAddBtn click; data : ${key}`);
+              linear.insert(key);
+              DataInput.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
@@ -54,8 +65,13 @@ function setting(p) {
       searchedIndex = null;
       const key = DataDelete.value;
       if (key) {
-        linear.delete(key);
-        DataDelete.value = "";
+	  try {
+              linear.delete(key);
+              DataDelete.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
@@ -64,9 +80,14 @@ function setting(p) {
       searchedIndex = null;
       const key = DataSearch.value;
       if (key) {
-        searchedIndex = linear.search(key);
-        DataSearch.value = "";
-      }
+	  try {
+       	      searchedIndex = linear.search(key);
+              DataSearch.value = "";
+          } catch (error) {
+              console.error(error);
+              modalPopUp(error);
+          }
+      } 
       clearAndRedraw();
     };
 
@@ -87,7 +108,7 @@ function setting(p) {
       c = getCirclePosition(i);
       if (key !== undefined) p.stroke("orange");
       if (searchedIndex === i) p.stroke("#bbdeed");
-      p.circle(c.x, c.y, 70);
+      p.circle(c.x, c.y, 60);
       if (key !== undefined) {
         if (key == "DEL") p.fill(255);
         else if (i === searchedIndex) p.fill("#bbdeed");

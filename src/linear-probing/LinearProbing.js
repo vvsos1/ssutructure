@@ -1,4 +1,4 @@
-class LinearHash {
+class LinearProbing {
     // 해시 테이블 생성자 함수
     constructor(tableSize = 5) {
         this.tableSize = tableSize
@@ -32,13 +32,12 @@ class LinearHash {
         if (isNaN(key))
             throw "Invalid Key!"
         for (let i = 0; i < this.tableSize; ++i) {
-            let hashedKey = this.hashFunction(key, i)
-            switch (this.hashTable[hashedKey]) {
-                case undefined:
+            let hashedKey = this.hashFunction(key, i);
+
+	    if (this.hashTable[hashedKey] == key)
+		    return hashedKey;
+            else
                     throw "Key Not Found!"
-                case key:
-                    return hashedKey
-            }
         }
     }
     // 삭제 함수
@@ -49,4 +48,4 @@ class LinearHash {
     }
 }
 
-module.exports = LinearHash;
+module.exports = LinearProbing;
