@@ -32,13 +32,12 @@ class LinearProbing {
         if (isNaN(key))
             throw "Invalid Key!"
         for (let i = 0; i < this.tableSize; ++i) {
-            let hashedKey = this.hashFunction(key, i)
-            switch (this.hashTable[hashedKey]) {
-                case undefined:
+            let hashedKey = this.hashFunction(key, i);
+
+	    if (this.hashTable[hashedKey] == key)
+		    return hashedKey;
+            else
                     throw "Key Not Found!"
-                case key:
-                    return hashedKey
-            }
         }
     }
     // 삭제 함수
