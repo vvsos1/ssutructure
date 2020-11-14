@@ -15,38 +15,15 @@ class AVLTree {
     else return 0;
   }
   contain(data) {
-    if (this.root != null) return this.root.contain(data);
-    else return false;
+    return this.root.contain(data);
   }
 }
 
 class AVLTreeNode {
-  static END = new (class extends AVLTreeNode {
-    constructor() {
-      super();
-      this.data = null;
-      this.left = this;
-      this.right = this;
-    }
-    get height() {
-      return 0;
-    }
-    get balanceFactor() {
-      return 0;
-    }
-    remove(data) {
-      return this;
-    }
-    add(data) {
-      return new AVLTreeNode(data);
-    }
-    contain(data) {
-      return false;
-    }
-    toString() {
-      return "END";
-    }
-  })();
+
+  getColor() {
+    return "skyblue";
+  }
 
   constructor(data, left = AVLTreeNode.END, right = AVLTreeNode.END) {
     this.data = data;
@@ -178,5 +155,33 @@ class AVLTreeNode {
     }, left:${this.left.toString()}, right:${this.right.toString()}}`;
   }
 }
+
+
+AVLTreeNode.END = new (class extends AVLTreeNode {
+  constructor() {
+    super();
+    this.data = null;
+    this.left = this;
+    this.right = this;
+  }
+  get height() {
+    return 0;
+  }
+  get balanceFactor() {
+    return 0;
+  }
+  remove(data) {
+    return this;
+  }
+  add(data) {
+    return new AVLTreeNode(data);
+  }
+  contain(data) {
+    return false;
+  }
+  toString() {
+    return "END";
+  }
+})();
 
 module.exports = AVLTree;

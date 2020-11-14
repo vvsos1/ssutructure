@@ -6,7 +6,7 @@ branches:
     - master
 before_deploy: # 배포하기전 하는 작업들
   - npm install -g browserify # browserify 설치
-  - browserify src/avl-tree/index.js -do output/js/avl-tree/index.js # avl tree 페이지에 들어갈 js를 번들링
+  - browserify src/tree/index.js -do output/js/tree/index.js # tree 페이지에 들어갈 js를 번들링
   - browserify src/sort/index.js -do output/js/sort/index.js  # sort 페이지에 들어갈 js 번들링
   - mkdir output/js/static
   - cp src/static/* output/js/static # static js파일 (jquery, bootstrap) 복사
