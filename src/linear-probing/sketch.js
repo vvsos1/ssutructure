@@ -21,6 +21,12 @@ let searchedIndex = null;
 
 let linear;
 
+function modalPopUp(error) {
+    const modelBody = document.querySelector('#model-body')
+    modelBody.querySelector('p').innerText = error
+    $('#errorModel').modal()
+}
+
 function setting(p) {
   function clearAndRedraw() {
     p.clear();
@@ -43,9 +49,14 @@ function setting(p) {
       searchedIndex = null;
       const key = DataInput.value;
       if (key) {
-        console.log(`DataAddBtn click; data : ${key}`);
-        linear.insert(key);
-        DataInput.value = "";
+          try {
+              console.log(`DataAddBtn click; data : ${key}`);
+              linear.insert(key);
+              DataInput.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
@@ -54,8 +65,13 @@ function setting(p) {
       searchedIndex = null;
       const key = DataDelete.value;
       if (key) {
-        linear.delete(key);
-        DataDelete.value = "";
+	  try {
+              linear.delete(key);
+              DataDelete.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
@@ -64,9 +80,14 @@ function setting(p) {
       searchedIndex = null;
       const key = DataSearch.value;
       if (key) {
-        searchedIndex = linear.search(key);
-        DataSearch.value = "";
-      }
+	  try {
+       	      searchedIndex = linear.search(key);
+              DataSearch.value = "";
+          } catch (error) {
+              console.error(error);
+              modalPopUp(error);
+          }
+      } 
       clearAndRedraw();
     };
 
