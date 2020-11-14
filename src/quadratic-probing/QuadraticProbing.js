@@ -35,6 +35,7 @@ class QuadraticProbing {
 	    }
 	
 	}
+	throw "Overflow!"
     }
 
     // 검색 함수

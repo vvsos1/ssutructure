@@ -21,6 +21,12 @@ let searchedIndex = null;
 
 let quadratic;
 
+function modalPopUp(error) {
+    const modelBody = document.querySelector('#model-body')
+    modelBody.querySelector('p').innerText = error
+    $('#errorModel').modal()
+}
+
 function setting(p) {
   function clearAndRedraw() {
     p.clear();
@@ -43,9 +49,14 @@ function setting(p) {
       searchedIndex = null;
       const key = DataInput.value;
       if (key) {
-        console.log(`DataAddBtn click; data : ${key}`);
-        quadratic.insert(key);
-        DataInput.value = "";
+	  try {
+              console.log(`DataAddBtn click; data : ${key}`);
+              quadratic.insert(key);
+              DataInput.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+          }
       }
       clearAndRedraw();
     };
@@ -54,8 +65,13 @@ function setting(p) {
       searchedIndex = null;
       const key = DataDelete.value;
       if (key) {
-        quadratic.delete(key);
-        DataDelete.value = "";
+	  try {
+              quadratic.delete(key);
+              DataDelete.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
@@ -64,8 +80,13 @@ function setting(p) {
       searchedIndex = null;
       const key = DataSearch.value;
       if (key) {
-        searchedIndex = quadratic.search(key);
-        DataSearch.value = "";
+	  try {
+              searchedIndex = quadratic.search(key);
+              DataSearch.value = "";
+          } catch (error) {
+	      console.error(error);
+	      modalPopUp(error);
+	  }
       }
       clearAndRedraw();
     };
