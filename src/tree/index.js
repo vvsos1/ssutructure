@@ -119,16 +119,7 @@ newDataAddBtn.onclick = (e) => {
   if (newDataInput.value.trim() == "") return;
 
   const newData = Number(newDataInput.value);
-
-  console.log(
-    `newDataAddBtn clicked; data : ${newData}, tree : ${
-      tree instanceof RedBlackTree
-        ? "RedBlackTree"
-        : tree instanceof AVLTree
-        ? "AVLTree"
-        : "unknown"
-    }`
-  );
+  
   tree.add(newData, vizCallback);
 
   // data clear

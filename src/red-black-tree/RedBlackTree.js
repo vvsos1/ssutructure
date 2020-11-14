@@ -19,28 +19,6 @@ class RedBlackTree {
 }
 
 class TreeNode {
-  static RED = Symbol.for("RED");
-  static BLACK = Symbol.for("BLACK");
-
-  static END = new (class extends TreeNode {
-    constructor() {
-      super(null, TreeNode.BLACK);
-      this.left = this;
-      this.right = this;
-    }
-    toString() {
-      return "END";
-    }
-    add(data) {
-      return new TreeNode(data);
-    }
-    remove(data) {
-      return this;
-    }
-    contain(data) {
-      return false;
-    }
-  })();
 
   getColor() {
     if (this.isBlack()) return "black";
@@ -248,5 +226,29 @@ class TreeNode {
     return this.data;
   }
 }
+
+
+TreeNode.RED = Symbol.for("RED");
+TreeNode.BLACK = Symbol.for("BLACK");
+
+TreeNode.END = new (class extends TreeNode {
+  constructor() {
+    super(null, TreeNode.BLACK);
+    this.left = this;
+    this.right = this;
+  }
+  toString() {
+    return "END";
+  }
+  add(data) {
+    return new TreeNode(data);
+  }
+  remove(data) {
+    return this;
+  }
+  contain(data) {
+    return false;
+  }
+})();
 
 module.exports = RedBlackTree;
