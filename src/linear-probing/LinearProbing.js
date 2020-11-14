@@ -1,4 +1,4 @@
-class LinearHash {
+class LinearProbing {
     // 해시 테이블 생성자 함수
     constructor(tableSize = 5) {
         this.tableSize = tableSize
@@ -49,4 +49,4 @@ class LinearHash {
     }
 }
 
-module.exports = LinearHash;
+module.exports = LinearProbing;

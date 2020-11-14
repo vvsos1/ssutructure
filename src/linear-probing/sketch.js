@@ -1,4 +1,4 @@
-const LinearHash = require("./LinearHash");
+const LinearProbing = require("./LinearProbing");
 
 const p5 = require("p5");
 
@@ -32,12 +32,12 @@ function setting(p) {
 	p.displayWidth/4,
       y: 
 	DataDelete.getBoundingClientRect().left +
-        30 + ((p.displayWidth/2) / linear.tableSize) * index,
+        20 + (p.windowHeight / (linear.tableSize * 1.2)) * index,
     });
   }
   function setup() {
     p.createCanvas(p.displayWidth/2, p.windowHeight);
-    linear = new LinearHash();
+    linear = new LinearProbing();
 
     DataAddBtn.onclick = function () {
       searchedIndex = null;
@@ -87,7 +87,7 @@ function setting(p) {
       c = getCirclePosition(i);
       if (key !== undefined) p.stroke("orange");
       if (searchedIndex === i) p.stroke("#bbdeed");
-      p.circle(c.x, c.y, 70);
+      p.circle(c.x, c.y, 60);
       if (key !== undefined) {
         if (key == "DEL") p.fill(255);
         else if (i === searchedIndex) p.fill("#bbdeed");
