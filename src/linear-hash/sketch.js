@@ -1,6 +1,6 @@
-// const LinearHash = require("./LinearHash");
+const LinearHash = require("./LinearHash");
 
-// const p5 = require("p5");
+const p5 = require("p5");
 
 // 사용자로부터 새로운 데이터를 입력받는 Input Text
 const DataInput = document.getElementById("new-data-input");
@@ -65,7 +65,7 @@ function setting(p) {
       searchedIndex = null;
       const key = DataSearch.value;
       if (key) {
-        linear.search(key);
+        searchedIndex = linear.search(key);
         DataSearch.value = "";
       }
       clearAndRedraw();
