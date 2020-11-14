@@ -50,7 +50,8 @@ class QuadraticProbing {
 	
 	     if (this.hashTable[hashedKey] == key)
 		return hashedKey;
-	     else
+	     else if (this.hashTable[hashedKey] == undefined ||
+				this.hashTable[hashedKey] == null)
 		throw "Key Not Found!"
 	
 	     for (let i = 0; i < this.tableSize; i++) {

@@ -36,7 +36,8 @@ class LinearProbing {
 
 	    if (this.hashTable[hashedKey] == key)
 		    return hashedKey;
-            else
+            else if (this.hashTable[hashedKey] == null ||
+			this.hashTable[hashedKey] == undefined)
                     throw "Key Not Found!"
         }
     }
