@@ -29,11 +29,10 @@ function setting(p) {
   function getCirclePosition(index) {
     return Object.freeze({
       x:
-        DataDelete.getBoundingClientRect().left +
-        30 +
-        ((p.displayWidth/2) / linear.tableSize) * index,
-      // y: DataDelete.y + DataDelete.height + 50
-      y: p.windowHeight / 2.25,
+	p.displayWidth/4,
+      y: 
+	DataDelete.getBoundingClientRect().left +
+        30 + ((p.displayWidth/2) / linear.tableSize) * index,
     });
   }
   function setup() {
