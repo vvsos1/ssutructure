@@ -1,3 +1,5 @@
+const inputA = document.getElementById("linear-a-input");
+
 class LinearProbing {
     // 해시 테이블 생성자 함수
     constructor(tableSize = 5) {
@@ -6,7 +8,8 @@ class LinearProbing {
     }
     // linear hash 함수
     hashFunction(key, order) {
-        return (key + order) % this.tableSize
+	const A = (Number(inputA.value.trim() || 1) || 1);
+        return (key + A * order) % this.tableSize
     }
     // 삽입 함수
     insert(key) {

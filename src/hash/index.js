@@ -15,27 +15,32 @@ const DataAddBtn = document.getElementById("data-add-btn");
 const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
 
-const ContainerA = document.getElementById("a-container");
-const ContainerB = document.getElementById("b-container");
+const linearContainerA = document.getElementById("linear-a-container");
+const quadraticContainerA = document.getElementById("quadratic-a-container");
+const quadraticContainerB = document.getElementById("quadratic-b-container");
 
 let hashtable = new LinearProbing();
 
 quadraticProbingRadio.onchange = (e) => {
     console.log(`quadratic probing checked`);
     hashtable = new QuadraticProbing();
-    ContainerA.classList.remove("invisible")
-    ContainerA.classList.add("visible");
-    ContainerB.classList.remove("invisible")
-    ContainerB.classList.add("visible");
+    linearContainerA.classList.remove("visible");
+    linearContainerA.classList.add("invisible");
+    quadraticContainerA.classList.remove("invisible");
+    quadraticContainerA.classList.add("visible");
+    quadraticContainerB.classList.remove("invisible");
+    quadraticContainerB.classList.add("visible");
 };
 
 linearProbingRadio.onchange = (e) => {
     console.log(`linear probing checked`);
     hashtable = new LinearProbing();
-    ContainerA.classList.remove("visible");
-    ContainerA.classList.add("invisible");
-    ContainerB.classList.remove("visible");
-    ContainerB.classList.add("invisible");
+    linearContainerA.classList.remove("invisible");
+    linearContainerA.classList.add("visible");
+    quadraticContainerA.classList.remove("visible");
+    quadraticContainerA.classList.add("invisible");
+    quadraticContainerB.classList.remove("visible");
+    quadraticContainerB.classList.add("invisible");
 };
 
 let searchedIndex = null;

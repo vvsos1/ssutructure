@@ -1,6 +1,6 @@
 // h(k, i) = h(k) + bi + ai ^ 2
-const inputA = document.getElementById("a-input");
-const inputB = document.getElementById("b-input");
+const inputA = document.getElementById("quadratic-a-input");
+const inputB = document.getElementById("quadratic-b-input");
 
 class QuadraticProbing {
     // 해시 테이블 생성자 함수

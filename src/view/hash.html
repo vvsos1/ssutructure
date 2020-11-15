@@ -49,20 +49,31 @@
 	   </div>
         </div>
 
+	<!-- Linear Probing 함수-->
         <!-- 사용자 함수(a) 입력 폼 컨테이터-->
-	<div class="invisible" id="a-container">
-           <label for="new-expression-input">h(k, i) = h(k) + bi + ai^2</label>
+        <div class="visible" id="linear-a-container">
+           <label for="new-expression-input">h(k) = (k + ai) mod 5 (a > 0)</label>
            <div class="row m-0 p-0">
-              <input type="number" id="a-input" class="form-control col-5 mr-2">
-              <button type="button" id="a-btn" class="btn btn-dark">a</button>
+              <input type="number" id="linear-a-input" class="form-control col-5 mr-2" min="1">
+              <button type="button" id="linear-a-btn" class="btn btn-dark">a</button>
+           </div>
+        </div>
+
+	<!-- Quadratic Probing 함수-->
+        <!-- 사용자 함수(a) 입력 폼 컨테이터-->
+	<div class="invisible" id="quadratic-a-container">
+           <label for="new-expression-input">h(k, i) = (h(k) + bi + ai^2) mod 5 (a > 0)</label>
+           <div class="row m-0 p-0">
+              <input type="number" id="quadratic-a-input" class="form-control col-5 mr-2" min="1">
+              <button type="button" id="quadratic-a-btn" class="btn btn-dark">a</button>
            </div>
         </div>
 
         <!-- 사용자 함수(b) 입력 폼 컨테이너-->
-        <div class="invisible" id="b-container">
+        <div class="invisible" id="quadratic-b-container">
            <div class="row m-0 p-0">
-              <input type="number" id="b-input" class="form-control col-5 mr-2">
-              <button type="button" id="b-btn" class="btn btn-dark">b</button>
+              <input type="number" id="quadratic-b-input" class="form-control col-5 mr-2">
+              <button type="button" id="quadratic-b-btn" class="btn btn-dark">b</button>
            </div>
         </div>
 
@@ -70,7 +81,7 @@
         <div class="m-0 mt-4 p-0">
            <label for="data-add">데이터</label>
            <div class="row m-0 p-0">
-              <input type="number" id="data-add" class="form-control col-5 mr-2">
+              <input type="number" id="data-add" class="form-control col-5 mr-2" >
               <button type="button" id="data-add-btn" class="btn btn-dark">Add</button>
            </div>
         </div>
