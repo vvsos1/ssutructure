@@ -31,6 +31,8 @@ class Sort {
 
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
+
+    this.memetoStack = [];
   }
 
   // 추상 메소드
@@ -42,7 +44,7 @@ class Sort {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolveDetail = resolve;
       } else {
-        resolve();
+        resolve({ type: "continue" });
       }
     });
   }
@@ -53,7 +55,7 @@ class Sort {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolveSimple = resolve;
       } else {
-        resolve();
+        resolve({ type: "continue" });
       }
     });
   }
@@ -69,12 +71,39 @@ class Sort {
 
   step() {
     if (this.resolveDetail != null && this.resolveDetail != undefined) {
-      this.resolveDetail();
+      this.resolveDetail({ type: "step" });
       this.resolveDetail = null;
     } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      this.resolveSimple();
+      this.resolveSimple({ type: "step" });
       this.resolveSimple = null;
     }
+  }
+
+  stepBack() {
+    if (this.resolveDetail != null && this.resolveDetail != undefined) {
+      if (this.memetoStack.length != 0) {
+        this.resolveDetail({
+          type: "back",
+          memento: this.memetoStack.pop()
+        });
+        this.resolveDetail = null;
+      }
+    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
+      // TODO : detail 방식의 sort rollback 구현
+      // let memento;
+      // do {
+      //   memento = this.memetoStack.pop();
+      // } while (this.memetoStack.length != 0 && memento.type != "simple");
+
+      if (this.memetoStack.length != 0) {
+        this.resolveSimple({ type: "back", memento: memento });
+        this.resolveSimple = null;
+      }
+    }
+  }
+
+  pushMemento( memento) {
+    this.memetoStack.push(memento);
   }
 
   setStepTypeDetail() {

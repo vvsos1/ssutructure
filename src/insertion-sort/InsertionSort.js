@@ -12,6 +12,8 @@ class InsertionSort extends Sort {
       return;
     this.isSortRunning = true;
 
+    // 상태 저장 스택 초기화
+    this.memetoStack = [];
     // 블록 색상을 기본으로 변경
     this.blocks.forEach(block=>block.setColorDefault());
 
@@ -24,17 +26,34 @@ class InsertionSort extends Sort {
 
     await this.waitSimple();
 
-    for (let i = 1; i < n; i += 1) {
+    for (let i = 1; i < n;) {
       blocks[i].setColorRed();
 
       let destIndex = i;
 
       const target = blocks[i].getValue();
 
-      for (let j = 0; j < i; j++) {
+      for (let j = 0; j < i;) {
         blocks[j].setColorRed();
 
-        await this.waitDetail();
+        const {type,memento} = await this.waitDetail();
+        // 이전 상태로 복구
+        if (type === "back" && memento != null) {
+          ({i,j} = memento);
+          // TODO: 
+          memento.blocks.forEach((prevBlock,index) => {
+            const {color, xPosition,value,width} = prevBlock;
+            const block = this.blocks[index];
+            block.setValue(value);
+            block.setWidth(width);
+            block.setColor(color);
+            block.setXPosition(xPosition);
+          });
+
+          continue;
+        }
+        // 상태 저장
+        this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
 
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
@@ -45,6 +64,7 @@ class InsertionSort extends Sort {
           destIndex = j;
           break;
         }
+        j+=1;
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
@@ -57,6 +77,7 @@ class InsertionSort extends Sort {
       blocks[i].setColorGreen();
       this.refreshBlocks();
       await this.waitSimple();
+      i += 1;
     }
 
     this.isSortRunning = false;

@@ -41,6 +41,9 @@ const sortContinueBtn = document.getElementById("sort-continue-btn");
 // 정렬 스텝 Button
 const sortStepBtn = document.getElementById("sort-step-btn");
 
+// 정렬 뒤로 스텝 Button
+const sortStepBackBtn = document.getElementById("sort-step-back-btn");
+
 // 블록 섞기 Button
 const blockShuffleBtn = document.getElementById("block-shuffle-btn");
 
@@ -187,6 +190,12 @@ sortStepBtn.onclick = e => {
 
   sort.step();
 };
+
+sortStepBackBtn.onclick = e => {
+  if (stepDetailRadio.checked) sort.setStepTypeDetail();
+  else if (stepSimpleRadio.checked) sort.setStepTypeSimple();
+  sort.stepBack();
+}
 
 blockShuffleBtn.onclick = e => {
   sort.shuffle();
