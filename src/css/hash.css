@@ -1,0 +1,20 @@
+body {
+  background-color: #bbdeed;
+}
+
+h1 {
+  color: goldenrod;
+}
+
+canvas {
+  background-color: #ffffff;
+}
+
+.modal-header,
+h4,
+.close {
+  background-color: red;
+  color: white !important;
+  text-align: center;
+  font-size: 30px;
+}
