@@ -29,6 +29,15 @@ quadraticProbingRadio.onchange = (e) => {
     ContainerB.classList.add("visible");
 };
 
+linearProbingRadio.onchange = (e) => {
+    console.log(`linear probing checked`);
+    hashtable = new LinearProbing();
+    ContainerA.classList.remove("visible");
+    ContainerA.classList.add("invisible");
+    ContainerB.classList.remove("visible");
+    ContainerB.classList.add("invisible");
+};
+
 let searchedIndex = null;
 
 function modalPopUp(error) {
