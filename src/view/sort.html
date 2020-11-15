@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Sorting Visualize</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Sunflower:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
+ 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/sort.css">
 </head>
@@ -11,7 +14,7 @@
 <body class="p-2">
     <!-- NavBar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.html">SSU:Tructure</a>
+        <a class="navbar-brand" href="index.html" style=" font-family:'VT323';" >SSU:Tructure</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,17 +22,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Sorting</a>
+                    <a class="nav-link active" href="#" style=" font-family:'VT323';" >Sorting</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tree.html">Tree</a>
+                    <a class="nav-link" href="tree.html" style=" font-family:'VT323';">Tree</a>
                 </li>
             </ul>
         </div>
     </nav>
 
     <!-- 메인 콘텐츠 컨테이너 -->
-    <div class="container-fluid d-flex mt-2 pb-3 pt-4 align-items-start bg-white">
+    <div class="container-fluid d-flex my-3 mt-2 pb-3 pt-4 align-items-start bg-white">
         <!-- 입력 폼 컨테이너-->
         <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
 
@@ -125,12 +128,12 @@
 
             <!-- 블록 셔플 버튼 컨테이너-->
             <div class="m-0 mt-4 p-0">
-                <button id="block-shuffle-btn" type="button" class="btn btn-info">블록 섞기</button>
+                <button id="block-shuffle-btn" type="button" class="btn btn-warning">블록 섞기</button>
             </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="col-md-6 m-0 ml-4 p-0">
-            <section class="data-container border border-info m-0" style="height: 500px"></section>
+        <div id="visualize-section-wrapper" class="col-md-6 m-0 ml-4 p-0" >
+            <section class="data-container border border-dark m-0 " style="height: 500px;"></section>
         </div>
     </div>
 </body>
