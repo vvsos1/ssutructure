@@ -8,9 +8,8 @@ class RedBlackTree {
     vizCallback();
   }
 
-  remove(data) {
-    return;
-    this.root = this.root.remove(data);
+  remove(data,vizCallback) {
+    this.root = this.root.remove(data,vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
   }
   contain(data) {
@@ -19,7 +18,6 @@ class RedBlackTree {
 }
 
 class TreeNode {
-
   getColor() {
     if (this.isBlack()) return "black";
     if (this.isRed()) return "red";
@@ -33,44 +31,109 @@ class TreeNode {
     data,
     color = TreeNode.RED,
     left = TreeNode.END,
-    right = TreeNode.END
+    right = TreeNode.END,
+    parent = null
   ) {
     this.data = data;
     this.left = left;
     this.right = right;
     this.color = color;
+    this.parent = parent;
   }
 
   // data를 지운 서브트리를 반환
-  remove(data) {
+  remove(data,vizCallback) {
     // 미완성
     if (this.data == data) {
       if (this.isLeaf()) return TreeNode.END;
       else if (this.hasLeft()) {
         const rightmost = this.left.getRightmost();
-        this.left = this.left.remove(rightmost);
-        this.data = rightmost;
-        return this;
+        this.left = this.left.remove(rightmost.data,vizCallback);
+        this.data = rightmost.data;
+        this.left.parent = this;
       } else if (this.hasRight()) {
         const leftmost = this.right.getLeftmost();
-        this.right = this.right.remove(rightmost);
-        this.data = leftmost;
-        return this;
+        this.right = this.right.remove(rightmost.data,vizCallback);
+        this.data = leftmost.data;
+        this.right.parent = this;
       }
     } else if (data < this.data) {
-      this.left = this.left.remove(data);
-      return this;
+      this.left = this.left.remove(data,vizCallback);
+      this.left.parent = this;
     } else if (this.data < data) {
-      this.right = this.right.remove(data);
+      this.right = this.right.remove(data,vizCallback);
+      this.right.parent = this;
+    }
+
+    const fixed = this.fix();
+    vizCallback();
+    return fixed;
+  }
+  findNode(data) {
+    if (data < this.data) return this.left.findNode(data);
+    else if (this.data < data) {
+      return this.right.findNode(data);
+    } else {
       return this;
     }
   }
+
+  getSibling(){
+    if (this.parent?.left == this)
+      return this.parent?.right;
+    else if (this.parent?.right == this) {
+      return this.parent?.left;
+    } else 
+      throw new Error(`${this}는 부모 노드가 없습니다`)
+  
+  }
+
+  // x를 기준으로 p, s, l ,r 을 적절히 변형한 뒤 x 자리의 노드를 리턴
+  fix() {
+    if (this.parent == null)  // 부모노드가 없는 경우는 필요없음
+      return this;
+    if (this.isRed()) // x가 red인 경우는 필요없음
+      return;
+    let parent = this.parent;
+    let sibling = this.getSibling();
+    
+    if (parent.isRed() && sibling.isBlack() &&  sibling.left.isBlack() && sibling.right.isBlack()) {
+        sibling.color = TreeNode.RED;
+        return this;
+    } else if (sibling.isBlack() && sibling.right.isRed()) { // case *-2
+        parent.rotateLeft();
+        let parentColor = parent.color;
+        let siblingColor = sibling.color;
+        parent.color = siblingColor;
+        sibling.color = parentColor;
+        return parent;
+
+    } else if (sibling.isBlack() && sibling.left.isRed() && sibling.right.isBlack()) {  // case *-3
+      sibling.left.color = TreeNode.BLACK;
+      sibling.color = TreeNode.RED
+      parent.right = sibling.rotateRight();
+      return this;
+    } else if (parent.isBlack()) { // case 2-*
+      if (sibling.isBlack() && sibling.left.isBlack() && sibling.right.isBlack()) { //case 2-1
+        sibling.color = TreeNode.RED;
+        return this;
+      } else if (sibling.isRed() && sibling.left.isBlack() && sibling.right.isBlack()) {  //case 2-4
+        parent.rotateLeft();
+        return sibling;
+      }
+    }
+
+
+  }
+
   // data를 추가한 서브트리를 반환
   add(data, vizCallback) {
     if (data < this.data) {
       this.left = this.left.add(data, vizCallback);
+      this.left.parent = this;
     } else if (this.data < data) {
       this.right = this.right.add(data, vizCallback);
+      this.right.parent = this;
     }
     const fixed = this.fixColor();
     vizCallback();
@@ -161,6 +224,10 @@ class TreeNode {
     left.right = this;
     this.left = rightOfLeft;
 
+    left.parent = this.parent;
+    this.parent = left;
+    rightOfLeft.parent = this;
+
     return left;
   }
 
@@ -170,6 +237,10 @@ class TreeNode {
 
     right.left = this;
     this.right = leftOfRight;
+
+    right.parent = this.parent;
+    this.parent = right;
+    leftOfRight.parent = this;
 
     return right;
   }
@@ -191,12 +262,12 @@ class TreeNode {
   }
 
   getLeftmost() {
-    if (this.left.isEnd()) return this.data;
+    if (this.left.isEnd()) return this;
     else return this.left.getLeftmost();
   }
 
   getRightmost() {
-    if (this.right.isEnd()) return this.data;
+    if (this.right.isEnd()) return this;
     else return this.right.getLeftmost();
   }
 
@@ -226,7 +297,6 @@ class TreeNode {
     return this.data;
   }
 }
-
 
 TreeNode.RED = Symbol.for("RED");
 TreeNode.BLACK = Symbol.for("BLACK");
