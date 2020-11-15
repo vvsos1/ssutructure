@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/vvsos1/ssutructure#readme",
   "dependencies": {
+    "p5": "^1.1.9",
     "treeviz": "^2.2.3"
   }
 }
