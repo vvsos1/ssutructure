@@ -24,23 +24,23 @@ let hashtable = new LinearProbing();
 quadraticProbingRadio.onchange = (e) => {
     console.log(`quadratic probing checked`);
     hashtable = new QuadraticProbing();
-    linearContainerA.classList.remove("visible");
-    linearContainerA.classList.add("invisible");
-    quadraticContainerA.classList.remove("invisible");
-    quadraticContainerA.classList.add("visible");
-    quadraticContainerB.classList.remove("invisible");
-    quadraticContainerB.classList.add("visible");
+    linearContainerA.classList.remove("block");
+    linearContainerA.classList.add("d-none");
+    quadraticContainerA.classList.remove("d-none");
+    quadraticContainerA.classList.add("block");
+    quadraticContainerB.classList.remove("d-none");
+    quadraticContainerB.classList.add("block");
 };
 
 linearProbingRadio.onchange = (e) => {
     console.log(`linear probing checked`);
     hashtable = new LinearProbing();
-    linearContainerA.classList.remove("invisible");
-    linearContainerA.classList.add("visible");
-    quadraticContainerA.classList.remove("visible");
-    quadraticContainerA.classList.add("invisible");
-    quadraticContainerB.classList.remove("visible");
-    quadraticContainerB.classList.add("invisible");
+    linearContainerA.classList.remove("d-none");
+    linearContainerA.classList.add("block");
+    quadraticContainerA.classList.remove("block");
+    quadraticContainerA.classList.add("d-none");
+    quadraticContainerB.classList.remove("block");
+    quadraticContainerB.classList.add("d-none");
 };
 
 let searchedIndex = null;
