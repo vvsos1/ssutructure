@@ -11,13 +11,18 @@ class LinearProbing {
 
     // linear probing hash 함수
     hashFunction(key, order) {
-
-	// 입력값이 음수인 경우에 대한 처리 
-	if (key < 0) 
-	    key += this.tableSize;
-
+	// 음수 key 값에 대한 처리
+	if (key < 0) {
+	     key = key * -1;
+	     let i;
+	     for (i = 0; i < 5; i++) {
+		if ((key + i) % 5 == 0)
+			break ;
+	     }
+	     key = i;
+        }
 	const A = (Number(inputA.value.trim() || 1) || 1);
-        return (key + A * order) % this.tableSize
+	return (key + A * order) % this.tableSize;	
     }
 
     // 삽입 함수
