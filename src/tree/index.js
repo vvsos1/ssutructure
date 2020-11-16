@@ -8,7 +8,7 @@ const durationObject = {
   duration: 500,
 };
 
-const myTree = Treeviz.create({
+const config = {
   htmlId: "tree",
   idKey: "id",
   hasFlatData: true,
@@ -40,7 +40,9 @@ const myTree = Treeviz.create({
   linkShape: "quadraticBeziers",
   linkColor: (nodeData) => "#54432A",
   onNodeClick: (nodeData) => console.log(nodeData),
-});
+};
+
+let treeviz = Treeviz.create(config);
 
 // (AVLTreeNode,Integer) -> Array
 // AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
@@ -63,18 +65,30 @@ function traversal(root, parentId) {
     .concat(traversal(root.right, id));
 }
 
-// AVL트리의 회전 과정에서 트리 시각화를 하는데 사용되는 함수인 vizCallBack을 만들어주는 함수.
-const vizCallbackMaker = (tree, vizRefreshFunction) => () => {
-  const datas = traversal(tree.root, null);
-  vizRefreshFunction(datas);
-};
+// // AVL트리의 회전 과정에서 트리 시각화를 하는데 사용되는 함수인 vizCallBack을 만들어주는 함수.
+// const vizCallbackMaker = (tree, vizRefreshFunction,vizClearFunction) => () => {
+//   const datas = traversal(tree.root, null);
+//   if (datas.length === 0)
+//     vizClearFunction();
+//   else
+//     vizRefreshFunction(datas);
+// };
 
 let tree = new AVLTree();
 
-let vizCallback = vizCallbackMaker(tree, myTree.refresh);
+const clearTree = () => {
+  tree.clear();
+  treeviz.clean();
+  treeviz = Treeviz.create(config);
+}
 
-// millis만큼 기다린 후 resolve되는 Promise 반환
-const wait = (millis) => new Promise((res) => setTimeout(res, millis));
+let vizCallback = () => {
+  const datas = traversal(tree.root, null);
+  if (datas.length === 0)
+    clearTree()
+  else
+   treeviz.refresh(datas);
+};;
 
 const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
 const AVLTreeRadio = document.getElementById("avl-tree-radio");
@@ -91,10 +105,12 @@ const newDataRemoveBtn = document.getElementById("new-data-remove-btn");
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
 
+const dataClearBtn = document.getElementById('data-clear-btn');
+
 RedBlackTreeRadio.onchange = (e) => {
   console.log(`red black tree checked`);
+  clearTree();
   tree = new RedBlackTree();
-  vizCallback = vizCallbackMaker(tree, myTree.refresh);
 
   // RedBlackTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
   newDataRemoveBtn.disabled = true;
@@ -102,8 +118,8 @@ RedBlackTreeRadio.onchange = (e) => {
 
 AVLTreeRadio.onchange = (e) => {
   console.log(`avl tree checked`);
+  clearTree();
   tree = new AVLTree();
-  vizCallback = vizCallbackMaker(tree, myTree.refresh);
 
   // AVLTree 삭제 버튼 활성화
   newDataRemoveBtn.disabled = false;
@@ -140,3 +156,7 @@ newDataRemoveBtn.onclick = (e) => {
   // data clear
   newDataInput.value = "";
 };
+
+dataClearBtn.onclick = e => {
+  clearTree();
+}

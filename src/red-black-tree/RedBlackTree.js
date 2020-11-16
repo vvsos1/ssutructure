@@ -2,6 +2,10 @@ class RedBlackTree {
   constructor() {
     this.root = TreeNode.END;
   }
+  clear(){
+    this.root = TreeNode.END;
+  }
+
   add(data, vizCallback) {
     this.root = this.root.add(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
