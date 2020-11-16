@@ -106,32 +106,32 @@ class Block {
 
   // block을 선택된 블록의 색으로 바꾸는 함수
   setColorRed() {
-    this.color = "#FF4949";
-    this.dom.style.backgroundColor = "#FF4949";
+    this.color = "#B69AE7";
+    this.dom.style.backgroundColor = "#B69AE7"; //선택된 블록 : 빨강 -> 연보라
   }
 
   // block을 기본 블록의 색으로 바꾸는 함수
   setColorDefault() {
-    this.color = "#58B7FF";
-    this.dom.style.backgroundColor = "#58B7FF";
+    this.color = "#FF9FB3";
+    this.dom.style.backgroundColor = "#FF9FB3"; //기본 블록: 파랑 -> 연핑크
   }
 
   // block을 정렬이 끝난 블록의 색으로 바꾸는 함수
   setColorGreen() {
-    this.color = "#13CE66";
-    this.dom.style.backgroundColor = "#13CE66";
+    this.color = "#FF6C77";
+    this.dom.style.backgroundColor = "#FF6C77"; //정렬 끝난 블록: 그린(초록) -> 찐핑크
   }
 
   // block을 Pivot 블록의 색으로 바꾸는 함수
   setColorPivot() {
-    this.color = "#FF009D";
-    this.dom.style.backgroundColor = "#FF009D";
+    this.color = "#9F70F1";
+    this.dom.style.backgroundColor = "#9F70F1"; //피벗 블록 : 형광 핑크 ->  찐보라
   }
 
   // block을 경계를 나타내는 블록의 색으로 바꾸는 함수
   setColorBoundary() {
-    this.color = "#800080";
-    this.dom.style.backgroundColor = "#800080"; // 보라
+    this.color = "#F5E348";
+    this.dom.style.backgroundColor = "#F5E348"; // 블럭 경계 : 보라 -> 노랑 
   }
 
   setValue(value){

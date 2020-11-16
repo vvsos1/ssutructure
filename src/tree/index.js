@@ -38,7 +38,7 @@ const myTree = Treeviz.create({
   },
   linkWidth: (nodeData) => 5,
   linkShape: "quadraticBeziers",
-  linkColor: (nodeData) => "#B0BEC5",
+  linkColor: (nodeData) => "#54432A",
   onNodeClick: (nodeData) => console.log(nodeData),
 });
 

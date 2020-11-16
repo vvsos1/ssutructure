@@ -22,7 +22,7 @@ class AVLTree {
 class AVLTreeNode {
 
   getColor() {
-    return "skyblue";
+    return "rosybrown";
   }
 
   constructor(data, left = AVLTreeNode.END, right = AVLTreeNode.END) {
