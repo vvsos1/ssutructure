@@ -1,59 +1,91 @@
-// h(k, i) = h(k) + bi + ai ^ 2
+// h(key, order) = h(key) + b * order + a * order * order 에서 a, b 값을 받아 옴 
 const inputA = document.getElementById("quadratic-a-input");
 const inputB = document.getElementById("quadratic-b-input");
 
 class QuadraticProbing {
+
     // 해시 테이블 생성자 함수
     constructor(tableSize = 5) {
-        this.tableSize = tableSize
-        this.hashTable = new Array(tableSize)
+        this.tableSize = tableSize;
+        this.hashTable = new Array(tableSize);
     }
+    
+    // quadratic probing hash 함수
+    hashFunction(key, order) {
 
-    hashFunction(k,i) {
+        // 음수 key 값에 대한 처리
+        if (key < 0) {
+             key = key * -1;
+             let i;
+             for (i = 0; i < 5; i++) {
+                if ((key + i) % 5 == 0)
+                        break ;
+             }
+             key = i;
+        }	
         const A = Number(inputA.value.trim() || 1) || 1;
         const B = Number(inputB.value.trim() || 0);
-        return (k + B * i + A * i* i) % this.tableSize;
+        return (key + B * order + A * order* order) % this.tableSize;
     }    
 
     // 삽입 함수
     insert(key) {
-        key = parseInt(key);
+        
+	key = parseInt(key);
+	
+	// 잘못된 입력인 경우 입력 오류 메세지 출력
 	if (isNaN(key))
 	    throw "Invalid Key!"
+
+	// 해시 함수값의 인덱스에 있는 값이 undefined나 null일 경우 해당 인덱스에 키값 삽입
+	// 이미 키값이 있으면 중복 메세지 반환
 	for (let i = 0; i < this.tableSize; ++i) {
-            let hashedKey = this.hashFunction(key, i)
+            let hashedKey = this.hashFunction(key, i);
             switch (this.hashTable[hashedKey]) {
                 case undefined:
                 case null:
-                    this.hashTable[hashedKey] = key
-                    return hashedKey
+                    this.hashTable[hashedKey] = key;
+                    return hashedKey;
                 case key:
                     throw "Duplicate Key!"
             }
 	}
+	// 삽입 실패 또는 중복 탐지 실패 시
+	// 테이블이 다 찼음으로 판단하여 오버 플로우 메세지 출력
 	throw "Overflow!"
     }
 
     // 검색 함수
     search(key) {
+
         key = parseInt(key)
+
+	// 잘못된 입력일 경우 오류 메세지 출력
         if (isNaN(key))
             throw "Invalid Key!"
+
+	// 해시함수 값과 키값이 같으면 해당 인덱스 반환 
         for (let i = 0; i < this.tableSize; ++i) {
+
             let hashedKey = this.hashFunction(key, i);
 
 	    if (this.hashTable[hashedKey] == key)
 		    return hashedKey;
         }
+	// 검색 실패시 해당 키 값이 없음으로 판단하여 검색 오류 메세지 출력
 	throw "Key Not Found!"
     } 
 
 
     // 삭제 함수
+    // 검색 함수를 이용하여 키의 위치를 찾아내어 해당 위치의 값을 null로 변
     delete(key) {
-        let hashedKey = this.search(key)
-        this.hashTable[hashedKey] = null
-        return hashedKey
+
+        let hashedKey = this.search(key);
+
+        this.hashTable[hashedKey] = null;
+
+        return hashedKey;
     }
 }
 

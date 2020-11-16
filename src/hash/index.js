@@ -7,7 +7,12 @@ const p5 = require("p5");
 const linearProbingRadio = document.getElementById("linear-probing-radio");
 const quadraticProbingRadio = document.getElementById("quadratic-probing-radio");
 
-// 데이터 입력 
+// 함수 입력 컨테이너 
+const linearContainerA = document.getElementById("linear-a-container");
+const quadraticContainerA = document.getElementById("quadratic-a-container");
+const quadraticContainerB = document.getElementById("quadratic-b-container");
+
+// 데이터 입력 버튼
 const DataAdd = document.getElementById("data-add");
 const DataDelete = document.getElementById("data-delete");
 const DataSearch = document.getElementById("data-search");
@@ -15,12 +20,9 @@ const DataAddBtn = document.getElementById("data-add-btn");
 const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
 
-const linearContainerA = document.getElementById("linear-a-container");
-const quadraticContainerA = document.getElementById("quadratic-a-container");
-const quadraticContainerB = document.getElementById("quadratic-b-container");
-
 let hashtable = new LinearProbing();
 
+// Quadratic Probing 라디오 버튼 클릭시 
 quadraticProbingRadio.onchange = (e) => {
     console.log(`quadratic probing checked`);
     hashtable = new QuadraticProbing();
@@ -32,6 +34,7 @@ quadraticProbingRadio.onchange = (e) => {
     quadraticContainerB.classList.add("block");
 };
 
+// Linear Probing 라디오 버튼 클릭시
 linearProbingRadio.onchange = (e) => {
     console.log(`linear probing checked`);
     hashtable = new LinearProbing();
@@ -45,17 +48,22 @@ linearProbingRadio.onchange = (e) => {
 
 let searchedIndex = null;
 
+// 에러 메세지 전달 팝업창 함수 
 function modalPopUp(error) {
     const modelBody = document.querySelector('#model-body')
     modelBody.querySelector('p').innerText = error
     $('#errorModel').modal()
 }
 
+// 시각화 함수
 function setting(p) {
+
   function clearAndRedraw() {
     p.clear();
     p.redraw();
   }
+
+  // 해시테이블의 위치 지정 함수
   function getCirclePosition(index) {
     return Object.freeze({
       x:
@@ -65,9 +73,13 @@ function setting(p) {
         20 + (p.windowHeight / (hashtable.tableSize * 1.2)) * index,
     });
   }
+
+  
   function setup() {
     p.createCanvas(p.displayWidth/2, p.windowHeight);
 
+    // 데이터 Add 버튼 클릭 이벤트 함수
+    
     DataAddBtn.onclick = function () {
       searchedIndex = null;
       const key = DataAdd.value;
@@ -84,6 +96,7 @@ function setting(p) {
       clearAndRedraw();
     };
 
+    // 데이터 Delete 버튼 클릭 이벤트 함수
     DataDeleteBtn.onclick = function () {
       searchedIndex = null;
       const key = DataDelete.value;
@@ -99,6 +112,8 @@ function setting(p) {
       clearAndRedraw();
     };
 
+    // 데이터 Search 버튼 클릭 이벤트 함수
+    // searchedIndex에 key값의 인덱스 저장
     DataSearchBtn.onclick = function () {
       searchedIndex = null;
       const key = DataSearch.value;
@@ -123,21 +138,33 @@ function setting(p) {
 
   function draw() {
     for (let i = 0; i < hashtable.tableSize; ++i) {
+
       let key = hashtable.hashTable[i];
+
+      // 삭제에 성공하였을 경우 (채우기)
       if (key === null) {
         key = "DEL";
         p.fill("orange");
       }
-      c = getCirclePosition(i);
+
+      // 삽입에 성공하였을 경우(테두리)
       if (key !== undefined) p.stroke("orange");
+
+      // 검색에 성공하였을 경우 (테두리)
       if (searchedIndex === i) p.stroke("#bbdeed");
+
+      c = getCirclePosition(i);
+
+      // 해시테이블의 circle 크기 지정
       p.circle(c.x, c.y, 60);
+
+      // 채우기
       if (key !== undefined) {
         if (key == "DEL") p.fill(255);
         else if (i === searchedIndex) p.fill("#bbdeed");
         else p.fill("orange");
         p.text(key, c.x, c.y);
-        p.fill(255);
+	p.fill(255);
         p.stroke("black");
       }
     }
