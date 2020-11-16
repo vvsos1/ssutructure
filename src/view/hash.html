@@ -52,9 +52,9 @@
 	<!-- Linear Probing 함수-->
         <!-- 사용자 함수(a) 입력 폼 컨테이터-->
         <div class="block" id="linear-a-container">
-           <label for="new-expression-input">h(k) = (k + ai) mod 5 (a > 0)</label>
+           <label for="new-expression-input">h(key) = (key + a * i) mod 5</label>
            <div class="row m-0 p-0">
-              <input type="number" id="linear-a-input" class="form-control col-5 mr-2" min="1">
+              <input type="number" id="linear-a-input" class="form-control col-5 mr-2">
               <button type="button" id="linear-a-btn" class="btn btn-dark">a</button>
            </div>
         </div>
@@ -62,9 +62,9 @@
 	<!-- Quadratic Probing 함수-->
         <!-- 사용자 함수(a) 입력 폼 컨테이터-->
 	<div class="d-none" id="quadratic-a-container">
-           <label for="new-expression-input">h(k, i) = (h(k) + bi + ai^2) mod 5 (a > 0)</label>
+           <label for="new-expression-input">h(key, i) = (h(key) + b * i + a * i * i) mod 5</label>
            <div class="row m-0 p-0">
-              <input type="number" id="quadratic-a-input" class="form-control col-5 mr-2" min="1">
+              <input type="number" id="quadratic-a-input" class="form-control col-5 mr-2">
               <button type="button" id="quadratic-a-btn" class="btn btn-dark">a</button>
            </div>
         </div>
