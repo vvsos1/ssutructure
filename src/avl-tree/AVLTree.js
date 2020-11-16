@@ -2,6 +2,11 @@ class AVLTree {
   constructor() {
     this.root = AVLTreeNode.END;
   }
+
+  clear(){
+    this.root = AVLTreeNode.END;
+  }
+
   add(data, vizCallback) {
     this.root = this.root.add(data, vizCallback);
     vizCallback();
