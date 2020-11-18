@@ -3,6 +3,7 @@ const Treeviz = require("../static/treeviz");
 
 const AVLTree = require("../avl-tree/AVLTree");
 const RedBlackTree = require("../red-black-tree/RedBlackTree");
+const BTree = require("../b-tree/BTree");
 
 const durationObject = {
   duration: 500,
@@ -44,26 +45,6 @@ const config = {
 
 let treeviz = Treeviz.create(config);
 
-// (AVLTreeNode,Integer) -> Array
-// AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
-function traversal(root, parentId) {
-  // console.log("traversal() : root = " + root);
-  if (root.isEnd()) return [];
-
-  const id = Number.parseInt(root.data);
-
-  const data = {
-    id,
-    text_1: root.data,
-    father: parentId,
-    color: root.getColor(),
-    textColor: root.getColor()=='red'?'black' : root.getColor()=='black'?'red':'black'
-  };
-
-  return [data]
-    .concat(traversal(root.left, id))
-    .concat(traversal(root.right, id));
-}
 
 let tree = new AVLTree();
 
@@ -74,7 +55,7 @@ const clearTree = () => {
 }
 
 let vizCallback = () => {
-  const datas = traversal(tree.root, null);
+  const datas = tree.traversal();
   if (datas.length === 0)
     clearTree()
   else
@@ -83,6 +64,7 @@ let vizCallback = () => {
 
 const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
 const AVLTreeRadio = document.getElementById("avl-tree-radio");
+const BTreeRadio = document.getElementById("b-tree-radio");
 
 // 사용자로부터 새로운 데이터를 입력받는 Input Text
 const newDataInput = document.getElementById("new-data-input");
@@ -113,6 +95,15 @@ AVLTreeRadio.onchange = (e) => {
   tree = new AVLTree();
 
   // AVLTree 삭제 버튼 활성화
+  newDataRemoveBtn.disabled = false;
+};
+
+BTreeRadio.onchange = (e) => {
+  console.log(`b tree checked`);
+  clearTree();
+  tree = new BTree();
+
+  // BTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
   newDataRemoveBtn.disabled = false;
 };
 
