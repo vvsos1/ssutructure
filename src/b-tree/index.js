@@ -49,19 +49,20 @@ function traversal(root, parentId) {
   // console.log("traversal() : root = " + root);
   if (root.isEnd()) return [];
 
-  const id = Number.parseInt(root.data);
+  const id = Number.parseInt(root.index);
 
   const data = {
     id,
-    text_1: root.data,
+    text_1: root.datas.join(', '),
     father: parentId,
-    color: root.getColor(),
-    textColor: root.getColor()=='red'?'black' : root.getColor()=='black'?'red':'black'
+    color: 'red',
+    textColor: 'black'
   };
+  
+  const childs = root.subsets.map(child => traversal(child,id)).reduce((sum,current) => sum.concat(current),[]);
 
   return [data]
-    .concat(traversal(root.left, id))
-    .concat(traversal(root.right, id));
+    .concat(childs);
 }
 
 let tree = new BTree();
@@ -97,23 +98,6 @@ const delayRange = document.getElementById("animation-delay-range");
 
 const dataClearBtn = document.getElementById('data-clear-btn');
 
-RedBlackTreeRadio.onchange = (e) => {
-  console.log(`red black tree checked`);
-  clearTree();
-  tree = new RedBlackTree();
-
-  // RedBlackTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
-  newDataRemoveBtn.disabled = true;
-};
-
-AVLTreeRadio.onchange = (e) => {
-  console.log(`avl tree checked`);
-  clearTree();
-  tree = new AVLTree();
-
-  // AVLTree 삭제 버튼 활성화
-  newDataRemoveBtn.disabled = false;
-};
 
 delayRange.oninput = (e) => {
   const delay = Number(e.target.value);
