@@ -1,8 +1,7 @@
 // import * as Treeviz from 'treeviz';
 const Treeviz = require("../static/treeviz");
 
-const AVLTree = require("../avl-tree/AVLTree");
-const RedBlackTree = require("../red-black-tree/RedBlackTree");
+const BTree = require('./BTree');
 
 const durationObject = {
   duration: 500,
@@ -65,7 +64,7 @@ function traversal(root, parentId) {
     .concat(traversal(root.right, id));
 }
 
-let tree = new AVLTree();
+let tree = new BTree();
 
 const clearTree = () => {
   tree.clear();
