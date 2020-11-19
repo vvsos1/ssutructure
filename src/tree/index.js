@@ -1,14 +1,9 @@
-// import * as Treeviz from 'treeviz';
-const Treeviz = require("../static/treeviz");
+const Treeviz = require("treeviz");
 
 const AVLTree = require("../avl-tree/AVLTree");
 const RedBlackTree = require("../red-black-tree/RedBlackTree");
 const BTree = require("../b-tree/BTree");
 
-
-const durationObject = {
-  duration: 500,
-};
 
 const config = {
   htmlId: "tree",
@@ -20,7 +15,7 @@ const config = {
   nodeWidth: 80,
   nodeHeight: 45,
   mainAxisNodeSpacing: 2,
-  duration: () => durationObject.duration,
+  duration: 500,
   isHorizontal: false,
   renderNode: function ({settings,data}) {
     return `<div class='node' style='
@@ -54,7 +49,7 @@ const clearTree = () => {
 let vizCallback = () => {
   const datas = tree.traversal();
   if (datas.length === 0) clearTree();
-  else treeviz.refresh(datas);
+  else treeviz.refresh(datas,config);
 };
 
 const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
@@ -104,7 +99,7 @@ BTreeRadio.onchange = (e) => {
 
 delayRange.oninput = (e) => {
   const delay = Number(e.target.value);
-  durationObject.duration = delay;
+  config.duration = delay;
 };
 
 newDataAddBtn.onclick = (e) => {
