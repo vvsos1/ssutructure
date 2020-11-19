@@ -88,13 +88,12 @@ class TreeNode {
       if (!prev.isEnd() && prev !== subset) {
         // 만약 subset이 분할되었다면
         // 분할된 subset은 datas가 1개, subsets가 2개(TreeNode.END까지 합치면 MAX+1개)
-        this.datas.push(subset.datas[0]);
-        this.datas.sort((a, b) => a - b);
+        this.datas.splice(i,0,subset.datas[0]);
         const subsets = subset.subsets.slice(0, 2);
 
         this.subsets.splice(i, 1, ...subsets);
 
-        this.subsets = this.subsets.slice(0, TreeNode.MAXIMUM + 1);
+        this.subsets = this.subsets.slice(0, TreeNode.MAXIMUM + 2);
       }
     }
 
@@ -141,6 +140,7 @@ class TreeNode {
         const rightMostValue = rightMost.datas.pop();
         rightMost.datas.push(this.datas[i]);
         this.datas[i] = rightMostValue;
+        vizCallback();
 
         this.subsets[i] = this.subsets[i].remove(data, vizCallback);
       }
@@ -158,7 +158,7 @@ class TreeNode {
   }
 
   // subset[i]의 길이가 MIN보다 작은 것을 고치고 this를 반환
-  fixShortage(i) {
+  fixShortage(i,vizCallback) {
     if (this.subsets[i].datas.length >= TreeNode.MINIMUN) return this;
 
     const leftSibling = this.subsets[i - 1];
@@ -180,9 +180,10 @@ class TreeNode {
 
       // subset[i] 의 가장 왼쪽에 추가
       target.datas.unshift(this.datas[i-1]);
+      this.datas.splice(i-1, 1, rightData);
+      vizCallback();
       target.subsets.unshift(rightSubset);
 
-      this.datas.splice(i-1, 1, rightData);
     } else if ((!rightSibling.isEnd()) && rightSibling?.datas?.length > TreeNode.MINIMUN) {
       // case 2 오른쪽 형제에서 노드 하나 가져옴
 
@@ -194,9 +195,10 @@ class TreeNode {
 
       // subset[i] 의 가장 오른쪽에 추가
       target.datas.push(this.datas[i]);
+      this.datas.splice(i, 1, leftData);
+      vizCallback();
       target.subsets.splice(this.datas.length, 0, leftSubset);
 
-      this.datas.splice(i, 1, leftData);
     } else if(leftSibling !== null && leftSibling !== undefined && (!leftSibling?.isEnd())){
       // case 3-1 왼쪽 형제와 합침
 
