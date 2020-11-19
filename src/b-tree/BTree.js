@@ -156,13 +156,14 @@ class TreeNode {
     const leftSibling = this.subsets[i - 1];
     const rightSibling = this.subsets[i + 1];
 
+    const target = this.subsets[i];
     
     if ((!leftSibling?.isEnd()) &&leftSibling?.datas?.length > TreeNode.MINIMUN) {
       // case 1 왼쪽 형제에서 노드 하나 가져옴
 
       // 왼쪽 형제의 가장 오른쪽 서브트리
       const rightSubset = leftSibling.subsets.splice(
-        leftSibling.data.length,
+        leftSibling.datas.length,
         1,
         TreeNode.END
       )[0];
@@ -170,8 +171,8 @@ class TreeNode {
       const rightData = leftSibling.datas.pop();
 
       // subset[i] 의 가장 왼쪽에 추가
-      this.subsets[i].datas.unshift(this.datas[i]);
-      this.subsets[i].subsets.unshift(rightSubset);
+      target.datas.unshift(this.datas[i]);
+      target.subsets.unshift(rightSubset);
 
       this.datas.splice(i, 1, rightData);
     } else if ((!rightSibling.isEnd()) && rightSibling?.datas?.length > TreeNode.MINIMUN) {
@@ -184,19 +185,19 @@ class TreeNode {
       const leftData = rightSibling.datas.shift();
 
       // subset[i] 의 가장 오른쪽에 추가
-      this.subsets[i].datas.push(this.datas[i]);
-      this.subsets[i].subsets.splice(this.datas.length, 0, leftSubset);
+      target.datas.push(this.datas[i]);
+      target.subsets.splice(this.datas.length, 0, leftSubset);
 
       this.datas.splice(i, 1, leftData);
     } else if(leftSibling !== null && leftSibling !== undefined && (!leftSibling?.isEnd())){
       // case 3-1 왼쪽 형제와 합침
-      // TODO: 합쳐진 새로운 노드의 datas가 정렬되어있지 않는 문제 해결하기
+
       const newDatas = leftSibling.datas
-        .concat(this.datas.splice(i, 1))
-        .concat(this.subsets[i].datas);
+        .concat(this.datas.splice(i-1, 1))
+        .concat(target.datas);
       const newSubsets = leftSibling.subsets
         .filter((child) => !child.isEnd())
-        .concat(this.subsets[i].subsets.filter((child) => !child.isEnd()));
+        .concat(target.subsets.filter((child) => !child.isEnd()));
 
       const newChild = new TreeNode(newDatas, newSubsets, leftSibling.index);
       this.subsets.splice(i - 1, 2, newChild);
@@ -204,11 +205,10 @@ class TreeNode {
     } else if(rightSibling !== null && rightSibling !== undefined && (!rightSibling?.isEnd())){
       // case 3-2 오른쪽 형제와 합침
     
-      
-      const newDatas = this.subsets[i].datas
+      const newDatas = target.datas
       .concat(this.datas.splice(i, 1))
       .concat(rightSibling.datas);
-      const newSubsets = this.subsets[i].subsets
+      const newSubsets = target.subsets
         .filter((child) => !child.isEnd())
         .concat(rightSibling.subsets.filter((child) => !child.isEnd()));
 
