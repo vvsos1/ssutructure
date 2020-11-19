@@ -3,9 +3,6 @@ const p5 = require("p5");
 // h(key) = (key + a * order) mod 5 에서 a 값을 받아 옴
 const inputA = document.getElementById("linear-a-input");
 
-const DataSearch = document.getElementById("data-search");
-const DataSearchBtn = document.getElementById("data-search-btn");
-
 class LinearProbing {
 
     // 해시 테이블 생성자 함수

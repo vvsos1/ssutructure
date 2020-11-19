@@ -4,9 +4,6 @@ const p5 = require("p5");
 const inputA = document.getElementById("quadratic-a-input");
 const inputB = document.getElementById("quadratic-b-input");
 
-const DataSearch = document.getElementById("data-search");
-const DataSearchBtn = document.getElementById("data-search-btn");
-
 class QuadraticProbing {
 
     // 해시 테이블 생성자 함수
