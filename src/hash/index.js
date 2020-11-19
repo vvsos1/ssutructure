@@ -1,11 +1,13 @@
+const p5 = require("p5");
+
 const LinearProbing = require("../linear-probing/LinearProbing");
 const QuadraticProbing = require("../quadratic-probing/QuadraticProbing");
-
-const p5 = require("p5");
+const Chaining = require("../chaining/Chaining");
 
 // 해시테이블 종류 Radio
 const linearProbingRadio = document.getElementById("linear-probing-radio");
 const quadraticProbingRadio = document.getElementById("quadratic-probing-radio");
+const chainingRadio = document.getElementById("chaining-radio");
 
 // 함수 입력 컨테이너 
 const linearContainerA = document.getElementById("linear-a-container");
@@ -46,132 +48,49 @@ linearProbingRadio.onchange = (e) => {
     quadraticContainerB.classList.add("d-none");
 };
 
-let searchedIndex = null;
+// Chaining 라디오 버튼 클릭시
+chainingRadio.onchange = (e) => {
+  console.log(`chaining checked`);
+  hashtable = new Chaining();
+  linearContainerA.classList.add("d-none");
+  quadraticContainerA.classList.add("d-none");
+  quadraticContainerB.classList.add("d-none");
+};
 
 // 에러 메세지 전달 팝업창 함수 
 function modalPopUp(error) {
-    const modelBody = document.querySelector('#model-body')
-    modelBody.querySelector('p').innerText = error
-    $('#errorModel').modal()
+  const modelBody = document.querySelector('#model-body')
+  modelBody.querySelector('p').innerText = error
+  $('#errorModel').modal()
 }
 
-// 시각화 함수
-function setting(p) {
 
-  function clearAndRedraw() {
-    p.clear();
-    p.redraw();
-  }
-
-  // 해시테이블의 위치 지정 함수
-  function getCirclePosition(index) {
-    return Object.freeze({
-      x:
-	p.displayWidth/4,
-      y: 
-	DataDelete.getBoundingClientRect().left +
-        20 + (p.windowHeight / (hashtable.tableSize * 1.2)) * index,
-    });
-  }
-
-  
-  function setup() {
-    p.createCanvas(p.displayWidth/2, p.windowHeight);
-
-    // 데이터 Add 버튼 클릭 이벤트 함수
-    
-    DataAddBtn.onclick = function () {
-      searchedIndex = null;
-      const key = DataAdd.value;
-      if (key) {
-          try {
-              console.log(`DataAddBtn click; data : ${key}`);
-              hashtable.insert(key);
-              DataAdd.value = "";
-          } catch (error) {
-	      console.error(error);
-	      modalPopUp(error);
-	  }
-      }
-      clearAndRedraw();
-    };
-
-    // 데이터 Delete 버튼 클릭 이벤트 함수
-    DataDeleteBtn.onclick = function () {
-      searchedIndex = null;
-      const key = DataDelete.value;
-      if (key) {
-	  try {
-              hashtable.delete(key);
-              DataDelete.value = "";
-          } catch (error) {
-	      console.error(error);
-	      modalPopUp(error);
-	  }
-      }
-      clearAndRedraw();
-    };
-
-    // 데이터 Search 버튼 클릭 이벤트 함수
-    // searchedIndex에 key값의 인덱스 저장
-    DataSearchBtn.onclick = function () {
-      searchedIndex = null;
-      const key = DataSearch.value;
-      if (key) {
-	  try {
-       	      searchedIndex = hashtable.search(key);
-              DataSearch.value = "";
-          } catch (error) {
-              console.error(error);
-              modalPopUp(error);
-          }
-      } 
-      clearAndRedraw();
-    };
-
-    p.textAlign(p.CENTER, p.CENTER);
-    p.textSize(30);
-    p.ellipseMode(p.CENTER);
-    p.strokeWeight(3);
-    p.noLoop();
-  }
-
-  function draw() {
-    for (let i = 0; i < hashtable.tableSize; ++i) {
-
-      let key = hashtable.hashTable[i];
-
-      // 삭제에 성공하였을 경우 (채우기)
-      if (key === null) {
-        key = "DEL";
-        p.fill("orange");
-      }
-
-      // 삽입에 성공하였을 경우(테두리)
-      if (key !== undefined) p.stroke("orange");
-
-      // 검색에 성공하였을 경우 (테두리)
-      if (searchedIndex === i) p.stroke("#bbdeed");
-
-      c = getCirclePosition(i);
-
-      // 해시테이블의 circle 크기 지정
-      p.circle(c.x, c.y, 60);
-
-      // 채우기
-      if (key !== undefined) {
-        if (key == "DEL") p.fill(255);
-        else if (i === searchedIndex) p.fill("#bbdeed");
-        else p.fill("orange");
-        p.text(key, c.x, c.y);
-	p.fill(255);
-        p.stroke("black");
-      }
+DataAddBtn.onclick = e => {
+    const key = DataAdd.value;
+    try {
+          hashtable.insert(key);
+          hashtable.draw();
+    } catch (error) {
+      modalPopUp(error);
     }
-  }
+};
 
-  p.setup = setup;
-  p.draw = draw;
-}
+DataDeleteBtn.onclick = e => {
+    const key = DataDelete.value;
+    try {
+          hashtable.delete(key);
+          hashtable.draw();
+    } catch (error) {
+      modalPopUp(error);
+    }
+};
 
-new p5(setting,document.getElementById('container'));
+DataSearchBtn.onclick = e => {
+    const key = DataSearch.value;
+    try {
+          hashtable.search(key);
+          hashtable.draw();
+    } catch (error) {
+      modalPopUp(error);
+    }
+};
