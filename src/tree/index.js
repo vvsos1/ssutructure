@@ -103,7 +103,7 @@ BTreeRadio.onchange = (e) => {
   clearTree();
   tree = new BTree();
 
-  // BTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
+  // BTree 삭제 버튼 활성화
   newDataRemoveBtn.disabled = false;
 };
 
