@@ -51,13 +51,10 @@ class QuadraticProbing {
                         p.fill("orange");
                     }
 
-                    if (key !== undefined) {
-                        p.stroke("orange");
-                    }
+                    if (key !== undefined) p.stroke("orange");
+        
 
-                    if (this.searchedIndex  === i) {
-                        p.stroke("#bbdeed");
-                    }
+                    if (this.searchedIndex  === i) p.stroke("#bbdeed");
 
                     const c = getCirclePosition(i);
 
@@ -144,11 +141,11 @@ class QuadraticProbing {
 
             let hashedKey = this.hashFunction(key, i);
 
-	    if (this.hashTable[hashedKey] == key) {
-            this.searchedIndex = key;
-            this.draw();
-            return ;
-        }
+            if (this.hashTable[hashedKey] == key) {
+                this.searchedIndex = key;
+                this.draw();
+                return hashedKey;
+            }
 		    
         }
 	    // 검색 실패시 해당 키 값이 없음으로 판단하여 검색 오류 메세지 출력
@@ -160,10 +157,20 @@ class QuadraticProbing {
     // 검색 함수를 이용하여 키의 위치를 찾아내어 해당 위치의 값을 null로 변
     delete(key) {
 
-        let hashedKey = this.search(key);
-        this.hashTable[hashedKey] = null;
-        this.draw();
-        return hashedKey;
+        key = parseInt(key);
+
+        if (isNaN(key))
+           throw "Invalid Key!"
+         
+        for (let i = 0; i < this.tableSize; ++i) {
+
+            let hashedKey = this.hashFunction(key, i);
+
+            this.hashTable[hashedKey] = null;
+            this.draw();
+            return ;
+        }
+	    throw "Key Not Found!"        
     }
 }
 
