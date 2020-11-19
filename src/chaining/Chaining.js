@@ -49,7 +49,7 @@ class Chaining {
           let node = hashtable.hashTable[i];
           
           if (node === undefined) {
-            p.fill("grey");
+            p.stroke("black");
           }
           
           if (node !== undefined) {
@@ -67,7 +67,7 @@ class Chaining {
           const nodeMargin = 30;
 
           for (let j = 0; node !== undefined && node !== null; j++) {
-            if (this.searchedNode == node) {
+            if (node === this.searchedNode) {
               p.stroke("#bbdeed");
             } else {
               p.stroke("orange");
@@ -96,8 +96,6 @@ class Chaining {
           }
         }
       };
-
-  
 
       p.setup = setup;
       p.draw = draw;
@@ -155,11 +153,25 @@ class Chaining {
   // 삭제 함수
   // 검색 함수를 이용하여 키의 위치를 찾아내어 해당 위치의 값을 null로 변경 
   delete(key) {
-    let hashedKey = this.search(key);
+    if (isNaN(key)) throw "Invalid Key!";
 
-    this.hashTable[hashedKey] = null;
-    this.draw();
-    return;
+    let hashedKey = this.hashFunction(key);
+    let node = this.hashTable[hashedKey];
+
+    for (let i = 0; node !== undefined && node !== null; i++) {
+      if (node.data == key) {
+        for (let j = 0; node.next !== undefined && node.next !== null; j++) {
+          node.data = node.next.data;
+          node = node.next;
+        }
+        node.data = undefined;
+        //node.delete;
+        this.draw();
+        return;
+      }
+      node = node.next;
+    }
+    throw "Key Not Found!";
   }
 }
 

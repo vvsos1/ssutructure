@@ -145,7 +145,6 @@ class QuadraticProbing {
             let hashedKey = this.hashFunction(key, i);
 
 	    if (this.hashTable[hashedKey] == key) {
-            //this.draw();
             this.searchedIndex = key;
             this.draw();
             return ;
