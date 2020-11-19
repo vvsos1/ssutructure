@@ -12,6 +12,9 @@ class Tree{
     }
 
     remove(data,vizCallback){
+        if (!this.contain(data))
+            return;
+
         this.root = this.root.remove(data,vizCallback);
         vizCallback();
     }
@@ -29,8 +32,9 @@ class Tree{
       
         const data = {
           id,
-          text_1: root.data,
-          father: parentId,
+          data:root.data,
+          text: root.data,
+          parentId,
           color: root.getColor(),
           textColor: root.getColor()=='red'?'black' : root.getColor()=='black'?'red':'black'
         };

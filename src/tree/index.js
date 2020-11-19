@@ -5,6 +5,7 @@ const AVLTree = require("../avl-tree/AVLTree");
 const RedBlackTree = require("../red-black-tree/RedBlackTree");
 const BTree = require("../b-tree/BTree");
 
+
 const durationObject = {
   duration: 500,
 };
@@ -13,8 +14,7 @@ const config = {
   htmlId: "tree",
   idKey: "id",
   hasFlatData: true,
-  relationnalField: "father",
-  //hasPanAndZoom: false,
+  relationnalField: "parentId",
   hasPan: true,
   hasZoom: true,
   nodeWidth: 80,
@@ -22,25 +22,22 @@ const config = {
   mainAxisNodeSpacing: 2,
   duration: () => durationObject.duration,
   isHorizontal: false,
-  renderNode: function (node) {
-    return (
-      "<div class='box' style='cursor:pointer;height:" +
-      node.settings.nodeHeight +
-      "px; width:" +
-      node.settings.nodeWidth +
-      "px;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:" +
-      node.data.color +
-      ";border-radius:5px;'><div><strong style='color:"+
-      node.data.textColor+
-      "'>" +
-      node.data.text_1 +
-      "</strong></div></div>"
-    );
+  renderNode: function ({settings,data}) {
+    return `<div class='node' style='
+      height:${settings.nodeHeight}px; 
+      width:max-content;
+      background-color:${data.color};'>
+        <div>
+          <strong style='color:${data.textColor}'>
+            ${data.text}
+          </strong>
+        </div>
+      </div>`;
   },
   linkWidth: (nodeData) => 5,
   linkShape: "quadraticBeziers",
   linkColor: (nodeData) => "#54432A",
-  onNodeClick: (nodeData) => console.log(nodeData),
+  onNodeClick: ({data:{data}}) => tree.remove(data,vizCallback),
 };
 
 let treeviz = Treeviz.create(config);
@@ -52,15 +49,13 @@ const clearTree = () => {
   tree.clear();
   treeviz.clean();
   treeviz = Treeviz.create(config);
-}
+};
 
 let vizCallback = () => {
   const datas = tree.traversal();
-  if (datas.length === 0)
-    clearTree()
-  else
-   treeviz.refresh(datas);
-};;
+  if (datas.length === 0) clearTree();
+  else treeviz.refresh(datas);
+};
 
 const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
 const AVLTreeRadio = document.getElementById("avl-tree-radio");
@@ -78,7 +73,7 @@ const newDataRemoveBtn = document.getElementById("new-data-remove-btn");
 // 애니메이션 딜레이 Range
 const delayRange = document.getElementById("animation-delay-range");
 
-const dataClearBtn = document.getElementById('data-clear-btn');
+const dataClearBtn = document.getElementById("data-clear-btn");
 
 RedBlackTreeRadio.onchange = (e) => {
   console.log(`red black tree checked`);
@@ -117,7 +112,7 @@ newDataAddBtn.onclick = (e) => {
   if (newDataInput.value.trim() == "") return;
 
   const newData = Number(newDataInput.value);
-  
+
   tree.add(newData, vizCallback);
 
   // data clear
@@ -130,15 +125,12 @@ newDataRemoveBtn.onclick = (e) => {
 
   const newData = Number(newDataInput.value);
 
-  // 트리에 없는 데이터인경우
-  if (!tree.contain(newData)) return;
-
   tree.remove(newData, vizCallback);
 
   // data clear
   newDataInput.value = "";
 };
 
-dataClearBtn.onclick = e => {
+dataClearBtn.onclick = (e) => {
   clearTree();
-}
+};

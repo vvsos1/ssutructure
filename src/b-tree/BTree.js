@@ -14,11 +14,18 @@ class BTree extends Tree {
   }
 
   remove(data,vizCallback) {
+    if (!this.contain(data))
+      return;
+
     this.root = this.root.remove(data,vizCallback);
 
-    if((!this.root.isLeaf()) && (this.root.datas.length == 0) ) 
+    if((!this.root.isLeaf()) && (this.root.datas.length == 0) ) {
     // 자식이 있는데 datas가 없다면 빈 노드가 자식 1개만 가르키고 있는 경우이므로 자식을 자기 위치에 둠 
       this.root = this.root.subsets[0];
+    } else if (this.root.isLeaf() && (this.root.datas.length == 0) ) {
+      // 자식도 없고 datas 도 없으므로 root를 END 노드로 변경
+      this.root = TreeNode.END;
+    }
     vizCallback();
   }
 
@@ -29,8 +36,9 @@ class BTree extends Tree {
 
     const data = {
       id,
-      text_1: root.datas.join(", "),
-      father: parentId,
+      data:root.datas[0],
+      text: root.datas.join(", "),
+      parentId,
       color: root.getColor(),
       textColor: "black",
     };
@@ -171,10 +179,10 @@ class TreeNode {
       const rightData = leftSibling.datas.pop();
 
       // subset[i] 의 가장 왼쪽에 추가
-      target.datas.unshift(this.datas[i]);
+      target.datas.unshift(this.datas[i-1]);
       target.subsets.unshift(rightSubset);
 
-      this.datas.splice(i, 1, rightData);
+      this.datas.splice(i-1, 1, rightData);
     } else if ((!rightSibling.isEnd()) && rightSibling?.datas?.length > TreeNode.MINIMUN) {
       // case 2 오른쪽 형제에서 노드 하나 가져옴
 
