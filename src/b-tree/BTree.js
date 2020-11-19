@@ -152,7 +152,7 @@ class TreeNode {
       }
     }
   
-    const fixed = this.fixShortage(i);
+    const fixed = this.fixShortage(i,vizCallback);
     vizCallback();
     return fixed;
   }
