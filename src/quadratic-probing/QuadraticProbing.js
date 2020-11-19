@@ -41,11 +41,6 @@ class QuadraticProbing {
                 p.strokeWeight(3);
                 p.noLoop();
             }
-            
-            DataSearchBtn.onclick = function () {
-                const key = DataSearch.value;
-                searchedIndex = hashtable.search(key);
-            }
 
             const draw = () => {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
@@ -83,6 +78,7 @@ class QuadraticProbing {
             p.setup = setup;
             p.draw = draw;
 
+            this.remove = () => p.remove();
             this.draw = clearAndRedraw;
         };
         new p5(setting, document.getElementById("container"));
@@ -150,7 +146,9 @@ class QuadraticProbing {
 
 	    if (this.hashTable[hashedKey] == key) {
             //this.draw();
-            return hashedKey;
+            this.searchedIndex = key;
+            this.draw();
+            return ;
         }
 		    
         }
@@ -165,7 +163,7 @@ class QuadraticProbing {
 
         let hashedKey = this.search(key);
         this.hashTable[hashedKey] = null;
-        //this.draw();
+        this.draw();
         return hashedKey;
     }
 }

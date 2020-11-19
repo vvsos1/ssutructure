@@ -44,30 +44,18 @@ class Chaining {
         p.noLoop();
       }
 
-      DataSearchBtn.onclick = function () {
-        const key = (Number(DataSearch.value.trim() || 1) || 1);
-        searchedNode = this.search(key);
-      }
-
       const draw = () => {
         for (let i = 0; i < hashtable.tableSize; ++i) {
           let node = hashtable.hashTable[i];
-          let tmp = node;
-
-          for (let j = 0; node !== undefined && node !== null; j++) {
+          
+          if (node === undefined) {
+            p.fill("grey");
+          }
+          
+          if (node !== undefined) {
             p.stroke("orange");
-            node = node.next;
           }
-          node = tmp;
-
-          for (let j = 0; node !== undefined && node !== null; j++) {
-            if (this.searchedNode == j) {
-              p.stroke("#bbdeed");
-            }
-            node = node.next;
-          }
-          node = tmp;
-
+            
 
           const c = getCirclePosition(i);
 
@@ -79,6 +67,12 @@ class Chaining {
           const nodeMargin = 30;
 
           for (let j = 0; node !== undefined && node !== null; j++) {
+            if (this.searchedNode == node) {
+              p.stroke("#bbdeed");
+            } else {
+              p.stroke("orange");
+            }
+
             const deltaX = j * (lineLength + nodeSize + nodeMargin);
             const lineStartX = c.x + deltaX;
             // 선 생성
@@ -103,9 +97,12 @@ class Chaining {
         }
       };
 
+  
+
       p.setup = setup;
       p.draw = draw;
 
+      this.remove = () => p.remove();
       this.draw = clearAndRedraw;
     };
 
@@ -130,6 +127,8 @@ class Chaining {
     const newNode = new Node(key, next);
 
     this.hashTable[hashedKey] = newNode;
+
+    this.draw();
   }
 
   // 검색 함수
@@ -139,13 +138,14 @@ class Chaining {
     // 잘못된 입력일 경우 오류 메세지 출력
     if (isNaN(key)) throw "Invalid Key!";
 
-    let node = hashtable.hashTable[i];
-    let hashedKey = this.hashFunction(key);
+    let hashedKey = this.hashFunction(key); 
+    let node = this.hashTable[hashedKey];
     
     for (let i = 0; node !== undefined && node !== null; i++) {
-      if (this.hashTable[hashedKey] == key) {
-        this.searchedNode = hashedKey;
-        return hashedKey;
+      if (node.data == key) {
+        this.searchedNode = node;
+        this.draw();
+        return;
       }
       node = node.next;
     }
@@ -158,8 +158,8 @@ class Chaining {
     let hashedKey = this.search(key);
 
     this.hashTable[hashedKey] = null;
-
-    return hashedKey;
+    this.draw();
+    return;
   }
 }
 

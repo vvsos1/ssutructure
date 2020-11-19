@@ -1,4 +1,3 @@
-const p5 = require("p5");
 
 const LinearProbing = require("../linear-probing/LinearProbing");
 const QuadraticProbing = require("../quadratic-probing/QuadraticProbing");
@@ -27,6 +26,8 @@ let hashtable = new LinearProbing();
 // Quadratic Probing 라디오 버튼 클릭시 
 quadraticProbingRadio.onchange = (e) => {
     console.log(`quadratic probing checked`);
+    // 기존의 시각화된 테이블 삭제
+    hashtable.remove();
     hashtable = new QuadraticProbing();
     linearContainerA.classList.remove("block");
     linearContainerA.classList.add("d-none");
@@ -39,6 +40,8 @@ quadraticProbingRadio.onchange = (e) => {
 // Linear Probing 라디오 버튼 클릭시
 linearProbingRadio.onchange = (e) => {
     console.log(`linear probing checked`);
+    // 기존의 시각화된 테이블 삭제
+    hashtable.remove();
     hashtable = new LinearProbing();
     linearContainerA.classList.remove("d-none");
     linearContainerA.classList.add("block");
@@ -51,6 +54,8 @@ linearProbingRadio.onchange = (e) => {
 // Chaining 라디오 버튼 클릭시
 chainingRadio.onchange = (e) => {
   console.log(`chaining checked`);
+  // 기존의 시각화된 테이블 삭제
+  hashtable.remove();
   hashtable = new Chaining();
   linearContainerA.classList.add("d-none");
   quadraticContainerA.classList.add("d-none");
@@ -69,7 +74,6 @@ DataAddBtn.onclick = e => {
     const key = DataAdd.value;
     try {
           hashtable.insert(key);
-          hashtable.draw();
     } catch (error) {
       modalPopUp(error);
     }
@@ -79,7 +83,6 @@ DataDeleteBtn.onclick = e => {
     const key = DataDelete.value;
     try {
           hashtable.delete(key);
-          hashtable.draw();
     } catch (error) {
       modalPopUp(error);
     }
@@ -89,7 +92,6 @@ DataSearchBtn.onclick = e => {
     const key = DataSearch.value;
     try {
           hashtable.search(key);
-          hashtable.draw();
     } catch (error) {
       modalPopUp(error);
     }

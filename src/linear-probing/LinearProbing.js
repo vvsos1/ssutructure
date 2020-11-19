@@ -41,10 +41,7 @@ class LinearProbing {
                 p.noLoop();
             }
 
-            DataSearchBtn.onclick = function () {
-                const key = DataSearch.value;
-                searchedIndex = hashtable.search(key);
-            }
+
 
             const draw = () => {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
@@ -82,6 +79,7 @@ class LinearProbing {
             p.setup = setup;
             p.draw = draw;
 
+            this.remove = () => p.remove();
             this.draw = clearAndRedraw;
         };
         new p5(setting, document.getElementById("container"));
@@ -120,6 +118,7 @@ class LinearProbing {
                     case undefined:
                     case null:
                         this.hashTable[hashedKey] = key;
+                        this.draw();
                         return hashedKey;
                     case key:
                         throw "Duplicate Key!"
@@ -145,7 +144,9 @@ class LinearProbing {
             let hashedKey = this.hashFunction(key, i);
 
             if (this.hashTable[hashedKey] == key) {
-                return hashedKey;
+                this.searchedIndex = key;
+                this.draw();
+                return;
             }
 		    
         }
@@ -160,6 +161,7 @@ class LinearProbing {
 
         let hashedKey = this.search(key);
         this.hashTable[hashedKey] = null;
+        this.draw();
         return hashedKey;
     }
 }
