@@ -36,7 +36,7 @@ class Chaining {
       }
 
       function setup() {
-        p.createCanvas(p.displayWidth / 2, p.windowHeight);
+        p.createCanvas(p.displayWidth/1.4, p.windowHeight);
         p.textAlign(p.CENTER, p.CENTER);
         p.textSize(30);
         p.ellipseMode(p.CENTER);
@@ -48,33 +48,28 @@ class Chaining {
         for (let i = 0; i < hashtable.tableSize; ++i) {
           let node = hashtable.hashTable[i];
           
-          if (node === undefined) {
-            p.stroke("black");
-          }
+          if (node === undefined) p.stroke("black");
           
-          if (node !== undefined) {
-            p.stroke("orange");
-          }
-            
+          if (node !== undefined) p.stroke("orange");
 
+          if (node === this.searchedNode) p.stroke("#bbdeed");
+      
           const c = getCirclePosition(i);
 
           // 해시테이블의 circle 크기 지정
           p.circle(c.x, c.y, 60);
 
           const lineLength = 50;
-          const nodeSize = 50;
+          const nodeSize = 55;
           const nodeMargin = 30;
 
           for (let j = 0; node !== undefined && node !== null; j++) {
-            if (node === this.searchedNode) {
-              p.stroke("#bbdeed");
-            } else {
-              p.stroke("orange");
-            }
+
+            if (node === this.searchedNode) p.stroke("#bbdeed");
+            else p.stroke("orange");
 
             const deltaX = j * (lineLength + nodeSize + nodeMargin);
-            const lineStartX = c.x + deltaX;
+            const lineStartX = c.x + deltaX + 45;
             // 선 생성
             p.line(lineStartX, c.y, lineStartX + lineLength, c.y);
 
@@ -90,7 +85,14 @@ class Chaining {
             const nodeStartX = lineStartX + lineLength + 15;
 
             p.rect(nodeStartX, c.y - nodeSize / 2, nodeSize, nodeSize);
-            p.text(node.data, nodeStartX + nodeSize / 2, c.y);
+
+            if (node !== undefined) {
+              if (node === this.searchedNode) p.fill("#bbdeed");
+              else p.fill("orange");
+              p.text(node.data, nodeStartX + nodeSize / 2, c.y);
+              p.fill(255);
+              p.stroke("black");
+            }
 
             node = node.next;
           }
@@ -120,6 +122,18 @@ class Chaining {
     if (isNaN(key)) throw "Invalid Key!";
 
     let hashedKey = this.hashFunction(key);
+
+    // 중복 입력인 경우 중복 오류 메세지 출력 
+    let node = this.hashTable[hashedKey];
+    
+    for (let i = 0; node !== undefined && node !== null; i++) {
+      if (node.data == key) {
+        this.searchedNode = node;
+        throw "Duplicate Key!";
+      }
+      node = node.next;
+    }
+
     const next = this.hashTable[hashedKey] ?? null;
 
     const newNode = new Node(key, next);
@@ -133,7 +147,6 @@ class Chaining {
   search(key) {
     key = parseInt(key);
 
-    // 잘못된 입력일 경우 오류 메세지 출력
     if (isNaN(key)) throw "Invalid Key!";
 
     let hashedKey = this.hashFunction(key); 
@@ -159,12 +172,8 @@ class Chaining {
     let node = this.hashTable[hashedKey];
 
     for (let i = 0; node !== undefined && node !== null; i++) {
-      if (node.data == key) {
-        for (let j = 0; node.next !== undefined && node.next !== null; j++) {
-          node.data = node.next.data;
-          node = node.next;
-        }
-        node.data = undefined;
+      if (node.next.data == key) {
+        node.next = node.next.next;
         this.draw();
         return;
       }
