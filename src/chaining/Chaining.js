@@ -165,7 +165,6 @@ class Chaining {
           node = node.next;
         }
         node.data = undefined;
-        //node.delete;
         this.draw();
         return;
       }
