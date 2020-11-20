@@ -2,19 +2,13 @@ const p5 = require("p5");
 
 const FuncBtn = document.getElementById("chaining-btn");
 const Func = document.getElementById("chaining-function");
-//const HashSizeBtn = document.getElementById("hashsize-btn");
-//const HashSize = document.getElementById("hashsize-input");
 
 let f;
-//let tableSize;
 
 FuncBtn.onclick = e => {
   f = eval(Func.value);
 };
 
-//HashSizeBtn.onclick = e => {
-//  tableSize = HashSize.value;
-//};
 
 // Linked List's Node
 class Node {
