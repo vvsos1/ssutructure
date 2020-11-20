@@ -1,8 +1,13 @@
+const Tree = require('../tree/Tree');
 
-class RedBlackTree {
+class RedBlackTree extends Tree{
   constructor() {
+    super(TreeNode.END);
+  }
+  clear(){
     this.root = TreeNode.END;
   }
+
   add(data, vizCallback) {
     this.root = this.root.add(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
@@ -12,10 +17,6 @@ class RedBlackTree {
   remove(data, vizCallback) {
     this.root = this.root.remove(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
-  }
-
-  contain(data) {
-    return this.root.contain(data);
   }
 }
 

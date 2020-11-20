@@ -1,28 +1,26 @@
-class AVLTree {
+const Tree = require('../tree/Tree')
+
+class AVLTree extends Tree{
   constructor() {
+    super(AVLTreeNode.END);
+  }
+
+  clear(){
     this.root = AVLTreeNode.END;
   }
-  add(data, vizCallback) {
-    this.root = this.root.add(data, vizCallback);
-    vizCallback();
-  }
-  remove(data, vizCallback) {
-    this.root = this.root.remove(data, vizCallback);
-    vizCallback();
-  }
+
   height() {
     if (this.root != null) return this.root.height;
     else return 0;
   }
-  contain(data) {
-    return this.root.contain(data);
-  }
+
+  
 }
 
 class AVLTreeNode {
 
   getColor() {
-    return "skyblue";
+    return "rosybrown";
   }
 
   constructor(data, left = AVLTreeNode.END, right = AVLTreeNode.END) {
