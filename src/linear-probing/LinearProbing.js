@@ -3,6 +3,8 @@ const p5 = require("p5");
 // h(key) = (key + a * order) mod 5 에서 a 값을 받아 옴
 const inputA = document.getElementById("linear-a-input");
 
+const DEL = Symbol();
+
 class LinearProbing {
 
     // 해시 테이블 생성자 함수
@@ -11,6 +13,7 @@ class LinearProbing {
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
         this.insertedIndex = null;
+        this.deletedIndex = null;
 
         const setting = (p) => {
             const hashtable = this;
@@ -45,30 +48,29 @@ class LinearProbing {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
 
-                    if (key === null) {
-                        key = undefined;
+                    if (this.deletedIndex === i) {
+                        key = DEL;
                         p.stroke("red");
                     }
 
                     if (this.searchedIndex === i) p.stroke("#bbdeed");
 
                     if (this.insertedIndex === i) p.stroke("orange");
-                    
-
 
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
                  
                     if (key !== undefined) {
-                        if (this.searchedIndex === i) p.fill("#bbdeed");
+                        if (this.deletedIndex === i) p.fill(255);
+                        else if (this.searchedIndex === i) p.fill("#bbdeed");
                         else if (this.insertedIndex === i) p.fill("orange");
                         else p.fill("black");
-                        p.text(key, c.x, c.y);
+                        if (key !== DEL)
+                            p.text(key, c.x, c.y);
                         p.fill(255);
                         p.stroke("black");
                     }
-                    
                 }
                 clearAndRedraw;
             };
@@ -166,11 +168,13 @@ class LinearProbing {
             let hashedKey = this.hashFunction(key, i);
 
             this.hashTable[hashedKey] = null;
+            this.deletedIndex = hashedKey;
             this.draw();
             return ;
         }
 	    throw "Key Not Found!"        
     }
+
 }
 
 module.exports = LinearProbing;
