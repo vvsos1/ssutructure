@@ -13,6 +13,7 @@ const linearContainerA = document.getElementById("linear-a-container");
 const quadraticContainerA = document.getElementById("quadratic-a-container");
 const quadraticContainerB = document.getElementById("quadratic-b-container");
 const chainingContainer = document.getElementById("chaining-container");
+//const hashSizeContainer = document.getElementById("hashsize-container");
 
 // 데이터 입력 버튼
 const DataAdd = document.getElementById("data-add");
@@ -34,6 +35,7 @@ linearProbingRadio.onchange = (e) => {
   quadraticContainerA.classList.add("d-none");
   quadraticContainerB.classList.add("d-none");
   chainingContainer.classList.add("d-none");
+  //hashSizeContainer.classList.add("d-none");
 };
 
 // Quadratic Probing 라디오 버튼 클릭시 
@@ -46,6 +48,7 @@ quadraticProbingRadio.onchange = (e) => {
     quadraticContainerA.classList.remove("d-none");
     quadraticContainerB.classList.remove("d-none");
     chainingContainer.classList.add("d-none");
+    //hashSizeContainer.classList.add("d-none");
 };
 
 // Chaining 라디오 버튼 클릭시
@@ -58,6 +61,7 @@ chainingRadio.onchange = (e) => {
   quadraticContainerA.classList.add("d-none");
   quadraticContainerB.classList.add("d-none");
   chainingContainer.classList.remove("d-none");
+  //hashSizeContainer.classList.remove("d-none");
 };
 
 // 에러 메세지 전달 팝업창 함수 

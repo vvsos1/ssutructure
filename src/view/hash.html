@@ -86,9 +86,16 @@
 
             <!-- Chaining 함수-->
             <!-- 사용자 함수 입력 폼 컨테이너-->
+            <!-- 해시테이블 수 입력 폼 컨테이너-->
+            <!--div class="d-none" id="hashsize-container">
+                <div class="row m-0 p-0">
+                    <input type="number" id="hashsize-input" class="form-control col-5 mr-2">
+                    <button type="button" id="hashsize-btn" class="btn btn-dark">해시테이블 사이즈 </button>
+                </div>
+            </div-->
             <div class="d-none" id="chaining-container">
                 <label for="new-expression-input">해시함수를 입력하세요</label>
-                <div class="textbox">
+                <div class="row m-0 p-0">
                     <input type="text" id="chaining-function" placeholder="ex) i => i % 5"/>
                     <button type="button" id="chaining-btn" class="btn btn-dark" > 입력 </button>
                 </div>

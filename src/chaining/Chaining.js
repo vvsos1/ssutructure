@@ -2,8 +2,19 @@ const p5 = require("p5");
 
 const FuncBtn = document.getElementById("chaining-btn");
 const Func = document.getElementById("chaining-function");
+//const HashSizeBtn = document.getElementById("hashsize-btn");
+//const HashSize = document.getElementById("hashsize-input");
 
+let f;
+//let tableSize;
 
+FuncBtn.onclick = e => {
+  f = eval(Func.value);
+};
+
+//HashSizeBtn.onclick = e => {
+//  tableSize = HashSize.value;
+//};
 
 // Linked List's Node
 class Node {
@@ -49,8 +60,6 @@ class Chaining {
       const draw = () => {
         for (let i = 0; i < hashtable.tableSize; ++i) {
           let node = hashtable.hashTable[i];
-
-          //if (node === undefined) p.stroke("black");
           
           if (node !== undefined) p.stroke("orange");
 
@@ -112,7 +121,7 @@ class Chaining {
 
   // hash 함수
   hashFunction(key) {
-    return key % this.tableSize;
+    return f(key);
   }
 
   // 삽입 함수
