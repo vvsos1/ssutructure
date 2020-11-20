@@ -137,7 +137,7 @@ class LinearProbing {
             let hashedKey = this.hashFunction(key, i);
 
             if (this.hashTable[hashedKey] == key) {
-                this.searchedIndex = key;
+                this.searchedIndex = hashedKey;
                 this.draw();
                 return hashedKey;
             }
