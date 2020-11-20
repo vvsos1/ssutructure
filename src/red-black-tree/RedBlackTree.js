@@ -17,6 +17,7 @@ class RedBlackTree extends Tree{
   remove(data, vizCallback) {
     this.root = this.root.remove(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
+    vizCallback();
   }
 }
 
