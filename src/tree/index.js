@@ -42,11 +42,10 @@ const myTree = Treeviz.create({
   onNodeClick: (nodeData) => console.log(nodeData),
 });
 
-// (AVLTreeNode,Integer) -> Array
-// AVLTree를 Treeviz로 시각화 할 수 있는 포맷으로 만들어 반환
 function traversal(root, parentId) {
   // console.log("traversal() : root = " + root);
   if (root.isEnd()) return [];
+
 
   const id = Number.parseInt(root.data);
 
@@ -96,17 +95,16 @@ RedBlackTreeRadio.onchange = (e) => {
   tree = new RedBlackTree();
   vizCallback = vizCallbackMaker(tree, myTree.refresh);
 
-  // // RedBlackTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
-  // newDataRemoveBtn.disabled = true;
+  // 디버깅용
+  new Array(9).fill(0).forEach((_,idx) => tree.add(idx+1,_=>_));
+  tree.add(10,vizCallback);
+
 };
 
 AVLTreeRadio.onchange = (e) => {
   console.log(`avl tree checked`);
   tree = new AVLTree();
-  vizCallback = vizCallbackMaker(tree, myTree.refresh);
-
-  // // AVLTree 삭제 버튼 활성화
-  // newDataRemoveBtn.disabled = false;
+  vizCallback = vizCallbackMaker(tree, myTree.refresh)
 };
 
 delayRange.oninput = (e) => {

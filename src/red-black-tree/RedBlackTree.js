@@ -1,6 +1,7 @@
+
 class RedBlackTree {
   constructor() {
-    this.root = new EndNode();
+    this.root = TreeNode.END;
   }
   add(data, vizCallback) {
     this.root = this.root.add(data, vizCallback);
@@ -12,11 +13,9 @@ class RedBlackTree {
     this.root = this.root.remove(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
   }
+
   contain(data) {
     return this.root.contain(data);
-  }
-  toString() {
-    return "END";
   }
 }
 
@@ -24,273 +23,169 @@ class TreeNode {
   constructor(
     data,
     color = TreeNode.RED,
-    left = new EndNode(this),
-    right = new EndNode(this)
+    left = TreeNode.END,
+    right = TreeNode.END
   ) {
     this.data = data;
     this.left = left;
     this.right = right;
     this.color = color;
-    this.parent = null;
   }
 
   getColor() {
     if (this.isBlack()) return "black";
-    if (this.isRed()) return "red";
-    else
-      throw new Error(
-        `레드 블랙 트리 노드의 색상은 항상 레드 | 블랙 중 하나여야 합니다. node :${this}, color : ${this.color}`
-      );
+    else if (this.isRed()) return "red";
+    else throw `unknown color ${this.color}`
   }
-
-  replaceNode(child) {
-    // 앞에서 this의 부모가 null 이 되는 경우를 delete case에 오지 않게 미리 처리해주면 된다
-    child.parent = this.parent;
-    if (this.parent.left === this) {
-      this.parent.left = child;
-    } else if (this.parent.right === this) {
-      this.parent.right = child;
-    }
-  }
-
-  deleteOneChild() {
-    // 선제조건 : n이 최대 하나의 non null 자식을 갖고 있음
-    if (!this.left.isEnd() && !this.right.isEnd())
-      throw new Error(`deleOneChild : ${this}`);
-
-    const child = this.right.isEnd() ? n.left : n.right;
-
-    this.replaceNode(child);
-    if (this.isBlack()) {
-      if (child.isRed()) {
-        child.color = TreeNode.BLACK;
-      } else {
-        const newChild =  child.deleteCase1();
-        if (!this.left.isEnd())
-          this.left = newChild;
-        else
-          this.right = newChild;
-
-      }
-    }
-  }
-
-  deleteCase1() {
-    if (this.parent != null) return this.deleteCase2();
-  }
-
-  deleteCase2() {
-    const sibling = this.getSibling();
-    // const parentOfParent = this.parent.parent;
-    if (sibling.isRed()) {
-      this.parent.color = TreeNode.RED;
-      sibling.color = TreeNode.BLACK;
-      if (this == this.parent.left) {
-        this.parent = this.parent.rotateLeft();
-      } else {
-        this.parent = this.parent.rotateRight();
-      }
-    }
-    return this.deleteCase3();
-  }
-
-  deleteCase3() {
-    const sibling = this.getSibling();
-
-    if (
-      this.parent.isBlack() &&
-      sibling.isBlack() &&
-      sibling.left.isBlack() &&
-      sibling.right.isBlack()
-    ) {
-      sibling.color = TreeNode.RED;
-      this.parent = this.parent.deleteCase1();
-      return this;
-    } else {
-      return this.deleteCase4();
-    }
-  }
-
-  deleteCase4() {
-    const sibling = this.getSibling();
-
-    if (
-      this.parent.isRed() &&
-      sibling.isBlack() &&
-      sibling.left.isBlack() &&
-      sibling.right.isBlack()
-    ) {
-      sibling.color = TreeNode.RED;
-      this.parent.color = TreeNode.BLACK;
-    } else {
-      return this.deleteCase5();
-    }
-  }
-
-  deleteCase5() {
-    const sibling = this.getSibling();
-    const isSiblingRight = this.parent.left === this;
-    
-    let newSibling;
-
-    if (sibling.isBlack()) {
-      if ((this === this.parent.left) && 
-      sibling.right.isBlack() &&
-      sibling.left.isRed()) {
-        sibling.color = TreeNode.RED;
-        sibling.left.color = TreeNode.BLACK;
-        newSibling = sibling.rotateRight();
-      } else if ((this === this.parent.right) && 
-      sibling.left.isBlack() &&
-      sibling.right.isRed()) {
-        sibling.color = TreeNode.RED;
-        sibling.right.color = TreeNode.BLACK;
-        newSibling = sibling.rotateLeft();
-      }
-    }
-    if(isSiblingRight)
-      this.parent.right = newSibling;
-    else
-      this.parent.left = newSibling;
-
-    return this.deleteCase6();
-  }
-
-  deleteCase6() {
-    const sibling = this.getSibling();
-
-    sibling.color = this.parent.color;
-    this.parent.color = TreeNode.BLACK;
-
-    if (this === this.parent.left ) {
-      sibling.right.color = TreeNode.BLACK;
-      this.parent = this.parent.rotateLeft();
-    } else {
-      sibling.left.color = TreeNode.BLACK;
-      this.parent = this.parent.rotateRight();
-    }
-    return this;
-  }
-
-
 
   // data를 지운 서브트리를 반환
   remove(data, vizCallback) {
+    let isXLeft;
     // 미완성
-    if (data < this.data) {
-      this.left = this.left.remove(data, vizCallback);
-      this.left.parent = this;
-    } else if (this.data < data) {
-      this.right = this.right.remove(data, vizCallback);
-      this.right.parent = this;
-    } else {
-      if (this.hasLeft()) {
+    if (this.data == data) {
+      if (this.hasLeft()){
+        // data를 찾았고, left가 있는 경우
         const rightMost = this.left.getRightmost();
-        // 서로 값 변경
-        const rightMostData = rightMost.data;
-        rightMost.data = this.data;
-        this.data = rightMostData;
-        vizCallback();
-       rightMost.parent =  rightMost.parent.deleteOneChild();
-
-      } else if (this.hasRight()) {
+        // left의 rightmost와 data swap
+        TreeNode.swapData(this,rightMost);
+        this.left = this.left.remove(data,vizCallback);
+        // fix로 고칠 노드를 this.left로 설정
+        isXLeft = true;
+      } else if (this.hasRight()){
+        // data를 찾았고, left가 있는 경우
         const leftMost = this.right.getLeftmost();
-        // 서로 값 변경
-        const leftMostData = leftMost.data;
-        leftMost.data = this.data;
-        this.data = leftMostData;
-        vizCallback();
-       leftMost.parent =  leftMost.parent.deleteOneChild();
+        // left의 rightmost와 data swap
+        TreeNode.swapData(this,leftMost);
+        this.right = this.right.remove(data,vizCallback);
+        // fix로 고칠 노드를 this.right로 설정
+        isXLeft = false;
+      } else {
+        // data를 찾았고, leaf 노드인 경우
+        return TreeNode.END;
       }
+    } else if (data < this.data) {
+      // data가 left에 있는 경우
+      this.left = this.left.remove(data,vizCallback);
+      // fix로 고칠 노드를 this.left로 설정
+      isXLeft = true;
+    } else if (this.data < data) {
+      // data가 right에 있는 경우
+      this.right = this.right.remove(data,vizCallback);
+      // fix로 고칠 노드를 this.right로 설정
+      isXLeft = false;
     }
+    const fixed = this.fix(isXLeft);
     vizCallback();
-    return this;
+    return fixed;
   }
 
-  
+    // TODO : 1~10까지 차례로 넣은 상태에서 1 삭제한 형태가 이상함.
+  // parent 노드 기준으로 x, s, l, r 노드의 균형을 맞춘 뒤 parent 자리 노드를 반환
+  fix(isXLeft) {
+    //isXLeft:Boolean
+    let x,
+      p = this,
+      s,
+      l,
+      r;
 
-  getSibling() {
-    if (this.parent == null) {
-      console.log(`getSibling: ${this} 는 부모 노드가 없습니다`);
-      return;
-    }
-    const { left, right } = this.parent;
+    // x가 p의 left냐 right냐에 따라 값을 할당
+    if (isXLeft) {
+      x = p.left;
+      s = p.right;
+      l = s.left;
+      r = s.right;
 
-    if (left === this) return right;
-    else if (right === this) return left;
-    else
-      throw new Error(
-        `객체 무결성 손상; this : ${this}, parent.left : ${left}, parent.right " ${right}`
-      );
-  }
+      // 애초에 x가 black이 아니라면 문제가 발생하지 않음
+      if (!x.isBlack()) return;
 
-  // x를 기준으로 p, s, l ,r 을 적절히 변형한 뒤 x 자리의 노드를 리턴
-  fix() {
-    if (this.parent == null)
-      // 부모노드가 없는 경우는 필요없음
-      return this;
-    if (this.isRed())
-      // x가 red인 경우는 필요없음
-      return;
-    let parent = this.parent;
-    let sibling = this.getSibling();
+      // x는 항상 black 이므로 조건문에서 x.isBlack() 생략
+      // x가 p의 left일 때의 코드
+      if (s.isBlack() && l.isBlack() && r.isBlack()) {
+        // case *-1
+        p.setColorBlack();
+        s.setColorRed();
+        return p;
+      } else if (s.isBlack() && r.isRed()) {
+        // case *-2
+        TreeNode.swapColor(p, s);
+        r.setColorBlack();
+        p = p.rotateLeft();
+        return p;
+      } else if (s.isBlack() && l.isRed() && r.isBlack()) {
+        // case *-3
+        TreeNode.swapColor(s, l);
+        s = s.rotateRight();
+        p.right = s;
+        l = s.left;
+        r = s.right;
+        // case *-2의 방법 적용
+        TreeNode.swapColor(p, s);
+        r.setColorBlack();
+        p = p.rotateLeft();
+        return p;
+      }else if (this.isBlack() && s.isRed() && l.isBlack() && r.isBlack()) {
+        p = p.rotateLeft();
 
-    if (
-      parent.isRed() &&
-      sibling.isBlack() &&
-      sibling.left.isBlack() &&
-      sibling.right.isBlack()
-    ) {
-      sibling.color = TreeNode.RED;
-      return this;
-    } else if (sibling.isBlack() && sibling.right.isRed()) {
-      // case *-2
-      parent.rotateLeft();
-      let parentColor = parent.color;
-      let siblingColor = sibling.color;
-      parent.color = siblingColor;
-      sibling.color = parentColor;
-      return parent;
-    } else if (
-      sibling.isBlack() &&
-      sibling.left.isRed() &&
-      sibling.right.isBlack()
-    ) {
-      // case *-3
-      sibling.left.color = TreeNode.BLACK;
-      sibling.color = TreeNode.RED;
-      parent.right = sibling.rotateRight();
-      return this;
-    } else if (parent.isBlack()) {
-      // case 2-*
-      if (
-        sibling.isBlack() &&
-        sibling.left.isBlack() &&
-        sibling.right.isBlack()
-      ) {
-        //case 2-1
-        sibling.color = TreeNode.RED;
+        p.left = p.left.fix(true);
+      
+        return p;
+      } else {
         return this;
-      } else if (
-        sibling.isRed() &&
-        sibling.left.isBlack() &&
-        sibling.right.isBlack()
-      ) {
-        //case 2-4
-        parent.rotateLeft();
-        return sibling;
+      }
+    } else { 
+      x = p.right;
+      s = p.left;
+      l = s.right;
+      r = s.left;
+
+      // 애초에 x가 black이 아니라면 문제가 발생하지 않음
+      if (!x.isBlack()) return;
+
+      // x는 항상 black 이므로 조건문에서 x.isBlack() 생략
+      // x가 p의 left일 때의 코드
+      if (s.isBlack() && l.isBlack() && r.isBlack()) {
+        // case *-1
+        p.setColorBlack();
+        s.setColorBlack();
+        return p;
+      } else if (s.isBlack() && r.isRed()) {
+        // case *-2
+        TreeNode.swapColor(p, s);
+        r.setColorBlack();
+        p = p.rotateRight();
+        return p;
+      } else if (s.isBlack() && l.isRed() && r.isBlack()) {
+        // case *-3
+        TreeNode.swapColor(s, l);
+        s = s.rotateLeft();
+        p.left = s;
+        l = s.right;
+        r = s.left;
+        // case *-2의 방법 적용
+        TreeNode.swapColor(p, s);
+        r.setColorBlack();
+        p = p.rotateRight();
+        return p;
+      }else if (this.isBlack() && s.isRed() && l.isBlack() && r.isBlack()) {
+        p = p.rotateRight();
+
+        p.right = p.right.fix(false);
+      
+        return p;
+      } else {
+        return this;
       }
     }
   }
+
 
   // data를 추가한 서브트리를 반환
   add(data, vizCallback) {
     if (data < this.data) {
       this.left = this.left.add(data, vizCallback);
-      this.left.parent = this;
     } else if (this.data < data) {
       this.right = this.right.add(data, vizCallback);
-      this.right.parent = this;
     }
     const fixed = this.fixColor();
     vizCallback();
@@ -309,9 +204,7 @@ class TreeNode {
           return root;
         } else if (this.right.isRed()) {
           // LL 상태 & 형제가 RED
-          this.color = TreeNode.RED;
-          this.left.color = TreeNode.BLACK;
-          this.right.color = TreeNode.BLACK;
+          this.recoloring();
           return this;
         }
       } else if (this.left.right.isRed()) {
@@ -325,13 +218,12 @@ class TreeNode {
           return root;
         } else if (this.right.isRed()) {
           // LR 상태 & 형제가 RED
-          this.color = TreeNode.RED;
-          this.left.color = TreeNode.BLACK;
-          this.right.color = TreeNode.BLACK;
+          this.recoloring();
           return this;
         }
       }
-    } else if (this.right.isRed() && !this.right.isLeaf()) {
+    }
+    if (this.right.isRed() && (!this.right.isLeaf())) {
       if (this.right.left.isRed()) {
         if (this.left.isBlack()) {
           // RL 상태 & 형제가  BLACK
@@ -343,9 +235,7 @@ class TreeNode {
           return root;
         } else if (this.left.isRed()) {
           // RL 상태 & 형제가 RED
-          this.color = TreeNode.RED;
-          this.left.color = TreeNode.BLACK;
-          this.right.color = TreeNode.BLACK;
+          this.recoloring();
           return this;
         }
       } else if (this.right.right.isRed()) {
@@ -359,14 +249,18 @@ class TreeNode {
           return root;
         } else if (this.left.isRed()) {
           // RR 상태 & 형제가 RED
-          this.color = TreeNode.RED;
-          this.left.color = TreeNode.BLACK;
-          this.right.color = TreeNode.BLACK;
+          this.recoloring();
           return this;
         }
       }
     }
     return this;
+  }
+
+  recoloring(){
+    this.setColorRed();
+    this.left.setColorBlack();
+    this.right.setColorBlack();
   }
 
   contain(data) {
@@ -381,10 +275,6 @@ class TreeNode {
     left.right = this;
     this.left = rightOfLeft;
 
-    left.parent = this.parent;
-    this.parent = left;
-    rightOfLeft.parent = this;
-
     return left;
   }
 
@@ -394,10 +284,6 @@ class TreeNode {
 
     right.left = this;
     this.right = leftOfRight;
-
-    right.parent = this.parent;
-    this.parent = right;
-    leftOfRight.parent = this;
 
     return right;
   }
@@ -440,6 +326,14 @@ class TreeNode {
     return !this.right.isEnd();
   }
 
+  setColorRed() {
+    this.color = TreeNode.RED;
+  }
+
+  setColorBlack() {
+    this.color = TreeNode.BLACK;
+  }
+
   isRed() {
     return this.color === TreeNode.RED;
   }
@@ -458,10 +352,23 @@ class TreeNode {
 TreeNode.RED = Symbol.for("RED");
 TreeNode.BLACK = Symbol.for("BLACK");
 
-class EndNode extends TreeNode {
-  constructor(parent) {
+TreeNode.swapColor = (node1, node2) => {
+  const { color: color1 } = node1;
+  const { color: color2 } = node2;
+  node1.color = color2;
+  node2.color = color1;
+};
+
+TreeNode.swapData = (node1, node2) => {
+  const { data: data1 } = node1;
+  const { data: data2 } = node2;
+  node1.data = data2;
+  node2.data = data1;
+};
+
+TreeNode.END = new (class extends TreeNode {
+  constructor() {
     super(null, TreeNode.BLACK, null, null);
-    this.parent = parent;
   }
 
   add(data) {
@@ -478,6 +385,6 @@ class EndNode extends TreeNode {
   isEnd() {
     return true;
   }
-}
+})();
 
 module.exports = RedBlackTree;
