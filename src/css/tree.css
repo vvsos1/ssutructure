@@ -10,3 +10,13 @@ body {
 * {
     font-family: 'Sunflower';
   }
+
+.node {
+    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    border-radius:5px;
+    min-width: 80px;
+}
