@@ -10,6 +10,7 @@ class LinearProbing {
         this.tableSize = tableSize;
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
+        this.insertedIndex = null;
 
         const setting = (p) => {
             const hashtable = this;
@@ -45,26 +46,29 @@ class LinearProbing {
                     let key = hashtable.hashTable[i];
 
                     if (key === null) {
-                        key = "DEL";
-                        p.fill("orange");
+                        key = undefined;
+                        p.stroke("red");
                     }
 
-                    if (key !== undefined) p.stroke("orange");
+                    if (this.searchedIndex === i) p.stroke("#bbdeed");
 
-                    if (this.searchedIndex  === i) p.stroke("#bbdeed");
+                    if (this.insertedIndex === i) p.stroke("orange");
+                    
+
 
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
                  
                     if (key !== undefined) {
-                        if (key == "DEL") p.fill(255);
-                        else if (i === this.searchedIndex) p.fill("#bbdeed");
-                        else p.fill("orange");
+                        if (this.searchedIndex === i) p.fill("#bbdeed");
+                        else if (this.insertedIndex === i) p.fill("orange");
+                        else p.fill("black");
                         p.text(key, c.x, c.y);
                         p.fill(255);
                         p.stroke("black");
                     }
+                    
                 }
                 clearAndRedraw;
             };
@@ -111,6 +115,7 @@ class LinearProbing {
                     case undefined:
                     case null:
                         this.hashTable[hashedKey] = key;
+                        this.insertedIndex = hashedKey;
                         this.draw();
                         return hashedKey;
                     case key:
