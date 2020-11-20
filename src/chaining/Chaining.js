@@ -24,6 +24,7 @@ class Chaining {
     this.tableSize = tableSize;
     this.hashTable = new Array(tableSize);
     this.searchedNode = null;
+    this.insertedNode = null;
 
     const setting = (p) => {
       const hashtable = this;
@@ -54,8 +55,9 @@ class Chaining {
       const draw = () => {
         for (let i = 0; i < hashtable.tableSize; ++i) {
           let node = hashtable.hashTable[i];
-          
-          if (node !== undefined) p.stroke("orange");
+
+          if (node === undefined || node === null) p.stroke("black");
+          else if (node == this.insertedNode) p.stroke("orange");
 
           if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
 
@@ -70,7 +72,8 @@ class Chaining {
 
           for (let j = 0; node !== undefined && node !== null; j++) {
 
-            if (node !== undefined) p.stroke("orange");
+            if (node == this.insertedNode) p.stroke("orange");
+
             if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
 
             const deltaX = j * (lineLength + nodeSize + nodeMargin);
@@ -93,7 +96,8 @@ class Chaining {
 
             if (node !== undefined) {
               if (node === this.searchedNode && node !== null) p.fill("#bbdeed");
-              else p.fill("orange");
+              else if (node === this.insertedNode) p.fill("orange");
+              else p.fill("black");
               p.text(node.data, nodeStartX + nodeSize / 2, c.y);
               p.fill(255);
               p.stroke("black");
@@ -115,7 +119,10 @@ class Chaining {
 
   // hash 함수
   hashFunction(key) {
-    return f(key);
+    if (f !== undefined)
+      return f(key);
+    f = key => key % 5;
+    return (f(key));
   }
 
   // 삽입 함수
@@ -144,6 +151,7 @@ class Chaining {
     const newNode = new Node(key, next);
 
     this.hashTable[hashedKey] = newNode;
+    this.insertedNode = this.hashTable[hashedKey];
 
     this.draw();
   }
