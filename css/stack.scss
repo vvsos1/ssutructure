@@ -1,0 +1,197 @@
+$whiteColor: #F5F6FA;
+$headerColor: #2F3640;
+$bgColor: #353B48;
+$stackColor: #E1B12C;
+$buttonColor: #487EB0;
+$buttonHoverColor: #40739e;
+$disabledButtonColor: #355b7e;
+$outputColor: #273c75;
+$animationSpeed: 0.5s;
+
+@mixin sendToBottom {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+@mixin centerFlex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI';
+  background-color: $bgColor;
+  overflow: hidden;
+}
+
+header.main-header {
+  @include centerFlex();
+  
+  background-color: $headerColor;
+  height: 80px;
+  width: 100%;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    color: $whiteColor;
+  }
+}
+
+.container {
+  position: relative;
+  height: calc(90% - 80px);
+  top: 5%;
+  bottom: 5%;
+  width: 86%;
+  left: 7%;
+  right: 7%;
+  // background-color: #fff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 120px;
+  height: 100%;
+
+  .grid-col {
+    min-height: 100%;
+  }
+}
+
+.stack-container {
+  @include sendToBottom();
+  
+  .stack-holder {
+    border: 20px solid #fff; 
+    border-top: 0;
+    overflow: auto;
+    height: 90%;
+
+    .stack-items {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 15px;
+      overflow: auto;
+      transition: $animationSpeed;
+
+      .stack-item {
+        @include centerFlex();
+
+        position: relative;
+        background-color: $stackColor;
+        width: 100%;
+        height: 80px;
+        color: $whiteColor;
+        font-weight: bold;
+        font-size: 25px;
+        margin-top: 20px;
+
+        transition: $animationSpeed;
+        animation-name: push;
+        animation-duration: $animationSpeed;
+        
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.output-container {
+  @include centerFlex();
+  
+  .output-box {
+    border: 1px dashed $whiteColor;
+    width: 100%;
+    height: 80px;
+
+    .output {
+      display: none;
+      background-color: $outputColor;
+      height: 100%;
+      animation-name: sl;
+      animation: name duration timing-function delay iteration-count direction fill-mode;
+    }
+  }
+}
+
+.operations {
+  @include centerFlex();
+
+  .buttons {
+
+    .button {
+      @include centerFlex();
+
+      border: 0;
+      background-color: $buttonColor;
+      height: 74px;
+      width: 370px;
+      font-size: 25px;
+      font-weight: bold;
+      color: $whiteColor;
+      margin-top: 20px;
+      cursor: pointer;
+      user-select: none;
+      outline: none;
+      transition: $animationSpeed;
+
+      &:hover {
+        background-color: $buttonHoverColor;
+      }
+
+      &:active {
+        transform: translateY(7px);
+      }
+
+      &:disabled {
+        background-color: $disabledButtonColor;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.popAnimation {
+  opacity: 0;
+  transform: translateY(-80px);
+}
+
+.stack-items--remove .stack-item {
+  opacity: 0;
+  transform: translateY(-200px);
+}
+
+@keyframes push {
+  0% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.moveUp {
+  transform: translateY(-100px);
+}
+
+.moveDown {
+  transform: translateY(100px);
+}
