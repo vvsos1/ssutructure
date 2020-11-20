@@ -51,23 +51,19 @@ class LinearProbing {
                             this.searchedIndex = null;
                         if (this.insertedIndex === i)
                             this.insertedIndex = null;
-                        key = "DEL";
-                        p.stroke("red");
+                        key = "";
                     }
 
                     if (this.searchedIndex === i) p.stroke("#bbdeed");
 
                     else if (this.insertedIndex === i) p.stroke("orange");
 
-                    else if (key != "DEL") p.stroke("black");
-
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
                  
                     if (key !== undefined) {
-                        if (key === "DEL") p.fill("red");
-                        else if (this.searchedIndex === i) p.fill("#bbdeed");
+                        if (this.searchedIndex === i) p.fill("#bbdeed");
                         else if (this.insertedIndex === i) p.fill("orange");
                         else p.fill("black");
                         p.text(key, c.x, c.y);
