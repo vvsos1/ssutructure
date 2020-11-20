@@ -76,8 +76,9 @@ RedBlackTreeRadio.onchange = (e) => {
   tree = new RedBlackTree();
 
   // 디버깅용
-  new Array(9).fill(0).forEach((_,idx) => tree.add(idx+1,_=>_));
-  tree.add(10,vizCallback);
+  // new Array(8).fill(0).forEach((_,idx) => tree.add(idx+1,_=>_));
+  // tree.add(9,vizCallback);
+  // tree.remove(10,vizCallback);
 
 };
 

@@ -77,11 +77,11 @@ class TreeNode {
       isXLeft = false;
     }
     const fixed = this.fix(isXLeft);
-    vizCallback();
+    // vizCallback();
     return fixed;
   }
 
-    // TODO : 1~10까지 차례로 넣은 상태에서 1 삭제한 형태가 이상함.
+    // TODO : 1~10까지 차례로 넣은 상태에서 10을 삭제 시 8도 색상이 검정으로 바뀜.
   // parent 노드 기준으로 x, s, l, r 노드의 균형을 맞춘 뒤 parent 자리 노드를 반환
   fix(isXLeft) {
     //isXLeft:Boolean
@@ -99,7 +99,10 @@ class TreeNode {
       r = s.right;
 
       // 애초에 x가 black이 아니라면 문제가 발생하지 않음
-      if (!x.isBlack()) return;
+      if (!x.isBlack()) return this;
+      
+      if (s.isEnd())
+        return this;
 
       // x는 항상 black 이므로 조건문에서 x.isBlack() 생략
       // x가 p의 left일 때의 코드
@@ -126,7 +129,9 @@ class TreeNode {
         r.setColorBlack();
         p = p.rotateLeft();
         return p;
-      }else if (this.isBlack() && s.isRed() && l.isBlack() && r.isBlack()) {
+      }else if (s.isRed() && l.isBlack() && r.isBlack()) {
+        // case 2-4
+        TreeNode.swapColor(p,s);
         p = p.rotateLeft();
 
         p.left = p.left.fix(true);
@@ -142,7 +147,10 @@ class TreeNode {
       r = s.left;
 
       // 애초에 x가 black이 아니라면 문제가 발생하지 않음
-      if (!x.isBlack()) return;
+      if (!x.isBlack()) return this;
+      
+      if (s.isEnd())
+        return this;
 
       // x는 항상 black 이므로 조건문에서 x.isBlack() 생략
       // x가 p의 left일 때의 코드
@@ -169,7 +177,9 @@ class TreeNode {
         r.setColorBlack();
         p = p.rotateRight();
         return p;
-      }else if (this.isBlack() && s.isRed() && l.isBlack() && r.isBlack()) {
+      }else if (s.isRed() && l.isBlack() && r.isBlack()) {
+        // case 2-4
+        TreeNode.swapColor(p,s);
         p = p.rotateRight();
 
         p.right = p.right.fix(false);
@@ -209,7 +219,8 @@ class TreeNode {
           this.recoloring();
           return this;
         }
-      } else if (this.left.right.isRed()) {
+      }
+      if (this.left.right.isRed()) {
         if (this.right.isBlack()) {
           // LR 상태 & 형제가 BLACK
           const root = this.rotateLR();
@@ -240,7 +251,8 @@ class TreeNode {
           this.recoloring();
           return this;
         }
-      } else if (this.right.right.isRed()) {
+      }
+      if (this.right.right.isRed()) {
         if (this.left.isBlack()) {
           // RR 상태 & 형제가 BLACK
 
