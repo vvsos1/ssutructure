@@ -6,8 +6,10 @@ class Hashtable {
         this.tableSize = tableSize;
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
+        this.searchStep = null;
         this.insertedIndex = null;
-        this.processInsert = null;
+        this.insertStep = null;
+
 
         const setting = (p) => {
             const hashtable = this;
@@ -46,11 +48,9 @@ class Hashtable {
                             this.insertedIndex = null;
                     }
                     else if (this.searchedIndex === i) p.stroke("#bbdeed"); 
+                    else if (this.searchStep === i) p.stroke("blue");
                     else if (this.insertedIndex === i) p.stroke("orange"); 
-                    else if (this.processInsert === i)  {
-                        p.stroke("yellow");
-                        if (this.insertedIndex !== null) this.insertedIndex = null;
-                    }
+                    else if (this.insertStep === i) p.stroke("yellow");
 
                     const c = getCirclePosition(i);
 
@@ -58,8 +58,9 @@ class Hashtable {
                  
                     if (key !== undefined && key !== "DELETED") {
                         if (this.searchedIndex === i) p.fill("#bbdeed"); 
+                        else if (this.searchStep === i) p.fill("blue");
                         else if (this.insertedIndex === i) p.fill("orange");
-                        else if (this.processInsert === i) p.fill("yellow"); 
+                        else if (this.insertStep === i) p.fill("yellow"); 
                         else p.fill("black"); 
                         p.text(key, c.x, c.y);
                         p.fill(255);
@@ -67,6 +68,7 @@ class Hashtable {
                     }
                 }
                 clearAndRedraw;
+                this.searchedIndex = null;
                 this.insertedIndex = null;
             };
 
@@ -84,13 +86,13 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key))
-            throw "Invalid Key!"
+            return "Invalid Key!"
 
         for (let i = 0; i < this.tableSize; i++) {
 
                 let hashedKey = this.hashFunction(key, i);
                 
-                this.processInsert = hashedKey;
+                this.insertStep = hashedKey;
 
                 switch (this.hashTable[hashedKey]) {
                     case undefined:
@@ -102,33 +104,38 @@ class Hashtable {
                         this.draw();
                         return ;
                     case key:
-                        throw "Duplicate Key!"
+                        return "Duplicate Key!"
                     default:
                         await this.sleep(500);
                         this.draw();
                 }
         }
-        throw "Overflow!"
+        return "Overflow!"
     }
 
-    search(key) {
+    async search(key) {
 
         key = parseInt(key);
 
         if (isNaN(key))
-           throw "Invalid Key!"
+           return "Invalid Key!"
 
         for (let i = 0; i < this.tableSize; ++i) {
 
             let hashedKey = this.hashFunction(key, i);
 
+            this.searchStep = hashedKey;
+
             if (this.hashTable[hashedKey] == key) {
                 this.searchedIndex = hashedKey;
+                await this.sleep(500);
                 this.draw();
                 return ;
             }
+            await this.sleep(500);
+            this.draw();
         }
-	    throw "Key Not Found!"
+	    return "Key Not Found!"
     } 
 
     delete(key) {
