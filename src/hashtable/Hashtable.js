@@ -38,27 +38,26 @@ class Hashtable {
             const draw = () => {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
-
-                    if (key === null) {
+ 
+                    if (key === "DELETED") {
                         if (this.searchedIndex === i)
                             this.searchedIndex = null;
                         if (this.insertedIndex === i)
                             this.insertedIndex = null;
-                        key = "";
                     }
 
-                    if (this.searchedIndex === i) p.stroke("#bbdeed");
-
-                    else if (this.insertedIndex === i) p.stroke("orange");
+                    if (this.searchedIndex === i) p.stroke("#bbdeed"); 
+              
+                    else if (this.insertedIndex === i) p.stroke("orange"); //테두리
 
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
                  
                     if (key !== undefined && key !== "DELETED") {
-                        if (this.searchedIndex === i) p.fill("#bbdeed");
-                        else if (this.insertedIndex === i) p.fill("orange");
-                        else p.fill("black");
+                        if (this.searchedIndex === i) p.fill("#bbdeed"); //글자 
+                        else if (this.insertedIndex === i) p.fill("orange"); //글자
+                        else p.fill("black"); //글자
                         p.text(key, c.x, c.y);
                         p.fill(255);
                         p.stroke("black");
