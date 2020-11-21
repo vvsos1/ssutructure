@@ -87,7 +87,7 @@ DataSearchBtn.onclick = e => {
 
   const key = DataSearch.value;
 
-  hashtable.delete(key)
+  hashtable.search(key)
     .catch(error => modalPopUp(error));
 };
 
