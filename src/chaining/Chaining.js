@@ -1,16 +1,14 @@
 const p5 = require("p5");
 
-const FuncBtn = document.getElementById("chaining-btn");
-const Func = document.getElementById("chaining-function");
+const FunctionBtn = document.getElementById("chaining-btn");
+const Function = document.getElementById("chaining-function");
 
-let f;
+let hashFunction;
 
-FuncBtn.onclick = e => {
-  f = eval(Func.value);
+FunctionBtn.onclick = e => {
+  hashFunction = eval(Function.value);
 };
 
-
-// Linked List's Node
 class Node {
   constructor(data, next = null) {
     this.data = data;
@@ -19,7 +17,7 @@ class Node {
 }
 
 class Chaining {
-  // 해시 테이블 생성자 함수
+
   constructor(tableSize = 5) {
     this.tableSize = tableSize;
     this.hashTable = new Array(tableSize);
@@ -33,7 +31,6 @@ class Chaining {
         p.redraw();
       }
 
-      // 해시테이블의 위치 지정 함수
       function getCirclePosition(index) {
         return Object.freeze({
           x: 
@@ -57,13 +54,11 @@ class Chaining {
           let node = hashtable.hashTable[i];
 
           if (node === undefined || node === null) p.stroke("black");
+          else if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
           else if (node == this.insertedNode) p.stroke("orange");
-
-          if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
 
           const c = getCirclePosition(i);
 
-          // 해시테이블의 circle 크기, 색상 지정
           p.circle(c.x, c.y, 60).stroke("black");
 
           const lineLength = 50;
@@ -73,12 +68,11 @@ class Chaining {
           for (let j = 0; node !== undefined && node !== null; j++) {
 
             if (node == this.insertedNode) p.stroke("orange");
-
-            if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
+            else if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
 
             const deltaX = j * (lineLength + nodeSize + nodeMargin);
             const lineStartX = c.x + deltaX + 45;
-            // 선 생성
+
             p.line(lineStartX, c.y, lineStartX + lineLength, c.y);
 
             p.triangle(
@@ -117,32 +111,32 @@ class Chaining {
     new p5(setting, document.getElementById("container"));
   }
 
-  // hash 함수
+
   hashFunction(key) {
-    if (f !== undefined)
-      return f(key);
-    f = key => key % 5;
-    return (f(key));
+
+    if (hashFunction === undefined) hashFunction = key => key % 5;
+
+    return hashFunction(key);
   }
 
-  // 삽입 함수
   insert(key) {
+
     key = parseInt(key);
 
-    // 잘못된 입력인 경우 입력 오류 메세지 출력
-    if (isNaN(key)) throw "Invalid Key!";
+    if (isNaN(key)) 
+        throw "Invalid Key!"
 
-    //let hashedKey = f(key);
     let hashedKey = this.hashFunction(key);
 
-    // 중복 입력인 경우 중복 오류 메세지 출력 
     let node = this.hashTable[hashedKey];
     
     for (let i = 0; node !== undefined && node !== null; i++) {
+
       if (node.data == key) {
         this.searchedNode = node;
         throw "Duplicate Key!";
       }
+
       node = node.next;
     }
 
@@ -156,28 +150,29 @@ class Chaining {
     this.draw();
   }
 
-  // 검색 함수
+
   search(key) {
+
     key = parseInt(key);
 
-    if (isNaN(key)) throw "Invalid Key!";
+    if (isNaN(key)) throw "Invalid Key!"
 
     let hashedKey = this.hashFunction(key); 
     let node = this.hashTable[hashedKey];
     
     for (let i = 0; node !== undefined && node !== null; i++) {
+
       if (node.data == key) {
         this.searchedNode = node;
         this.draw();
         return;
       }
+
       node = node.next;
     }
     throw "Key Not Found!";
   }
 
-  // 삭제 함수
-  // 검색 함수를 이용하여 키의 위치를 찾아내어 해당 위치의 값을 null로 변경 
   delete(key) {
     if (isNaN(key)) throw "Invalid Key!";
 
