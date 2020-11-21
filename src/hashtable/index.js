@@ -22,8 +22,8 @@ const DataSearch = document.getElementById("data-search");
 const DataAddBtn = document.getElementById("data-add-btn");
 const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
-const HashSizeBtn = document.getElementById("hashsize-btn");
-const HashSize = document.getElementById("hashsize-input");
+const TableSizeBtn = document.getElementById("hashsize-btn");
+const TableSize = document.getElementById("hashsize-input");
 
 
 let hashtable = new LinearProbing();
@@ -102,8 +102,8 @@ DataSearchBtn.onclick = e => {
     }
 };
 
-HashSizeBtn.onclick = e => {
-  size = HashSize.value;
+TableSizeBtn.onclick = e => {
+  size = TableSize.value;
   hashtable.tableSize = size;
   hashtable.draw();
 };
