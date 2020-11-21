@@ -9,7 +9,7 @@ class Hashtable {
         this.searchStep = null;
         this.insertedIndex = null;
         this.insertStep = null;
-
+        this.error = null;
 
         const setting = (p) => {
             const hashtable = this;
@@ -85,8 +85,10 @@ class Hashtable {
 
         key = parseInt(key);
 
-        if (isNaN(key))
-            return "Invalid Key!"
+        if (isNaN(key)) {
+            this.error = "Invalid Key!";
+            return;
+        }
 
         for (let i = 0; i < this.tableSize; i++) {
 
@@ -104,21 +106,24 @@ class Hashtable {
                         this.draw();
                         return ;
                     case key:
-                        return "Duplicate Key!"
+                        this.error = "Duplicate Key!";
+                        return;
                     default:
                         await this.sleep(500);
                         this.draw();
                 }
         }
-        return "Overflow!"
+        this.error = "Duplicate Key!"
     }
 
     async search(key) {
 
         key = parseInt(key);
 
-        if (isNaN(key))
-           return "Invalid Key!"
+        if (isNaN(key)) {
+           this.error = "Invalid Key!"
+           return;
+        }
 
         for (let i = 0; i < this.tableSize; ++i) {
 
@@ -135,15 +140,18 @@ class Hashtable {
             await this.sleep(500);
             this.draw();
         }
-	    return "Key Not Found!"
+        this.error = "Key Not Found!"
+        return;
     } 
 
     delete(key) {
 
         key = parseInt(key);
 
-        if (isNaN(key))
-           throw "Invalid Key!"
+        if (isNaN(key)) {
+           this.error = "Invalid Key!"
+           return;
+        }
          
          for (let i = 0; i < this.tableSize; ++i) {
 
@@ -156,11 +164,26 @@ class Hashtable {
                 return ;
             }
         }
-	    throw "Key Not Found!"        
+	    this.error = "Key Not Found!"        
     }
 
     sleep (delay) {
         return new Promise(resolve=>setTimeout(resolve, delay));
+    }
+
+    insertError () {
+        if (this.error == null) return;
+        else throw this.error;
+    }
+
+    searchError () {
+        if (this.error == null) return;
+        else throw this.error;
+    }
+
+    deleteError () {
+        if (this.error == null) return;
+        else throw this.error;
     }
 }
 

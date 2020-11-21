@@ -76,30 +76,42 @@ function modalPopUp(error) {
 
 
 DataAddBtn.onclick = e => {
-    const key = DataAdd.value;
-    try {
-          hashtable.insert(key);
-    } catch (error) {
-      modalPopUp(error);
-    }
+
+  const key = DataAdd.value;
+ 
+  hashtable.insert(key);
+
+  try {
+    hashtable.insertError();
+  } catch(error) {
+    modalPopUp(error);
+  }
 };
 
 DataDeleteBtn.onclick = e => {
-    const key = DataDelete.value;
-    try {
-          hashtable.delete(key);
-    } catch (error) {
-      modalPopUp(error);
-    }
+
+  const key = DataDelete.value;
+
+  hashtable.delete(key);
+
+  try {
+    hashtable.deleteError();
+  } catch(error) {
+    modalPopUp(error);
+  }
 };
 
 DataSearchBtn.onclick = e => {
-    const key = DataSearch.value;
-    try {
-          hashtable.search(key);
-    } catch (error) {
-      modalPopUp(error);
-    }
+
+  const key = DataSearch.value;
+
+  hashtable.search(key);
+
+  try {
+    hashtable.searchError();
+  } catch (error) {
+    modalPopUp(error);
+  }
 };
 
 TableSizeBtn.onclick = e => {
