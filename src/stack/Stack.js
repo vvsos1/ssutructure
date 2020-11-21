@@ -25,13 +25,6 @@ class Stack {
     return this.items.length;
   }
 
-  swap() {
-    if(this.items.length > 1) {
-      let temp = this.items[this.items.length - 1];
-      this.items[this.items.length - 1] = this.items[this.items.length - 2];
-      this.items[this.items.length - 2] = temp;
-    }
-  }
 
   clear() {
     this.items = [];
