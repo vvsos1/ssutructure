@@ -50,7 +50,7 @@ class Chaining {
       }
 
       const draw = () => {
-        for (let i = 0; i < hashtable.tableSize; ++i) {
+        for (let i = 0; i < hashtable.tableSize; i++) {
           let node = hashtable.hashTable[i];
 
           if (node === undefined || node === null) p.stroke("black");
@@ -197,6 +197,20 @@ class Chaining {
     }
     throw "Key Not Found!";
   }
+
+  clear () {
+
+    for (let i = 0; i < this.tableSize; i++) {
+      let node = this.hashTable[i];
+
+      for (let j = 0; node !== undefined && node !== null; j++) {
+        if (node.data != null) this.delete(node.data);
+        node = node.next;
+      }
+    }
+    this.draw();
+  }
+
 }
 
 module.exports = Chaining;

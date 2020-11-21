@@ -27,6 +27,7 @@ const TableSize = document.getElementById("hashsize-input");
 const DataClearBtn = document.getElementById("data-clear-btn");
 
 let hashtable = new LinearProbing();
+let check = null;
 
 // Linear Probing 라디오 버튼 클릭시
 linearProbingRadio.onchange = (e) => {
@@ -34,6 +35,7 @@ linearProbingRadio.onchange = (e) => {
   // 기존의 시각화된 테이블 삭제
   hashtable.remove();
   hashtable = new LinearProbing();
+  check = null;
   linearContainerA.classList.remove("d-none");
   quadraticContainerA.classList.add("d-none");
   quadraticContainerB.classList.add("d-none");
@@ -47,6 +49,7 @@ quadraticProbingRadio.onchange = (e) => {
     // 기존의 시각화된 테이블 삭제
     hashtable.remove();
     hashtable = new QuadraticProbing();
+    check = null;
     linearContainerA.classList.add("d-none");
     quadraticContainerA.classList.remove("d-none");
     quadraticContainerB.classList.remove("d-none");
@@ -60,6 +63,7 @@ chainingRadio.onchange = (e) => {
   // 기존의 시각화된 테이블 삭제
   hashtable.remove();
   hashtable = new Chaining();
+  check = "chaining"
   linearContainerA.classList.add("d-none");
   quadraticContainerA.classList.add("d-none");
   quadraticContainerB.classList.add("d-none");
@@ -79,16 +83,32 @@ DataAddBtn.onclick = e => {
 
   const key = DataAdd.value;
   
-  hashtable.insert(key)
+  if (check == "chaining") {
+    try {
+      hashtable.insert(key);
+    } catch(error) {
+      modalPopUp(error);
+    }
+  } else {
+    hashtable.insert(key)
     .catch(error => modalPopUp(error));
+  }
 };
 
 DataSearchBtn.onclick = e => {
 
-  const key = DataSearch.value;
-
-  hashtable.search(key)
+  const key = DataAdd.value;
+  
+  if (check == "chaining") {
+    try {
+      hashtable.search(key);
+    } catch(error) {
+      modalPopUp(error);
+    }
+  } else {
+    hashtable.search(key)
     .catch(error => modalPopUp(error));
+  }
 };
 
 DataDeleteBtn.onclick = e => {
