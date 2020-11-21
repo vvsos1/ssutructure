@@ -88,7 +88,7 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw new Error("Invalid Key!");
-        if (this.insertTime == this.tableSize) throw new Error("Overflow!");
+        if (this.insertTime == this.tableSize) throw new Error("Overflow!"); //linear probing overflow  
 
         for (let i = 0; i < this.tableSize; i++) {
 
@@ -113,6 +113,7 @@ class Hashtable {
                     this.draw();
             }
         }
+        throw new Error("Hash function Overflow!"); // quadratic function overflow
     }
 
     async search(key) {
@@ -178,7 +179,7 @@ class Hashtable {
     clear () {
         for (let i = 0; i < this.tableSize; i++) {
             if (this.hashTable[i] != null) {
-                this.hashTable[i] = "";
+                this.delete(this.hashTable[i]);
             }
         }
         this.draw();
