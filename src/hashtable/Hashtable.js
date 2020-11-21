@@ -7,7 +7,7 @@ class Hashtable {
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
         this.insertedIndex = null;
-        this.deletedIndex = null;
+        this.processInsert = null;
 
         const setting = (p) => {
             const hashtable = this;
@@ -38,32 +38,36 @@ class Hashtable {
             const draw = () => {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
- 
+
                     if (key === "DELETED") {
                         if (this.searchedIndex === i)
                             this.searchedIndex = null;
                         if (this.insertedIndex === i)
                             this.insertedIndex = null;
                     }
-
-                    if (this.searchedIndex === i) p.stroke("#bbdeed"); 
-              
-                    else if (this.insertedIndex === i) p.stroke("orange"); //테두리
+                    else if (this.searchedIndex === i) p.stroke("#bbdeed"); 
+                    else if (this.insertedIndex === i) p.stroke("orange"); 
+                    else if (this.processInsert === i)  {
+                        p.stroke("yellow");
+                        if (this.insertedIndex !== null) this.insertedIndex = null;
+                    }
 
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
                  
                     if (key !== undefined && key !== "DELETED") {
-                        if (this.searchedIndex === i) p.fill("#bbdeed"); //글자 
-                        else if (this.insertedIndex === i) p.fill("orange"); //글자
-                        else p.fill("black"); //글자
+                        if (this.searchedIndex === i) p.fill("#bbdeed"); 
+                        else if (this.insertedIndex === i) p.fill("orange");
+                        else if (this.processInsert === i) p.fill("yellow"); 
+                        else p.fill("black"); 
                         p.text(key, c.x, c.y);
                         p.fill(255);
                         p.stroke("black");
                     }
                 }
                 clearAndRedraw;
+                this.insertedIndex = null;
             };
 
             p.setup = setup;
@@ -75,7 +79,7 @@ class Hashtable {
         new p5(setting, document.getElementById("container"));
     }
     
-    insert(key) {
+    async insert(key) {
 
         key = parseInt(key);
 
@@ -86,16 +90,22 @@ class Hashtable {
 
                 let hashedKey = this.hashFunction(key, i);
                 
+                this.processInsert = hashedKey;
+
                 switch (this.hashTable[hashedKey]) {
                     case undefined:
                     case null:
                     case "DELETED":
                         this.hashTable[hashedKey] = key;
                         this.insertedIndex = hashedKey;
+                        await this.sleep(500);
                         this.draw();
-                        return hashedKey;
+                        return ;
                     case key:
                         throw "Duplicate Key!"
+                    default:
+                        await this.sleep(500);
+                        this.draw();
                 }
         }
         throw "Overflow!"
@@ -115,7 +125,7 @@ class Hashtable {
             if (this.hashTable[hashedKey] == key) {
                 this.searchedIndex = hashedKey;
                 this.draw();
-                return hashedKey;
+                return ;
             }
         }
 	    throw "Key Not Found!"
@@ -140,6 +150,10 @@ class Hashtable {
             }
         }
 	    throw "Key Not Found!"        
+    }
+
+    sleep (delay) {
+        return new Promise(resolve=>setTimeout(resolve, delay));
     }
 }
 
