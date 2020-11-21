@@ -10,7 +10,6 @@ class Hashtable {
         this.searchStep = null;
         this.insertedIndex = null;
         this.insertStep = null;
-        this.error = null;
 
         const setting = (p) => {
             const hashtable = this;
@@ -89,6 +88,7 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw new Error("Invalid Key!");
+        if (this.tableItem == this.tableSize) throw new Error("Overflow!");
 
         for (let i = 0; i < this.tableSize; i++) {
 
@@ -113,7 +113,6 @@ class Hashtable {
                     this.draw();
             }
         }
-        throw new Error("Overflow!");
     }
 
     async search(key) {
