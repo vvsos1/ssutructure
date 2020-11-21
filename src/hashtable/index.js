@@ -97,7 +97,7 @@ DataAddBtn.onclick = e => {
 
 DataSearchBtn.onclick = e => {
 
-  const key = DataAdd.value;
+  const key = DataSearch.value;
   
   if (check == "chaining") {
     try {

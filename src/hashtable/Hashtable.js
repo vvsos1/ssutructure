@@ -9,7 +9,6 @@ class Hashtable {
         this.insertedIndex = null;
         this.searchStep = null;
         this.insertStep = null;
-        this.insertTime = 0;
 
         const setting = (p) => {
             const hashtable = this;
@@ -41,13 +40,7 @@ class Hashtable {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
 
-                    if (key === "DELETED") {
-                        if (this.searchedIndex === i)
-                            this.searchedIndex = null;
-                        if (this.insertedIndex === i)
-                            this.insertedIndex = null;
-                    }
-                    else if (this.searchedIndex === i) p.stroke("#bbdeed"); 
+                    if (this.searchedIndex === i) p.stroke("#bbdeed"); 
                     else if (this.searchStep === i) p.stroke("blue");
                     else if (this.insertedIndex === i) p.stroke("orange"); 
                     else if (this.insertStep === i) p.stroke("yellow");
@@ -88,7 +81,14 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw new Error("Invalid Key!");
-        if (this.insertTime == this.tableSize) throw new Error("Overflow!"); //linear probing overflow  
+
+        let tableItem;
+        for (tableItem = 0; tableItem <this.tableSize; tableItem++) {
+            if (this.hashTable[tableItem] == null) break;
+            if (this.hashTable[tableItem] == undefined) break;
+            if (this.hashTable[tableItem] == "DELETED") break;
+        }
+        if (tableItem == this.tableSize) throw new Error("Overflow!"); //linear probing overflow  
 
         for (let i = 0; i < this.tableSize; i++) {
 
@@ -102,7 +102,6 @@ class Hashtable {
                 case "DELETED":
                     this.hashTable[hashedKey] = key;
                     this.insertedIndex = hashedKey;
-                    this.insertTime++;
                     await this.sleep(500);
                     this.draw();
                     return;
@@ -145,11 +144,12 @@ class Hashtable {
                 this.searchedIndex = hashedKey;
                 await this.sleep(500);
                 this.draw();
-                return this.searchedIndex;
+                return;
             }
             await this.sleep(500);
             this.draw();
         }
+        throw new Error("Key Not Found!");
     } 
 
     delete(key) {

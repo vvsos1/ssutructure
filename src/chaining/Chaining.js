@@ -99,6 +99,8 @@ class Chaining {
             node = node.next;
           }
         }
+        this.searchedNode = null;
+        this.insertedNode = null;
       };
 
       p.setup = setup;
