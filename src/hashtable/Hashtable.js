@@ -4,6 +4,7 @@ class Hashtable {
 
     constructor(tableSize = 5) {
         this.tableSize = tableSize;
+        this.tableItem = 0;
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
         this.searchStep = null;
@@ -69,7 +70,9 @@ class Hashtable {
                 }
                 clearAndRedraw;
                 this.searchedIndex = null;
+                this.searchStep = null;
                 this.insertedIndex = null;
+                this.insertStep = null;
             };
 
             p.setup = setup;
@@ -85,45 +88,39 @@ class Hashtable {
 
         key = parseInt(key);
 
-        if (isNaN(key)) {
-            this.error = "Invalid Key!";
-            return;
-        }
+        if (isNaN(key)) throw new Error("Invalid Key!");
 
         for (let i = 0; i < this.tableSize; i++) {
 
-                let hashedKey = this.hashFunction(key, i);
+            let hashedKey = this.hashFunction(key, i);
                 
-                this.insertStep = hashedKey;
+            this.insertStep = hashedKey;
 
-                switch (this.hashTable[hashedKey]) {
-                    case undefined:
-                    case null:
-                    case "DELETED":
-                        this.hashTable[hashedKey] = key;
-                        this.insertedIndex = hashedKey;
-                        await this.sleep(500);
-                        this.draw();
-                        return ;
-                    case key:
-                        this.error = "Duplicate Key!";
-                        return;
-                    default:
-                        await this.sleep(500);
-                        this.draw();
-                }
+            switch (this.hashTable[hashedKey]) {
+                case undefined:
+                case null:
+                case "DELETED":
+                    this.hashTable[hashedKey] = key;
+                    this.insertedIndex = hashedKey;
+                    await this.sleep(500);
+                    this.draw();
+                    this.tableItem++;
+                    return;
+                case key:
+                    throw new Error("Duplicate Key!");
+                default:
+                    await this.sleep(500);
+                    this.draw();
+            }
         }
-        this.error = "Duplicate Key!"
+        throw new Error("Overflow!");
     }
 
     async search(key) {
 
         key = parseInt(key);
 
-        if (isNaN(key)) {
-           this.error = "Invalid Key!"
-           return;
-        }
+        if (isNaN(key)) throw new Error("Invalid Key!");
 
         for (let i = 0; i < this.tableSize; ++i) {
 
@@ -140,18 +137,14 @@ class Hashtable {
             await this.sleep(500);
             this.draw();
         }
-        this.error = "Key Not Found!"
-        return;
+        throw new Error("Key Not Found!");
     } 
 
     delete(key) {
 
         key = parseInt(key);
 
-        if (isNaN(key)) {
-           this.error = "Invalid Key!"
-           return;
-        }
+        if (isNaN(key)) throw "Invalid Key!"
          
          for (let i = 0; i < this.tableSize; ++i) {
 
@@ -164,26 +157,11 @@ class Hashtable {
                 return ;
             }
         }
-	    this.error = "Key Not Found!"        
+	    throw "Key Not Found!"        
     }
 
     sleep (delay) {
         return new Promise(resolve=>setTimeout(resolve, delay));
-    }
-
-    insertError () {
-        if (this.error == null) return;
-        else throw this.error;
-    }
-
-    searchError () {
-        if (this.error == null) return;
-        else throw this.error;
-    }
-
-    deleteError () {
-        if (this.error == null) return;
-        else throw this.error;
     }
 }
 

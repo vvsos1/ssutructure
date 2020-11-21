@@ -78,38 +78,26 @@ function modalPopUp(error) {
 DataAddBtn.onclick = e => {
 
   const key = DataAdd.value;
- 
-  hashtable.insert(key);
-
-  try {
-    hashtable.insertError();
-  } catch(error) {
-    modalPopUp(error);
-  }
-};
-
-DataDeleteBtn.onclick = e => {
-
-  const key = DataDelete.value;
-
-  hashtable.delete(key);
-
-  try {
-    hashtable.deleteError();
-  } catch(error) {
-    modalPopUp(error);
-  }
+  
+  hashtable.insert(key)
+    .catch(error => modalPopUp(error));
 };
 
 DataSearchBtn.onclick = e => {
 
   const key = DataSearch.value;
 
-  hashtable.search(key);
+  hashtable.delete(key)
+    .catch(error => modalPopUp(error));
+};
+
+DataDeleteBtn.onclick = e => {
+
+  const key = DataDelete.value;
 
   try {
-    hashtable.searchError();
-  } catch (error) {
+    hashtable.delete(key);
+  } catch(error) {
     modalPopUp(error);
   }
 };
