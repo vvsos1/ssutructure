@@ -4,12 +4,12 @@ class Hashtable {
 
     constructor(tableSize = 5) {
         this.tableSize = tableSize;
-        this.tableItem = 0;
         this.hashTable = new Array(tableSize);
         this.searchedIndex = null;
-        this.searchStep = null;
         this.insertedIndex = null;
+        this.searchStep = null;
         this.insertStep = null;
+        this.insertTime = 0;
 
         const setting = (p) => {
             const hashtable = this;
@@ -88,7 +88,7 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw new Error("Invalid Key!");
-        if (this.tableItem == this.tableSize) throw new Error("Overflow!");
+        if (this.insertTime == this.tableSize) throw new Error("Overflow!");
 
         for (let i = 0; i < this.tableSize; i++) {
 
@@ -102,9 +102,9 @@ class Hashtable {
                 case "DELETED":
                     this.hashTable[hashedKey] = key;
                     this.insertedIndex = hashedKey;
+                    this.insertTime++;
                     await this.sleep(500);
                     this.draw();
-                    this.tableItem++;
                     return;
                 case key:
                     throw new Error("Duplicate Key!");
@@ -121,7 +121,20 @@ class Hashtable {
 
         if (isNaN(key)) throw new Error("Invalid Key!");
 
-        for (let i = 0; i < this.tableSize; ++i) {
+        let found = 0;
+
+        for (let i = 0; i < this.tableSize; i++) {
+            let hashedKey = this.hashFunction(key, i);
+
+            if (this.hashTable[hashedKey] == key) {
+                found = 1;
+                break ;
+            }
+        }
+
+        if (!found) throw new Error("Key Not Found!");
+
+        for (let i = 0; i < this.tableSize; i++) {
 
             let hashedKey = this.hashFunction(key, i);
 
@@ -131,12 +144,11 @@ class Hashtable {
                 this.searchedIndex = hashedKey;
                 await this.sleep(500);
                 this.draw();
-                return ;
+                return this.searchedIndex;
             }
             await this.sleep(500);
             this.draw();
         }
-        throw new Error("Key Not Found!");
     } 
 
     delete(key) {
@@ -145,7 +157,7 @@ class Hashtable {
 
         if (isNaN(key)) throw "Invalid Key!"
          
-         for (let i = 0; i < this.tableSize; ++i) {
+         for (let i = 0; i < this.tableSize; i++) {
 
             let hashedKey = this.hashFunction(key, i);
 
@@ -161,6 +173,15 @@ class Hashtable {
 
     sleep (delay) {
         return new Promise(resolve=>setTimeout(resolve, delay));
+    }
+
+    clear () {
+        for (let i = 0; i < this.tableSize; i++) {
+            if (this.hashTable[i] != null) {
+                this.hashTable[i] = "";
+            }
+        }
+        this.draw();
     }
 }
 

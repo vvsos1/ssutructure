@@ -15,7 +15,7 @@ const quadraticContainerB = document.getElementById("quadratic-b-container");
 const chainingContainer = document.getElementById("chaining-container");
 const hashSizeContainer = document.getElementById("hashsize-container");
 
-// 데이터 입력 버튼
+// 버튼
 const DataAdd = document.getElementById("data-add");
 const DataDelete = document.getElementById("data-delete");
 const DataSearch = document.getElementById("data-search");
@@ -24,7 +24,7 @@ const DataDeleteBtn = document.getElementById("data-delete-btn");
 const DataSearchBtn = document.getElementById("data-search-btn");
 const TableSizeBtn = document.getElementById("hashsize-btn");
 const TableSize = document.getElementById("hashsize-input");
-
+const DataClearBtn = document.getElementById("data-clear-btn");
 
 let hashtable = new LinearProbing();
 
@@ -106,4 +106,8 @@ TableSizeBtn.onclick = e => {
   size = TableSize.value;
   hashtable.tableSize = size;
   hashtable.draw();
+};
+
+DataClearBtn.onclick = e => {
+  hashtable.clear();
 };
