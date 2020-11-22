@@ -60,7 +60,6 @@ function setting(p) {
 
   function clearAndRedraw() {
     p.clear();
-    p.stroke("rosybrown");
     p.redraw();
   }
 
@@ -139,6 +138,8 @@ function setting(p) {
     for (let i = 0; i < hashtable.tableSize; ++i) {
 
       let key = hashtable.hashTable[i];
+      
+      p.stroke("rosybrown");
 
       // 삭제에 성공하였을 경우 (채우기)
       if (key === null) {
