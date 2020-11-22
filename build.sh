@@ -11,4 +11,3 @@ cp src/css/* output/css # css 파일들 복사
 mkdir output/img
 cp src/img/* output/img # img 파일들 복사
 
-node-sass src/css/stack.scss output/css/stack.css # stack 페이지에 들어갈 scss 컴파일
