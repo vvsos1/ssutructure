@@ -21,6 +21,8 @@ class RedBlackTree extends Tree{
   }
 }
 
+let isLeafRed;
+
 class TreeNode {
   constructor(
     data,
@@ -43,6 +45,7 @@ class TreeNode {
   // data를 지운 서브트리를 반환
   remove(data, vizCallback) {
     let isXLeft;
+
     // 미완성
     if (this.data == data) {
       if (this.hasLeft()){
@@ -63,6 +66,7 @@ class TreeNode {
         isXLeft = false;
       } else {
         // data를 찾았고, leaf 노드인 경우
+        if (this.isRed()) isLeafRed = 1;
         return TreeNode.END;
       }
     } else if (data < this.data) {
@@ -76,6 +80,7 @@ class TreeNode {
       // fix로 고칠 노드를 this.right로 설정
       isXLeft = false;
     }
+
     const fixed = this.fix(isXLeft);
     // vizCallback();
     return fixed;
@@ -90,6 +95,11 @@ class TreeNode {
       s,
       l,
       r;
+
+    // 빨간색 리프노드일 때
+    if (isLeafRed) {
+      return this;
+    }
 
     // x가 p의 left냐 right냐에 따라 값을 할당
     if (isXLeft) {
