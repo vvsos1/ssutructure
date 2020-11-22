@@ -49,6 +49,11 @@
                     <input type="radio" id="quadratic-probing-radio" name="hash-type-radio" class="custom-control-input">
                     <label class="custom-control-label" for="quadratic-probing-radio">Quadratic Probing</label>
                 </div>
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="chaining-radio" name="hash-type-radio" class="custom-control-input">
+                    <label class="custom-control-label" for="chaining-radio">Chaining</label>
+                </div>
+                   
             </div>
 
             <!-- Linear Probing 함수-->
@@ -56,7 +61,7 @@
             <div class="block" id="linear-a-container">
                 <label for="new-expression-input">h(key) = (key + a * i) mod 5</label>
                 <div class="row m-0 p-0">
-                    <input type="number" id="linear-a-input" class="form-control col-5 mr-2" min="1">
+                    <input type="number" id="linear-a-input" class="form-control col-5 mr-2">
                     <button type="button" id="linear-a-btn" class="btn btn-dark">a</button>
                 </div>
             </div>
@@ -66,7 +71,7 @@
             <div class="d-none mb-1" id="quadratic-a-container">
                 <label for="new-expression-input">h(key, i) = (h(key) + b * i + a * i<sup>2</sup>) mod 5</label>
                 <div class="row m-0 p-0">
-                    <input type="number" id="quadratic-a-input" class="form-control col-5 mr-2" min="1">
+                    <input type="number" id="quadratic-a-input" class="form-control col-5 mr-2">
                     <button type="button" id="quadratic-a-btn" class="btn btn-dark">a</button>
                 </div>
             </div>
@@ -76,6 +81,25 @@
                 <div class="row m-0 p-0">
                     <input type="number" id="quadratic-b-input" class="form-control col-5 mr-2">
                     <button type="button" id="quadratic-b-btn" class="btn btn-dark">b</button>
+                </div>
+            </div>
+
+            <!-- Chaining 함수-->
+            <!-- 사용자 함수 입력 폼 컨테이너-->
+            <!-- 해시테이블 수 입력 폼 컨테이너-->
+            <div class="d-none mb-1" id="hashsize-container">
+                <label for="new-expression-input">해시테이블의 사이즈를 입력하세요 </label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="hashsize-input" class="form-control col-5 mr-2">
+                    <button type="button" id="hashsize-btn" class="btn btn-dark">사이즈 </button>
+                </div>
+            </div>
+
+            <div class="d-none m-0 mt-4 p-0" id="chaining-container">
+                <label for="new-expression-input">해시함수를 입력하세요</label>
+                <div class="row m-0 p-0">
+                    <input type="text" id="chaining-function" placeholder="i => i % 5"  class="col-7 mr-2"/>
+                    <button type="button" id="chaining-btn" class="btn btn-dark" > 입력 </button>
                 </div>
             </div>
 
@@ -106,6 +130,11 @@
                 </div>
             </div>
 
+            <!-- 초기화 버튼 -->
+            <div class="m-0 mt-4 p-0">
+                <button type="button" id="data-clear-btn" class="btn btn-dark">Clear</button>
+            </div>
+
         </div>
 
         <!-- 데이터 시각화 부분 컨테이너-->
@@ -118,14 +147,14 @@
             <div class="modal-dialog">
 
                 <div class="modal-content">
-                    <div class="modal-header" style="color:white; background:#D2C0A6;">
-                        <h4 class="modal-title" style="color:white; background:#D2C0A6;">Error Occurred</h4>
+                    <div class="modal-header" style="color:white; background:#bbdeed;">
+                        <h4 class="modal-title" style="color:white; background:#bbdeed;">Error Occurred</h4>
                     </div>
                     <div class="modal-body" id="model-body">
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" style="color:white; background:#D2C0A6;" data-dismiss="modal">Close</button>
+                        <button type="button" style="color:white; background:#bbdeed;" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
