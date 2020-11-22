@@ -36,8 +36,6 @@ class QuickSort extends Sort {
       // 피벗의 색 변경
       pivot.setColorPivot();
 
-      await this.waitSimple();
-
       do {
         while (blocks[pl].getValue() < pivot.getValue()) pl++;
         while (blocks[pr].getValue() > pivot.getValue()) pr--;
@@ -47,7 +45,7 @@ class QuickSort extends Sort {
         // pl 또는 pr이 pivot과 겹쳐도 pivot의 색을 유지
         pivot.setColorPivot();
 
-        const { type, memento } = await this.waitDetail();
+        const { type, memento } = await this.wait();
 
         // 상태 복구
         if (type === "back") {

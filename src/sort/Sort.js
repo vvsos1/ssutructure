@@ -38,22 +38,11 @@ class Sort {
   // 추상 메소드
   sort() {}
 
-  waitDetail() {
+  wait() {
     return new Promise(resolve => {
       if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
-        this.resolveDetail = resolve;
-      } else {
-        resolve({ type: "continue" });
-      }
-    });
-  }
-
-  waitSimple() {
-    return new Promise(resolve => {
-      if (this.isStop && this.stepType == Sort.STEP_SIMPLE) {
-        // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
-        this.resolveSimple = resolve;
+        this.resolve = resolve;
       } else {
         resolve({ type: "continue" });
       }
@@ -70,36 +59,22 @@ class Sort {
   }
 
   step() {
-    if (this.resolveDetail != null && this.resolveDetail != undefined) {
-      this.resolveDetail({ type: "step" });
-      this.resolveDetail = null;
-    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      this.resolveSimple({ type: "step" });
-      this.resolveSimple = null;
-    }
+    if (this.resolve != null && this.resolve != undefined) {
+      this.resolve({ type: "step" });
+      this.resolve = null;
+    } 
   }
 
   stepBack() {
-    if (this.resolveDetail != null && this.resolveDetail != undefined) {
+    if (this.resolve != null && this.resolve != undefined) {
       if (this.memetoStack.length != 0) {
-        this.resolveDetail({
+        this.resolve({
           type: "back",
           memento: this.memetoStack.pop()
         });
-        this.resolveDetail = null;
+        this.resolve = null;
       }
-    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      // TODO : detail 방식의 sort rollback 구현
-      // let memento;
-      // do {
-      //   memento = this.memetoStack.pop();
-      // } while (this.memetoStack.length != 0 && memento.type != "simple");
-
-      if (this.memetoStack.length != 0) {
-        this.resolveSimple({ type: "back", memento: memento });
-        this.resolveSimple = null;
-      }
-    }
+    } 
   }
 
   pushMemento( memento) {
