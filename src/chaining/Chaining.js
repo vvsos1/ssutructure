@@ -123,7 +123,7 @@ class Chaining {
     for (let i = 0; node !== undefined && node !== null; i++) {
 
       if (node.data == key) {
-        this.searchedNode = node;
+        this.insertedNode = node;
         throw "Duplicate Key!";
       }
 
