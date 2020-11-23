@@ -106,6 +106,9 @@ class Hashtable {
                     this.draw();
                     return;
                 case key:
+                    this.insertStep = hashedKey;
+                    await this.sleep(500);
+                    this.draw();
                     throw new Error("Duplicate Key!");
                 default:
                     await this.sleep(500);

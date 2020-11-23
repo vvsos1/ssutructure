@@ -16,15 +16,17 @@ const chainingContainer = document.getElementById("chaining-container");
 const hashSizeContainer = document.getElementById("hashsize-container");
 
 // 버튼
-const DataAdd = document.getElementById("data-add");
-const DataDelete = document.getElementById("data-delete");
-const DataSearch = document.getElementById("data-search");
-const DataAddBtn = document.getElementById("data-add-btn");
-const DataDeleteBtn = document.getElementById("data-delete-btn");
-const DataSearchBtn = document.getElementById("data-search-btn");
-const TableSizeBtn = document.getElementById("hashsize-btn");
-const TableSize = document.getElementById("hashsize-input");
-const DataClearBtn = document.getElementById("data-clear-btn");
+const dataAdd = document.getElementById("data-add");
+const dataDelete = document.getElementById("data-delete");
+const dataSearch = document.getElementById("data-search");
+const dataAddBtn = document.getElementById("data-add-btn");
+const dataDeleteBtn = document.getElementById("data-delete-btn");
+const dataSearchBtn = document.getElementById("data-search-btn");
+const tableSizeBtn = document.getElementById("hashsize-btn");
+const tableSize = document.getElementById("hashsize-input");
+const dataClearBtn = document.getElementById("data-clear-btn");
+const functionInput = document.getElementById("chaining-function");
+const functionBtn = document.getElementById("chaining-btn");
 
 let hashtable = new LinearProbing();
 let check = null;
@@ -78,10 +80,9 @@ function modalPopUp(error) {
   $('#errorModel').modal()
 }
 
+dataAddBtn.onclick = e => {
 
-DataAddBtn.onclick = e => {
-
-  const key = DataAdd.value;
+  const key = dataAdd.value;
   
   if (check == "chaining") {
     try {
@@ -93,11 +94,12 @@ DataAddBtn.onclick = e => {
     hashtable.insert(key)
     .catch(error => modalPopUp(error));
   }
+  dataAdd.value = "";
 };
 
-DataSearchBtn.onclick = e => {
+dataSearchBtn.onclick = e => {
 
-  const key = DataSearch.value;
+  const key = dataSearch.value;
   
   if (check == "chaining") {
     try {
@@ -109,25 +111,33 @@ DataSearchBtn.onclick = e => {
     hashtable.search(key)
     .catch(error => modalPopUp(error));
   }
+  dataSearch.value = "";
 };
 
-DataDeleteBtn.onclick = e => {
+dataDeleteBtn.onclick = e => {
 
-  const key = DataDelete.value;
+  const key = dataDelete.value;
 
   try {
     hashtable.delete(key);
   } catch(error) {
     modalPopUp(error);
   }
+  dataDelete.value = "";
 };
 
-TableSizeBtn.onclick = e => {
-  size = TableSize.value;
+tableSizeBtn.onclick = e => {
+  size = tableSize.value;
   hashtable.tableSize = size;
   hashtable.draw();
 };
 
-DataClearBtn.onclick = e => {
+dataClearBtn.onclick = e => {
   hashtable.clear();
 };
+
+functionBtn.onclick = e => {
+  const hashFunction = eval(functionInput.value);
+  hashtable.setHashFunction?.(hashFunction);
+};
+
