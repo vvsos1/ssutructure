@@ -26,9 +26,6 @@ class Sort {
     // 정렬이 현재 실행중인 상태
     this.isSortRunning = false;
 
-    // Step을 상세히 보여줌
-    this.stepType = Sort.STEP_DETAIL;
-
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
 
@@ -40,7 +37,7 @@ class Sort {
 
   wait() {
     return new Promise(resolve => {
-      if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
+      if (this.isStop) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolve = resolve;
       } else {
@@ -79,13 +76,6 @@ class Sort {
 
   pushMemento( memento) {
     this.memetoStack.push(memento);
-  }
-
-  setStepTypeDetail() {
-    this.stepType = Sort.STEP_DETAIL;
-  }
-  setStepTypeSimple() {
-    this.stepType = Sort.STEP_SIMPLE;
   }
 
   shuffle() {
@@ -217,10 +207,5 @@ class Sort {
     await block.insertBefore(betweens[0]);
   }
 }
-
-// 세부적으로 모든 단계 표시
-Sort.STEP_DETAIL = Symbol.for("STEP_DETAIL");
-// 블록 위치가 바뀌는 단계만 표시
-Sort.STEP_SIMPLE = Symbol.for("STEP_SIMPLE");
 
 module.exports = Sort;
