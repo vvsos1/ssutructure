@@ -1,14 +1,5 @@
 const p5 = require("p5");
 
-const FunctionBtn = document.getElementById("chaining-btn");
-const Function = document.getElementById("chaining-function");
-
-let hashFunction;
-
-FunctionBtn.onclick = e => {
-  hashFunction = eval(Function.value);
-};
-
 class Node {
   constructor(data, next = null) {
     this.data = data;
@@ -23,6 +14,7 @@ class Chaining {
     this.hashTable = new Array(tableSize);
     this.searchedNode = null;
     this.insertedNode = null;
+    this.hashFunction = key => key % this.tableSize;
 
     const setting = (p) => {
       const hashtable = this;
@@ -113,12 +105,8 @@ class Chaining {
     new p5(setting, document.getElementById("container"));
   }
 
-
-  hashFunction(key) {
-
-    if (hashFunction === undefined) hashFunction = key => key % 5;
-
-    return hashFunction(key);
+  setHashFunction(fn = i => i) {
+    this.hashFunction = key => (fn(key) % this.tableSize); 
   }
 
   insert(key) {
