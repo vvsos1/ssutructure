@@ -106,7 +106,7 @@ class Chaining {
   }
 
   setHashFunction(fn = i => i) {
-    this.hashFunction = key => fn(key) & this.tableSize; 
+    this.hashFunction = key => (fn(key) % this.tableSize); 
   }
 
   insert(key) {
