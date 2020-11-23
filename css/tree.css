@@ -20,3 +20,11 @@ body {
     border-radius:5px;
     min-width: 80px;
 }
+
+.border-2 {
+    border-width: 0.5em !important;
+}
+
+.border-brown {
+    border-color: #D2C0A6 !important;
+}
