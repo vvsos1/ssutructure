@@ -26,13 +26,12 @@ class SelectionSort extends Sort {
 
     for (let i = 0; i < n - 1;) {
       min = i;
-      await this.waitSimple();
       blocks[i].setColorRed(); //i번째블럭 빨간색으로
       for (let j = i + 1; j < n;) {
         blocks[j].setColorRed(); // i+1번부터n-1번까지의 블럭을 차례대로 빨간색으로
         
 
-        const {type,memento} = await this.waitDetail();
+        const {type,memento} = await this.wait();
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
           ({i,j} = memento);

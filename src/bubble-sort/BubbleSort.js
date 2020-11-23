@@ -22,7 +22,7 @@ class BubbleSort extends Sort {
     // block들의 총 개수
     const n = blocks.length;
     for (let i = 0; i < n - 1;) {
-      await this.waitSimple();
+      
 
     
       for (let j = 0; j < n - i - 1;) {
@@ -32,7 +32,7 @@ class BubbleSort extends Sort {
 
        
         // 사용자가 다음 스텝으로 넘어가기 전 까지(this.continue() or this.step()) 기다림
-        const {type,memento} = await this.waitDetail();
+        const {type,memento} = await this.wait();
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
           ({i,j} = memento);

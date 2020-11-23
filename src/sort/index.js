@@ -117,7 +117,6 @@ delayInputBtn.onclick = e => {
 // TODO: Sort.setBlockWidth 완성한 뒤 size range의 invisible 풀기
 sizeRange.onchange = e => {
   const size = Number(e.target.value);
-  console.log("size: " + size);
   sort.setBlockWidth(size);
 };
 
@@ -130,8 +129,6 @@ newDataAddBtn.onclick = e => {
   sort.addBlock(value);
 };
 
-// isSortRunning은 현재 정렬이 진행중인지 표시하는 변수. true이면 sortStartBtn이 동작하지 않는다.
-let isSortRunning = false;
 
 // 정렬 도중엔 Input들을 비활성화
 function disableInputs() {
@@ -185,15 +182,10 @@ sortContinueBtn.onclick = e => {
 };
 
 sortStepBtn.onclick = e => {
-  if (stepDetailRadio.checked) sort.setStepTypeDetail();
-  else if (stepSimpleRadio.checked) sort.setStepTypeSimple();
-
   sort.step();
 };
 
 sortStepBackBtn.onclick = e => {
-  if (stepDetailRadio.checked) sort.setStepTypeDetail();
-  else if (stepSimpleRadio.checked) sort.setStepTypeSimple();
   sort.stepBack();
 }
 

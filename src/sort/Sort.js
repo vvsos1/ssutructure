@@ -26,9 +26,6 @@ class Sort {
     // 정렬이 현재 실행중인 상태
     this.isSortRunning = false;
 
-    // Step을 상세히 보여줌
-    this.stepType = Sort.STEP_DETAIL;
-
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
 
@@ -38,22 +35,11 @@ class Sort {
   // 추상 메소드
   sort() {}
 
-  waitDetail() {
+  wait() {
     return new Promise(resolve => {
-      if (this.isStop && this.stepType == Sort.STEP_DETAIL) {
+      if (this.isStop) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
-        this.resolveDetail = resolve;
-      } else {
-        resolve({ type: "continue" });
-      }
-    });
-  }
-
-  waitSimple() {
-    return new Promise(resolve => {
-      if (this.isStop && this.stepType == Sort.STEP_SIMPLE) {
-        // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
-        this.resolveSimple = resolve;
+        this.resolve = resolve;
       } else {
         resolve({ type: "continue" });
       }
@@ -70,47 +56,26 @@ class Sort {
   }
 
   step() {
-    if (this.resolveDetail != null && this.resolveDetail != undefined) {
-      this.resolveDetail({ type: "step" });
-      this.resolveDetail = null;
-    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      this.resolveSimple({ type: "step" });
-      this.resolveSimple = null;
-    }
+    if (this.resolve != null && this.resolve != undefined) {
+      this.resolve({ type: "step" });
+      this.resolve = null;
+    } 
   }
 
   stepBack() {
-    if (this.resolveDetail != null && this.resolveDetail != undefined) {
+    if (this.resolve != null && this.resolve != undefined) {
       if (this.memetoStack.length != 0) {
-        this.resolveDetail({
+        this.resolve({
           type: "back",
           memento: this.memetoStack.pop()
         });
-        this.resolveDetail = null;
+        this.resolve = null;
       }
-    } else if (this.resolveSimple != null && this.resolveSimple != undefined) {
-      // TODO : detail 방식의 sort rollback 구현
-      // let memento;
-      // do {
-      //   memento = this.memetoStack.pop();
-      // } while (this.memetoStack.length != 0 && memento.type != "simple");
-
-      if (this.memetoStack.length != 0) {
-        this.resolveSimple({ type: "back", memento: memento });
-        this.resolveSimple = null;
-      }
-    }
+    } 
   }
 
   pushMemento( memento) {
     this.memetoStack.push(memento);
-  }
-
-  setStepTypeDetail() {
-    this.stepType = Sort.STEP_DETAIL;
-  }
-  setStepTypeSimple() {
-    this.stepType = Sort.STEP_SIMPLE;
   }
 
   shuffle() {
@@ -242,10 +207,5 @@ class Sort {
     await block.insertBefore(betweens[0]);
   }
 }
-
-// 세부적으로 모든 단계 표시
-Sort.STEP_DETAIL = Symbol.for("STEP_DETAIL");
-// 블록 위치가 바뀌는 단계만 표시
-Sort.STEP_SIMPLE = Symbol.for("STEP_SIMPLE");
 
 module.exports = Sort;
