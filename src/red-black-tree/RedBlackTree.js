@@ -15,13 +15,14 @@ class RedBlackTree extends Tree{
   }
 
   remove(data, vizCallback) {
+    isLeafRed = false;
     this.root = this.root.remove(data, vizCallback);
     this.root.color = TreeNode.BLACK; // Root는 항상 Black
     vizCallback();
   }
 }
 
-let isLeafRed;
+let isLeafRed =false;
 
 class TreeNode {
   constructor(
@@ -40,6 +41,10 @@ class TreeNode {
     if (this.isBlack()) return "black";
     else if (this.isRed()) return "red";
     else throw `unknown color ${this.color}`
+  }
+
+  getBlackPathLength() {
+    return (this.isBlack() ? 1 : 0) + Math.max(this.left.getBlackPathLength(),this.right.getBlackPathLength());
   }
 
   // data를 지운 서브트리를 반환
@@ -66,8 +71,9 @@ class TreeNode {
         isXLeft = false;
       } else {
         // data를 찾았고, leaf 노드인 경우
-        if (this.isRed()) isLeafRed = 1;
+        if (this.isRed()) isLeafRed = true;
         return TreeNode.END;
+        
       }
     } else if (data < this.data) {
       // data가 left에 있는 경우
@@ -90,6 +96,12 @@ class TreeNode {
   // parent 노드 기준으로 x, s, l, r 노드의 균형을 맞춘 뒤 parent 자리 노드를 반환
   fix(isXLeft) {
     //isXLeft:Boolean
+    
+    let leftBlackLength = this.left?.getBlackPathLength() ?? 0;
+    let rightBlackLength = this.right?.getBlackPathLength() ?? 0;
+
+    let balanceFactor = leftBlackLength - rightBlackLength;
+    
     let x,
       p = this,
       s,
@@ -102,7 +114,7 @@ class TreeNode {
     }
 
     // x가 p의 left냐 right냐에 따라 값을 할당
-    if (isXLeft) {
+    if (balanceFactor < 0) {
       x = p.left;
       s = p.right;
       l = s.left;
@@ -150,7 +162,7 @@ class TreeNode {
       } else {
         return this;
       }
-    } else { 
+    } else if (balanceFactor > 0 ) { 
       x = p.right;
       s = p.left;
       l = s.right;
@@ -198,6 +210,8 @@ class TreeNode {
       } else {
         return this;
       }
+    } else {
+      return this;
     }
   }
 
@@ -408,6 +422,10 @@ TreeNode.END = new (class extends TreeNode {
   }
   isEnd() {
     return true;
+  }
+
+  getBlackPathLength() {
+    return 1;
   }
 })();
 
