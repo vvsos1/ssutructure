@@ -14,6 +14,7 @@ class Chaining {
     this.hashTable = new Array(tableSize);
     this.searchedNode = null;
     this.insertedNode = null;
+    this.hashFunction = key => key % this.tableSize;
 
     const setting = (p) => {
       const hashtable = this;
@@ -104,15 +105,8 @@ class Chaining {
     new p5(setting, document.getElementById("container"));
   }
 
-  setHashFunction(fn) {
-    this.hashFunction = fn || (i => i);
-  }
-
-  hashFunction(key) {
-
-    if (this.hashFunction === undefined) this.hashFunction = key => key % 5;
-
-    return this.hashFunction(key) % this.tableSize;
+  setHashFunction(fn = i => i) {
+    this.hashFunction = key => fn(key) & this.tableSize; 
   }
 
   insert(key) {
