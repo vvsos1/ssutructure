@@ -14,7 +14,7 @@ class Chaining {
     this.hashTable = new Array(tableSize);
     this.searchedNode = null;
     this.insertedNode = null;
-    this.hashFunction = key => key % this.tableSize;
+    this.setHashFunction(key => key % this.tableSize);
 
     const setting = (p) => {
       const hashtable = this;
@@ -106,7 +106,21 @@ class Chaining {
   }
 
   setHashFunction(fn = i => i) {
-    this.hashFunction = key => (fn(key) % this.tableSize); 
+    this.hashFunction = key =>  {
+      let hashedKey = fn(key);
+
+      let key_p;
+      let key_t;
+      if (key < 0) {
+        key_p = key * -1;
+        for (key_t = 0; key_t < this.tableSize; key_t++) {
+          if ((key_p + key_t) % this.tableSize == 0) break ;
+        }
+        hashedKey = fn(key_t);
+      }
+    
+      return hashedKey % this.tableSize; 
+    }
   }
 
   insert(key) {
@@ -117,16 +131,6 @@ class Chaining {
         throw "Invalid Key!"
 
     let hashedKey = this.hashFunction(key);
-
-    let key_p;
-    let key_t;
-    if (key < 0) {
-      key_p = key * -1;
-      for (key_t = 0; key_t < this.tableSize; key_t++) {
-        if ((key_p + key_t) % this.tableSize == 0) break ;
-      }
-      hashedKey = this.hashFunction(key_t);
-    }
 
     let node = this.hashTable[hashedKey];
     
@@ -159,15 +163,6 @@ class Chaining {
 
     let hashedKey = this.hashFunction(key);
 
-    let key_p;
-    let key_t;
-    if (key < 0) {
-      key_p = key * -1;
-      for (key_t = 0; key_t < this.tableSize; key_t++) {
-        if ((key_p + key_t) % this.tableSize == 0) break ;
-      }
-      hashedKey = this.hashFunction(key_t);
-    }
 
     let node = this.hashTable[hashedKey];
     
@@ -188,16 +183,6 @@ class Chaining {
     if (isNaN(key)) throw "Invalid Key!";
 
     let hashedKey = this.hashFunction(key);
-
-    let key_p;
-    let key_t;
-    if (key < 0) {
-      key_p = key * -1;
-      for (key_t = 0; key_t < this.tableSize; key_t++) {
-        if ((key_p + key_t) % this.tableSize == 0) break ;
-      }
-      hashedKey = this.hashFunction(key_t);
-    }
 
     let node = this.hashTable[hashedKey];
     
