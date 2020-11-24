@@ -73,11 +73,11 @@ header.main-header h1 {
   justify-content: center;
   position: relative;
   background-color: #e1b12c;
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 30px;
   color: #f5f6fa;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   margin-top: 20px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -89,7 +89,37 @@ header.main-header h1 {
 .stack-item:first-child {
   margin-top: 0;
 }
-.output-container {
+
+.queue-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.queue-items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 15px;
+  overflow: auto;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.queue-item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -99,23 +129,25 @@ header.main-header h1 {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  position: relative;
+  background-color: #e1b12c;
+  width: 150px;
+  height: 30px;
+  color: #f5f6fa;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 20px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  -webkit-animation-name: pushqueue;
+  animation-name: pushqueue;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
 }
-.output-container .output-box {
-  border: 1px dashed #f5f6fa;
-  width: 100%;
-  height: 80px;
+.queue-item:first-child {
+  margin-top: 0;
 }
-.output-container .output-box .output {
-  display: none;
-  background-color: #273c75;
-  height: 100%;
-  -webkit-animation-name: sl;
-  animation-name: sl;
-  -webkit-animation: name duration timing-function delay iteration-count
-    direction fill-mode;
-  animation: name duration timing-function delay iteration-count direction
-    fill-mode;
-}
+
 .operations {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -175,7 +207,25 @@ header.main-header h1 {
   -webkit-transform: translateY(-200px);
   transform: translateY(-200px);
 }
+
+.queue-items--remove .queue-item {
+  opacity: 0;
+  -webkit-transform: translateY(-200px);
+  transform: translateY(-200px);
+}
 @-webkit-keyframes push {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-80px);
+    transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+@-webkit-keyframes pushqueue {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-80px);
@@ -192,6 +242,19 @@ header.main-header h1 {
     opacity: 0;
     -webkit-transform: translateY(-80px);
     transform: translateY(-80px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes pushqueue {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(80px);
+    transform: translateY(80px);
   }
   100% {
     opacity: 1;

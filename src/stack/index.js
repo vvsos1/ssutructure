@@ -58,7 +58,9 @@ stackradio.onchange = (e) => {
 
 
 pushbtn.onclick = function() {
-	const itemName = Number(push.value);
+  stack_many = $('.stack-item').length;
+  if(stack_many!=16){
+  const itemName = Number(push.value);
 	stack.push(itemName);
 
   disableButtons(true);
@@ -72,6 +74,7 @@ pushbtn.onclick = function() {
   setTimeout(() => {
     disableButtons(false);
   },500)
+  }
 }
 
 
@@ -88,6 +91,8 @@ popbtn.onclick = function(){
 }
 
 enqueuebtn.onclick = function() {
+  queue_many = $('.queue-item').length;
+  if(queue_many!=16){
         const arrName = Number(enqueue.value);
         stack.enqueue(arrName);
 	var l = stack.size();
@@ -96,7 +101,7 @@ enqueuebtn.onclick = function() {
   // Create HTML element and push it to items
   const arr = document.createElement('div');
 
-  arr.classList.add('stack-item');
+  arr.classList.add('queue-item');
   arr.innerHTML = arrName;
   items.insertBefore(arr, items.childNodes[l]);
 
@@ -116,6 +121,7 @@ dequeuebtn.onclick = function(){
 		}, 500);
 	}
 }
+}
 
 
 		
@@ -124,8 +130,10 @@ clearbtn.onclick = function(){
     stack.clear();  
     disableButtons(true);
     items.classList.add('stack-items--remove');
+    items.classList.add('queue-items--remove');
     setTimeout(() => {
       items.classList.remove('stack-items--remove');
+      items.classList.remove('queue-items--remove');
       items.innerHTML = "";
       disableButtons(false);
     }, 500);
