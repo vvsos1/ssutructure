@@ -75,8 +75,6 @@ RedBlackTreeRadio.onchange = (e) => {
   clearTree();
   tree = new RedBlackTree();
 
-  // RedBlackTree 삭제 기능 미완성이므로 삭제 버튼 비활성화
-  newDataRemoveBtn.disabled = true;
 };
 
 AVLTreeRadio.onchange = (e) => {

@@ -24,8 +24,6 @@ class InsertionSort extends Sort {
 
     blocks[0].setColorGreen();
 
-    await this.waitSimple();
-
     for (let i = 1; i < n;) {
       blocks[i].setColorRed();
 
@@ -36,7 +34,7 @@ class InsertionSort extends Sort {
       for (let j = 0; j < i;) {
         blocks[j].setColorRed();
 
-        const {type,memento} = await this.waitDetail();
+        const {type,memento} = await this.wait();
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
           ({i,j} = memento);
@@ -76,7 +74,6 @@ class InsertionSort extends Sort {
       }
       blocks[i].setColorGreen();
       this.refreshBlocks();
-      await this.waitSimple();
       i += 1;
     }
 
