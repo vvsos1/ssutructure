@@ -93,17 +93,6 @@ class Hashtable {
         for (let i = 0; i < this.tableSize; i++) {
 
             let hashedKey = this.hashFunction(key, i);
-
-            let key_p;
-            let key_t;
-            if (key < 0) {
-                key_p = key * -1;
-                for (key_t = 0; key_t < this.tableSize; key_t++) {
-                if ((key_p + key_t) % this.tableSize == 0)
-                   break ;
-                }
-                hashedKey = this.hashFunction(key_t, i);
-            }
                 
             this.insertStep = hashedKey;
 
