@@ -56,8 +56,11 @@ const RedBlackTreeRadio = document.getElementById("red-black-tree-radio");
 const AVLTreeRadio = document.getElementById("avl-tree-radio");
 const BTreeRadio = document.getElementById("b-tree-radio");
 
-// 사용자로부터 새로운 데이터를 입력받는 Input Text
-const newDataInput = document.getElementById("new-data-input");
+// 새로운 데이터를 입력받는 Input Text
+const newDataAdd = document.getElementById("new-data-add");
+
+// 기존 데이터를 삭제하는 Input Text
+const newDataRemove = document.getElementById("new-data-remove");
 
 // 새로운 데이터를 추가하는 Button
 const newDataAddBtn = document.getElementById("new-data-add-btn");
@@ -102,26 +105,26 @@ delayRange.oninput = (e) => {
 
 newDataAddBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우 바로 리턴
-  if (newDataInput.value.trim() == "") return;
+  if (newDataAdd.value.trim() == "") return;
 
-  const newData = Number(newDataInput.value);
+  const newData = Number(newDataAdd.value);
 
   tree.add(newData, vizCallback);
 
   // data clear
-  newDataInput.value = "";
+  newDataAdd.value = "";
 };
 
 newDataRemoveBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우
-  if (newDataInput.value.trim() == "") return;
+  if (newDataRemove.value.trim() == "") return;
 
-  const newData = Number(newDataInput.value);
+  const newData = Number(newDataRemove.value);
 
   tree.remove(newData, vizCallback);
 
   // data clear
-  newDataInput.value = "";
+  newDataRemove.value = "";
 };
 
 dataClearBtn.onclick = (e) => {
