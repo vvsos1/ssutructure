@@ -5,6 +5,15 @@ class BubbleSort extends Sort {
   constructor(...args) {
     super(...args);
 
+    document.getElementById("pseudo-code-container").innerHTML = 
+    `
+    <code> function bubbleSort(A, n) {</code>
+    <code> for (let last = n; last <= 2; last--) </code>
+    <code>  for (let i = 1; i <= last - 1; i++)</code>
+    <code>    if (A[i] > A[i + 1]) </code>
+    <code>      swap(A[i],A[i+1])}</code>
+    `;
+
   }
 
   async sort() {

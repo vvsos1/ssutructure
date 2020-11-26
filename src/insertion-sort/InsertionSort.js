@@ -50,6 +50,8 @@ class InsertionSort extends Sort {
       for (let j = 0; j < i;) {
         blocks[j].setColorRed();
 
+        this.setDescription(`${blocks[i].getValue()} 블록이 들어갈 위치를 탐색`);
+
         const {type,memento} = await this.wait();
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
@@ -90,15 +92,21 @@ class InsertionSort extends Sort {
         await this.shift(destIndex, i);
 
         this.codeHighlight(8);
+        if (destIndex != 0)
+          this.setDescription(`${blocks[i].getValue()} 블록을 ${blocks[destIndex-1].getValue()} 블록과 ${blocks[destIndex].getValue()} 블록의 사이에 삽입`);
+        else if (destIndex == 0)
+          this.setDescription(`${blocks[i].getValue()} 블록을 ${blocks[destIndex].getValue()} 블록의 위치에 삽입`);
+
         await this.insertAt(blocks[i], destIndex);
         
         blocks[destIndex].setColorGreen();
       }
+      else
+        this.setDescription(`${blocks[i].getValue()} 블록의 위치 변경 없음`);
       blocks[i].setColorGreen();
       this.refreshBlocks();
       i += 1;
     }
-
     this.isSortRunning = false;
   }
 }

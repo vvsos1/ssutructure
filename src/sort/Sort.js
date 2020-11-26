@@ -105,6 +105,9 @@ class Sort {
   }
 
   shuffle() {
+
+    this.setDescription("");
+    
     let blocks = this.blocks;
     for (let i = blocks.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // 0 이상 i 미만의 무작위 인덱스
