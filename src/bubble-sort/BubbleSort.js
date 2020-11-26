@@ -4,6 +4,7 @@ class BubbleSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+
   }
 
   async sort() {
@@ -22,9 +23,6 @@ class BubbleSort extends Sort {
     // block들의 총 개수
     const n = blocks.length;
     for (let i = 0; i < n - 1;) {
-      
-
-    
       for (let j = 0; j < n - i - 1;) {
         // 현재 선택된(정렬중인) 블록의 색을 Red로 바꿈
         blocks[j].setColorRed();
@@ -45,18 +43,28 @@ class BubbleSort extends Sort {
             block.setColor(color);
             block.setXPosition(xPosition);
           });
+          this.codeDefault();
 
           continue;
         }
         // 상태 저장
         this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
 
+
+        
+        const value1 = blocks[j].getValue();
+        const value2 = blocks[j + 1].getValue();
+
+
+        
+        this.codeHighlight(4);
+        this.setDescription(`${value1}과 ${value2} 비교`);
         // delay만큼 기다림
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
-        const value1 = blocks[j].getValue();
-        const value2 = blocks[j + 1].getValue();
         if (value1 > value2) {
+          this.codeHighlight(5);
+        this.setDescription(`${value1}과 ${value2} 변경`);
           // swap 함수로 두 블록의 위치를 바꿈; await은 swap 이 끝날 때 까지 기다리겠다는 의미
           await this.swap(blocks[j], blocks[j + 1]);
           // 두 블록의 위치가 바뀌었으므로 blocks을 업데이트
@@ -69,6 +77,7 @@ class BubbleSort extends Sort {
       }
       // 정렬이 끝난 블록의 색을 Green으로 바꿈
       blocks[n - i - 1].setColorGreen();
+      this.setDescription(`${blocks[n-i-1].getValue()} 블록 정렬 완료`);
       i += 1
     }
     blocks[0].setColorGreen();

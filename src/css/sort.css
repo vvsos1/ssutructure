@@ -21,6 +21,7 @@ body {
     height: 384px;
     position: relative;
     margin: 0 auto;
+    margin-bottom: 30px;
   }
   
   .block {
@@ -39,3 +40,10 @@ body {
     text-align: center;
   }
   
+  .sort-description{
+    position: absolute;
+    left: 0;
+    bottom: -24px;
+    text-align: center;
+    width: 100%;
+  }

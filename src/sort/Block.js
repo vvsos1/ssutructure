@@ -1,7 +1,7 @@
 class Block {
   // static factory method; value와 container를 이용해 Block 객체를 만든다
   static createNewBlock(value, container, blockWidth = 28, blockMargin = 2) {
-    const blockCount = container.childElementCount;
+    const blockCount = Array.from(container.children).filter(dom => dom.classList.contains('block')).length;
     const xPosition = blockCount * (blockWidth + blockMargin);
 
     return new Block(value, container, xPosition, blockWidth);

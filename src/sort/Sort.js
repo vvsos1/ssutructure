@@ -29,6 +29,7 @@ class Sort {
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
 
+
     this.memetoStack = [];
   }
 
@@ -36,7 +37,7 @@ class Sort {
   sort() {}
 
   wait() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (this.isStop) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolve = resolve;
@@ -59,7 +60,7 @@ class Sort {
     if (this.resolve != null && this.resolve != undefined) {
       this.resolve({ type: "step" });
       this.resolve = null;
-    } 
+    }
   }
 
   stepBack() {
@@ -67,14 +68,37 @@ class Sort {
       if (this.memetoStack.length != 0) {
         this.resolve({
           type: "back",
-          memento: this.memetoStack.pop()
+          memento: this.memetoStack.pop(),
         });
         this.resolve = null;
       }
-    } 
+    }
   }
 
-  pushMemento( memento) {
+  codeDefault(){
+    const pseudoCodeContainer = document.getElementById('pseudo-code-container');
+
+    const children = pseudoCodeContainer.children;
+
+    for(let i = 0; i < children.length; i++) {
+      children[i].style.color = '';
+    }
+  }
+
+  codeHighlight(line) {
+    const pseudoCodeContainer = document.getElementById('pseudo-code-container');
+
+    const children = pseudoCodeContainer.children;
+
+    for(let i = 0; i < children.length; i++) {
+      children[i].style.color = '';
+    }
+
+    const codeElement = children[line-1];
+    codeElement.style.color = "#B69AE7";
+  }
+
+  pushMemento(memento) {
     this.memetoStack.push(memento);
   }
 
@@ -98,6 +122,17 @@ class Sort {
     });
 
     this.blocks = blocks;
+  }
+
+  setDescription(text) {
+    if (this.description === undefined) {
+      this.description = document.createElement("div");
+      this.description.classList.add("sort-description");
+      this.container.appendChild(this.description);
+    }
+    
+    this.description.innerHTML = "";
+    this.description.innerHTML = text;
   }
 
   setBlockWidth(blockWidth, blockMargin = 2) {
@@ -155,7 +190,7 @@ class Sort {
 
   setAnimationDelay(millis) {
     this.animationDelay = millis;
-    this.blocks.forEach(block =>
+    this.blocks.forEach((block) =>
       block.setTransitionDuration(this.animationDelay)
     );
   }
@@ -195,7 +230,7 @@ class Sort {
 
     // x 좌표
     const x1 = block.getXPosition();
-    const xRest = betweens.map(b => b.getXPosition());
+    const xRest = betweens.map((b) => b.getXPosition());
 
     block.setXPosition(xRest[0]);
     for (let i = 0; i < betweens.length - 1; i++) {
@@ -207,5 +242,6 @@ class Sort {
     await block.insertBefore(betweens[0]);
   }
 }
+
 
 module.exports = Sort;
