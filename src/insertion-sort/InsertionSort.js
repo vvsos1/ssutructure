@@ -4,13 +4,30 @@ class InsertionSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+
   }
 
   async sort() {
+
     // 이미 정렬중인 경우 바로 리턴
     if (this.isSortRunning)
       return;
     this.isSortRunning = true;
+
+    document.getElementById("pseudo-code-container").innerHTML = 
+    `
+    <code>function insertionSort(A, n) {</code>
+    <code> for (let i = 2; i <= n; i++) {</code>
+    <code>  let key = A[i]</code>
+    <code>  let j = i - 1</code>
+    <code>  while (j > 0 && A[j] > key) {</code>
+    <code>	  A[j + 1] = A[j]</code>
+    <code>    j = j - 1</code>
+    <code>  }</code>
+    <code>  A[j + 1] = key</code>
+    <code> }</code>
+    <code>}</code>
+    `;
 
     // 상태 저장 스택 초기화
     this.memetoStack = [];
@@ -37,6 +54,7 @@ class InsertionSort extends Sort {
         const {type,memento} = await this.wait();
         // 이전 상태로 복구
         if (type === "back" && memento != null) {
+          this.codeDefault();
           ({i,j} = memento);
           // TODO: 
           memento.blocks.forEach((prevBlock,index) => {
@@ -66,9 +84,12 @@ class InsertionSort extends Sort {
       }
       if (i != destIndex) {
         blocks[destIndex].setColorRed();
-        // await this.waitDetail();
 
+        this.codeHighlight(5, 6, 7, 8);
         await this.insertAt(blocks[i], destIndex);
+
+        this.codeHighlight(9);
+        await this.shift(destIndex, i);
 
         blocks[destIndex].setColorGreen();
       }

@@ -64,7 +64,7 @@ class BubbleSort extends Sort {
 
         if (value1 > value2) {
           this.codeHighlight(5);
-        this.setDescription(`${value1}과 ${value2} 변경`);
+          this.setDescription(`${value1}과 ${value2} 변경`);
           // swap 함수로 두 블록의 위치를 바꿈; await은 swap 이 끝날 때 까지 기다리겠다는 의미
           await this.swap(blocks[j], blocks[j + 1]);
           // 두 블록의 위치가 바뀌었으므로 blocks을 업데이트

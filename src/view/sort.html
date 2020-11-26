@@ -42,7 +42,7 @@
     <!-- 메인 콘텐츠 컨테이너 -->
     <div class="container-fluid d-flex my-3 mt-2 pb-3 pt-4 align-items-start bg-white">
         <!-- 입력 폼 컨테이너-->
-        <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-2">
+        <div id="input-form-wrapper" class="d-inline-flex flex-column col-2">
 
             <!-- 정렬 타입 라디오 버튼 컨테이너-->
             <div id="sort-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
@@ -98,7 +98,7 @@
             </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="col-md-4 m-0 ml-4 p-0">
+        <div id="visualize-section-wrapper" class="col m-0 ml-4 p-0">
             <section class="data-container border border-dark ml-0" style="height: 500px;"></section>
             <div class="mt-2">
                 <!-- 정렬 버튼-->
@@ -115,9 +115,10 @@
                 <button id="block-shuffle-btn" type="button" class="btn btn-warning">Shuffle</button>
             </div>
         </div>
-        <div class="col mt-2">
+        <!--수도 코드 시각화 부분 컨테이너-->
+        <div class="col-5">
             <pre id="pseudo-code-container">
-                <code><strong style="color:deepskyblue">function</strong> bubbleSort(A, n) {</code>
+                <code>function bubbleSort(A, n) {</code>
                 <code> for (let last = n; last <= 2; last--) </code>
                 <code>  for (let i = 1; i <= last - 1; i++)</code>
                 <code>    if (A[i] > A[i + 1]) </code>

@@ -85,7 +85,7 @@ class Sort {
     }
   }
 
-  codeHighlight(line) {
+  codeHighlight(...line) {
     const pseudoCodeContainer = document.getElementById('pseudo-code-container');
 
     const children = pseudoCodeContainer.children;
@@ -94,8 +94,10 @@ class Sort {
       children[i].style.color = '';
     }
 
-    const codeElement = children[line-1];
-    codeElement.style.color = "#B69AE7";
+    for (let mango = 0; mango < line.length; mango++) {
+      const codeElement = children[line[mango]-1];
+      codeElement.style.color = "#B69AE7";
+    }
   }
 
   pushMemento(memento) {
@@ -217,29 +219,27 @@ class Sort {
     await block1.swapBlock(block2);
   }
 
-  // target을 destIndex 자리에 넣고 원래 destIndex의 element부터 한 칸씩 뒤로 미는 함수
+  // target을 destIndex 자리에 넣는 함수 
   // target은 항상 destIndex보다 뒤에 있어야함
   async insertAt(block, destIndex) {
     const blocks = this.blocks;
 
-    // target의 인덱스
-    const targetIndex = blocks.indexOf(block);
-
-    // destIndex와 target 사이에 있는 블록들
-    const betweens = blocks.filter((_, i) => destIndex <= i && i < targetIndex);
-
-    // x 좌표
-    const x1 = block.getXPosition();
-    const xRest = betweens.map((b) => b.getXPosition());
-
-    block.setXPosition(xRest[0]);
-    for (let i = 0; i < betweens.length - 1; i++) {
-      betweens[i].setXPosition(xRest[i + 1]);
-    }
-    betweens[betweens.length - 1].setXPosition(x1);
+    block.setXPosition(blocks[destIndex].getXPosition());
 
     // 애니메이션이 끝나기를 기다림.
-    await block.insertBefore(betweens[0]);
+    await block.insertBefore(blocks[destIndex]);
+  }
+
+  // start 인덱스부터 end 인덱스까지 block 한 칸씩 미는 함수 
+  async shift (start, end) {
+    const blocks = this.blocks;
+
+    const betweens = blocks.filter((_, i) => start <= i && i < end);
+
+    for (let i = betweens.length - 2; i > 0; i--) {
+      betweens[i].setXPosition(betweens[i - 1].getXPosition());
+    }
+
   }
 }
 
