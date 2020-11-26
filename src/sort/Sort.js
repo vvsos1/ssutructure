@@ -8,7 +8,8 @@ class Sort {
     delay = 200,
     animationDelay = 250,
     blockWidth = 28,
-    blockMargin = 2
+    blockMargin = 2,
+    description
   ) {
     // 정렬할 대상인 블록들
     this.blocks = blocks;
@@ -23,15 +24,20 @@ class Sort {
     // 블록 사이 간격
     this.blockMargin = blockMargin;
 
+    this.description = description;
+
     // 정렬이 현재 실행중인 상태
     this.isSortRunning = false;
 
     // block 들의 애니메이션 딜레이를 설정
     this.setAnimationDelay(animationDelay);
 
-
     this.memetoStack = [];
   }
+
+  // 추상 메소드
+  // 자기 자신의 수도코드를 그림
+  drawPseudoCode(){}
 
   // 추상 메소드
   sort() {}

@@ -7,27 +7,17 @@ class SelectionSort extends Sort {
 
   }
 
+  drawPseudoCode(){
+    
+  }
+
   async sort() {
     // 이미 정렬중인 경우 바로 리턴
     if (this.isSortRunning)
       return;
     
     this.isSortRunning = true;
-
-    document.getElementById("pseudo-code-container").innerHTML = 
-    `
-    <code>function insertionSort(A, n) {</code>
-    <code> for (let i = 2; i <= n; i++) {</code>
-    <code>  let key = A[i]</code>
-    <code>  let j = 0</code>
-    <code>  while (j < i && A[j] < key)</code>
-    <code>    j++</code>
-    <code>  shift(A,j,i) </code>
-    <code>  A[j] = key </code>
-    <code> }</code>
-    <code>}</code>
-    `;
-
+    
     // 상태 저장 스택 초기화
     this.memetoStack = [];
     // 블록 색상을 기본으로 변경

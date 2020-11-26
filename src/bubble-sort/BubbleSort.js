@@ -5,6 +5,10 @@ class BubbleSort extends Sort {
   constructor(...args) {
     super(...args);
 
+
+  }
+  
+  drawPseudoCode(){
     document.getElementById("pseudo-code-container").innerHTML = 
     `
     <code> function bubbleSort(A, n) {</code>
@@ -13,8 +17,8 @@ class BubbleSort extends Sort {
     <code>    if (A[i] > A[i + 1]) </code>
     <code>      swap(A[i],A[i+1])}</code>
     `;
-
   }
+
 
   async sort() {
     // 이미 정렬중인 경우 바로 리턴

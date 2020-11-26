@@ -7,13 +7,7 @@ class InsertionSort extends Sort {
 
   }
 
-  async sort() {
-
-    // 이미 정렬중인 경우 바로 리턴
-    if (this.isSortRunning)
-      return;
-    this.isSortRunning = true;
-
+  drawPseudoCode(){
     document.getElementById("pseudo-code-container").innerHTML = 
     `
     <code>function insertionSort(A, n) {</code>
@@ -27,6 +21,16 @@ class InsertionSort extends Sort {
     <code> }</code>
     <code>}</code>
     `;
+  }
+
+  async sort() {
+
+    // 이미 정렬중인 경우 바로 리턴
+    if (this.isSortRunning)
+      return;
+    this.isSortRunning = true;
+
+
 
     // 상태 저장 스택 초기화
     this.memetoStack = [];

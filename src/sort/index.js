@@ -167,8 +167,11 @@ sortBtn.onclick = e => {
     sort.delay,
     sort.animationDelay,
     sort.blockWidth,
-    sort.blockMargin
+    sort.blockMargin,
+    sort.description
   );
+  
+  sort.drawPseudoCode();
 
   sort.sort().then(enableInputs)
 };
