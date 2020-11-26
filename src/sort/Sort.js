@@ -224,7 +224,7 @@ class Sort {
   async insertAt(block, destIndex) {
     const blocks = this.blocks;
 
-    block.setXPosition(blocks[destIndex].getXPosition());
+    block.setXPosition(destIndex *  (this.blockWidth+this.blockMargin));
 
     // 애니메이션이 끝나기를 기다림.
     await block.insertBefore(blocks[destIndex]);
@@ -236,10 +236,14 @@ class Sort {
 
     const betweens = blocks.filter((_, i) => start <= i && i < end);
 
-    for (let i = betweens.length - 2; i > 0; i--) {
-      betweens[i].setXPosition(betweens[i - 1].getXPosition());
+    const  xRest = betweens.map(b => b.getXPosition());
+    for (let i = 0; i < betweens.length - 1; i++) {
+      betweens[i].setXPosition(xRest[i + 1]);
     }
+    blocks[end-1].setXPosition(blocks[end].getXPosition());
+    
 
+    await new Promise(res => setTimeout(res, blocks[0].getTransitionDuration()));
   }
 }
 

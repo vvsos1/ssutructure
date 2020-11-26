@@ -19,12 +19,11 @@ class InsertionSort extends Sort {
     <code>function insertionSort(A, n) {</code>
     <code> for (let i = 2; i <= n; i++) {</code>
     <code>  let key = A[i]</code>
-    <code>  let j = i - 1</code>
-    <code>  while (j > 0 && A[j] > key) {</code>
-    <code>	  A[j + 1] = A[j]</code>
-    <code>    j = j - 1</code>
-    <code>  }</code>
-    <code>  A[j + 1] = key</code>
+    <code>  let j = 0</code>
+    <code>  while (j < i && A[j] < key)</code>
+    <code>    j++</code>
+    <code>  shift(A,j,i) </code>
+    <code>  A[j] = key </code>
     <code> }</code>
     <code>}</code>
     `;
@@ -71,6 +70,8 @@ class InsertionSort extends Sort {
         // 상태 저장
         this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
 
+        this.codeHighlight(5,6);
+
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
         const value = blocks[j].getValue();
@@ -83,14 +84,14 @@ class InsertionSort extends Sort {
         j+=1;
       }
       if (i != destIndex) {
+        this.codeHighlight(7);
         blocks[destIndex].setColorRed();
 
-        this.codeHighlight(5, 6, 7, 8);
-        await this.insertAt(blocks[i], destIndex);
-
-        this.codeHighlight(9);
         await this.shift(destIndex, i);
 
+        this.codeHighlight(8);
+        await this.insertAt(blocks[i], destIndex);
+        
         blocks[destIndex].setColorGreen();
       }
       blocks[i].setColorGreen();
