@@ -72,7 +72,7 @@ header.main-header h1 {
   -ms-flex-pack: center;
   justify-content: center;
   position: relative;
-  background-color: #e1b12c;
+  background-color: #ff7f00;
   width: 150px;
   height: 30px;
   color: #f5f6fa;
@@ -101,6 +101,7 @@ header.main-header h1 {
   -webkit-box-pack: end;
   -ms-flex-pack: end;
   justify-content: flex-end;
+  
 }
 
 .queue-items {
@@ -130,7 +131,7 @@ header.main-header h1 {
   -ms-flex-pack: center;
   justify-content: center;
   position: relative;
-  background-color: #e1b12c;
+  background-color: #ff7f00;
   width: 150px;
   height: 30px;
   color: #f5f6fa;
@@ -270,3 +271,4 @@ header.main-header h1 {
   -webkit-transform: translateY(100px);
   transform: translateY(100px);
 }
+::-webkit-scrollbar { display: none; }
