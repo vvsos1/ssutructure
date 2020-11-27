@@ -7,27 +7,16 @@ class SelectionSort extends Sort {
     this.drawPseudoCode(  
  `
 function SelectionSort(A, n) {
-
   for(let i = 0; i < n-1; i++){
-
-      min = i
-    
-      for(let j = i + 1; j < n; j++) {
-
-        if(A[j] < A[min])
-
+    min = i
+    for(let j = i + 1; j < n; j++) {
+      if(A[j] < A[min])
         min = j
-
-      }
-
-      if(min != i)
-
-        swap(A[i],A[min])
-
-        }
-
-      }`
-          )
+    }
+    if(min != i)
+      swap(A[i],A[min])
+  }
+}`)
         }
 
   async sort() {
@@ -73,7 +62,7 @@ function SelectionSort(A, n) {
         }
         // 상태 저장
         this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
-        this.codeHighlight(10);
+        this.codeHighlight(6);
         // delay만큼 기다림//
         await new Promise(resolve => setTimeout(resolve, this.delay));
         let value1 = blocks[min].getValue(); //변수 설정
@@ -85,13 +74,13 @@ function SelectionSort(A, n) {
         if (value1 >= value2) {
           this.setDescription(` 현재 최솟값 : ${value2}`);
           min = j;
-          this.codeHighlight(12);
+          this.codeHighlight(7);
         }
         if (i != min && j == n - 1) {
-          this.codeHighlight(16);
+          this.codeHighlight(9);
           this.setDescription(`최솟값과 현재 값을 교환한다`);
           await this.swap(blocks[min], blocks[i]); // 블럭 체인지
-          this.codeHighlight(18);
+          this.codeHighlight(10);
           min = i; // min값초기화
           blocks[min].setColorDefault(); // 위치가 바뀌는 대상블록색깔 파란색으로
           this.refreshBlocks(); //두 블록의 위치가 바뀌었으므로 blocks를 업데이트
