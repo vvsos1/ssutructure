@@ -44,16 +44,10 @@ class Hashtable {
                     else if (this.searchStep === i) p.stroke("blue");
                     else if (this.insertedIndex === i) p.stroke("orange"); 
                     else if (this.insertStep === i) p.stroke("yellow");
-
+                 
                     const c = getCirclePosition(i);
-
                     p.circle(c.x, c.y, 60);
 
-                    // p.fill("black");
-                    p.text("Mango mungoo", c.x + 200, c.y);
-                    p.fill(255);
-                    p.stroke("black");
-                 
                     if (key !== undefined && key !== "DELETED") {
                         if (this.searchedIndex === i) p.fill("#bbdeed"); 
                         else if (this.searchStep === i) p.fill("blue");
@@ -64,6 +58,16 @@ class Hashtable {
                         p.fill(255);
                         p.stroke("black");
                     }
+
+                    if (this.description !== undefined && this.description.i === i) {
+                        p.fill("brown");    // 변경 
+                        p.stroke("black");  // 해주세용 ^^!!!! 
+                        p.text(this.description.text, c.x + 200, c.y);
+                    }
+
+                    p.fill(255);
+                    p.stroke("black");
+            
                 }
                 clearAndRedraw;
                 this.searchedIndex = null;
@@ -79,6 +83,10 @@ class Hashtable {
             this.draw = clearAndRedraw;
         };
         new p5(setting, document.getElementById("container"));
+    }
+
+    setDescription(i, text) {
+        this.description = {i : i, text : text};
     }
     
     async insert(key) {
@@ -107,6 +115,7 @@ class Hashtable {
                 case "DELETED":
                     this.hashTable[hashedKey] = key;
                     this.insertedIndex = hashedKey;
+                    this.setDescription(hashedKey, "성공");
                     await this.sleep(500);
                     this.draw();
                     return;
@@ -116,6 +125,7 @@ class Hashtable {
                     this.draw();
                     throw new Error("Duplicate Key!");
                 default:
+                    this.setDescription(hashedKey, "충돌!!!");
                     await this.sleep(500);
                     this.draw();
             }
