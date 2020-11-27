@@ -37,14 +37,14 @@ class Sort {
 
   // 수도 코드 문자열을 받아서 시각화 컨테이너 우측에 보여줌
   drawPseudoCode(pseudoCode){
-    const pesudoCodeContainer = document.querySelector(".pseudo-code-container");
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
     // 기존에 있던 수도코드 삭제
-    Array.from(pesudoCodeContainer.children).forEach(child=>child.remove());
-    pesudoCodeContainer.innerHTML = "";
+    Array.from(pseudoCodeContainer.children).forEach(child=>child.remove());
+    pseudoCodeContainer.innerHTML = "";
     
     // 줄별로
     pseudoCode.split('\n').map(line => {
-      pesudoCodeContainer.innerHTML += `<code>${line}</code>${'\n'}`
+      pseudoCodeContainer.innerHTML += `<code>${line}</code>${'\n'}`
     })
 
   }
@@ -93,7 +93,7 @@ class Sort {
 
   // 시각화된 수도 코드의 하이라이트를 없앰
   codeDefault(){
-    const pseudoCodeContainer = document.getElementById('pseudo-code-container');
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
 
     const children = pseudoCodeContainer.children;
 
@@ -104,7 +104,7 @@ class Sort {
 
   // 시각화된 수도 코드의 특정 줄을 하이라이트
   codeHighlight(...line) {
-    const pseudoCodeContainer = document.getElementById('pseudo-code-container');
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
 
     const children = pseudoCodeContainer.children;
 

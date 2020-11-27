@@ -70,7 +70,7 @@ function insertionSort(A, n) {
         // 상태 저장
         this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
 
-        this.codeHighlight(5,6);
+        this.codeHighlight(6,7);
 
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
@@ -84,12 +84,12 @@ function insertionSort(A, n) {
         j+=1;
       }
       if (i != destIndex) {
-        this.codeHighlight(7);
+        this.codeHighlight(8);
         blocks[destIndex].setColorRed();
 
         await this.shift(destIndex, i);
 
-        this.codeHighlight(8);
+        this.codeHighlight(9);
         if (destIndex != 0)
           this.setDescription(`${blocks[i].getValue()} 블록을 ${blocks[destIndex-1].getValue()} 블록과 ${blocks[destIndex].getValue()} 블록의 사이에 삽입`);
         else if (destIndex == 0)

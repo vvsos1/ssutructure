@@ -7,10 +7,6 @@ class SelectionSort extends Sort {
 
   }
 
-  drawPseudoCode(){
-    
-  }
-
   async sort() {
     // 이미 정렬중인 경우 바로 리턴
     if (this.isSortRunning)
