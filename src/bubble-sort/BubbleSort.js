@@ -4,20 +4,18 @@ class BubbleSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
-
-
+    this.drawPseudoCode(  
+`
+function bubbleSort(A, n) {
+  for (let last = n; last <= 2; last--)
+    for (let i = 1; i <= last - 1; i++)
+      if (A[i] > A[i + 1])
+        swap(A[i],A[i+1])
+}`
+    )
   }
   
-  drawPseudoCode(){
-    document.getElementById("pseudo-code-container").innerHTML = 
-    `
-    <code> function bubbleSort(A, n) {</code>
-    <code> for (let last = n; last <= 2; last--) </code>
-    <code>  for (let i = 1; i <= last - 1; i++)</code>
-    <code>    if (A[i] > A[i + 1]) </code>
-    <code>      swap(A[i],A[i+1])}</code>
-    `;
-  }
+  
 
 
   async sort() {

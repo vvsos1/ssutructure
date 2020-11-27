@@ -35,9 +35,19 @@ class Sort {
     this.memetoStack = [];
   }
 
-  // 추상 메소드
-  // 자기 자신의 수도코드를 그림
-  drawPseudoCode(){}
+  // 수도 코드 문자열을 받아서 시각화 컨테이너 우측에 보여줌
+  drawPseudoCode(pseudoCode){
+    const pesudoCodeContainer = document.querySelector(".pseudo-code-container");
+    // 기존에 있던 수도코드 삭제
+    Array.from(pesudoCodeContainer.children).forEach(child=>child.remove());
+    pesudoCodeContainer.innerHTML = "";
+    
+    // 줄별로
+    pseudoCode.split('\n').map(line => {
+      pesudoCodeContainer.innerHTML += `<code>${line}</code>${'\n'}`
+    })
+
+  }
 
   // 추상 메소드
   sort() {}
@@ -81,6 +91,7 @@ class Sort {
     }
   }
 
+  // 시각화된 수도 코드의 하이라이트를 없앰
   codeDefault(){
     const pseudoCodeContainer = document.getElementById('pseudo-code-container');
 
@@ -91,6 +102,7 @@ class Sort {
     }
   }
 
+  // 시각화된 수도 코드의 특정 줄을 하이라이트
   codeHighlight(...line) {
     const pseudoCodeContainer = document.getElementById('pseudo-code-container');
 
@@ -135,6 +147,8 @@ class Sort {
     this.blocks = blocks;
   }
 
+  // 현재 시각화되는 단계의 설명 설정
+  // 시각화 컨테이너 하단에 표시됨
   setDescription(text) {
     if (this.description === undefined) {
       this.description = document.createElement("div");

@@ -5,22 +5,18 @@ class InsertionSort extends Sort {
   constructor(...args) {
     super(...args);
 
+    this.drawPseudoCode(
+`
+function insertionSort(A, n) {
+  for (let i = 2; i <= n; i++) {
+    let key = A[i]
+    let j = 0
+    while (j < i && A[j] < key)
+      j++
+    shift(A,j,i) 
+    A[j] = key 
   }
-
-  drawPseudoCode(){
-    document.getElementById("pseudo-code-container").innerHTML = 
-    `
-    <code>function insertionSort(A, n) {</code>
-    <code> for (let i = 2; i <= n; i++) {</code>
-    <code>  let key = A[i]</code>
-    <code>  let j = 0</code>
-    <code>  while (j < i && A[j] < key)</code>
-    <code>    j++</code>
-    <code>  shift(A,j,i) </code>
-    <code>  A[j] = key </code>
-    <code> }</code>
-    <code>}</code>
-    `;
+}`);
   }
 
   async sort() {
@@ -29,8 +25,6 @@ class InsertionSort extends Sort {
     if (this.isSortRunning)
       return;
     this.isSortRunning = true;
-
-
 
     // 상태 저장 스택 초기화
     this.memetoStack = [];
