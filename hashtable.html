@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Sunflower:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/hash.css">
+    <link rel=" shortcut icon" href="img/favicon.ico">
+    <link rel="icon" href="img/favicon.ico">
 </head>
 
 <body class="p-2">
@@ -91,24 +93,24 @@
             <!-- 사용자 함수 입력 폼 컨테이너-->
             <!-- 해시테이블 수 입력 폼 컨테이너-->
             <div class="d-none mb-1" id="hashsize-container">
-                <label for="new-expression-input">해시테이블의 사이즈를 입력하세요 </label>
+                <label for="new-expression-input">Set Hash Table Size </label>
                 <div class="row m-0 p-0">
                     <input type="number" id="hashsize-input" class="form-control col-5 mr-2">
-                    <button type="button" id="hashsize-btn" class="btn btn-dark">사이즈 </button>
+                    <button type="button" id="hashsize-btn" class="btn btn-dark">Set</button>
                 </div>
             </div>
 
             <div class="d-none m-0 mt-4 p-0" id="chaining-container">
-                <label for="new-expression-input">해시함수를 입력하세요</label>
+                <label for="new-expression-input">Set Hash Function</label>
                 <div class="row m-0 p-0">
                     <input type="text" id="chaining-function" placeholder="i => i % 5"  class="col-7 mr-2"/>
-                    <button type="button" id="chaining-btn" class="btn btn-dark" > 입력 </button>
+                    <button type="button" id="chaining-btn" class="btn btn-dark" >Set</button>
                 </div>
             </div>
 
             <!-- 사용자 데이터 입력(추가) 폼 컨테이너-->
             <div class="m-0 mt-4 p-0">
-                <label for="data-add">데이터</label>
+                <label for="data-add">Data</label>
                 <div class="row m-0 p-0">
                     <input type="number" id="data-add" class="form-control col-5 mr-2">
                     <button type="button" id="data-add-btn" class="btn btn-dark">Add</button>
@@ -117,16 +119,16 @@
 
             <!-- 사용자 데이터 입력(삭제) 폼 컨테이너-->
             <div class="m-0 mt-4 p-0">
-                <label for="data-delete">데이터</label>
+                <label for="data-delete">Data</label>
                 <div class="row m-0 p-0">
                     <input type="number" id="data-delete" class="form-control col-5 mr-2">
-                    <button type="button" id="data-delete-btn" class="btn btn-dark">Delete</button>
+                    <button type="button" id="data-delete-btn" class="btn btn-dark">Remove</button>
                 </div>
             </div>
 
             <!-- 사용자 데이터 입력(검색) 폼 컨테이너-->
             <div class="m-0 mt-4 p-0">
-                <label for="data-search">데이터</label>
+                <label for="data-search">Data</label>
                 <div class="row m-0 p-0">
                     <input type="number" id="data-search" class="form-control col-5 mr-2">
                     <button type="button" id="data-search-btn" class="btn btn-dark">Search</button>
@@ -135,7 +137,7 @@
 
             <!-- 초기화 버튼 -->
             <div class="m-0 mt-4 p-0">
-                <button type="button" id="data-clear-btn" class="btn btn-dark">Clear</button>
+                <button type="button" id="data-clear-btn" class="btn btn-warning">Clear</button>
             </div>
 
         </div>
@@ -150,14 +152,14 @@
             <div class="modal-dialog">
 
                 <div class="modal-content">
-                    <div class="modal-header" style="color:white; background:#bbdeed;">
-                        <h4 class="modal-title" style="color:white; background:#bbdeed;">Error Occurred</h4>
+                    <div class="modal-header" style="color:white; background:#D2C0A6;">
+                        <h4 class="modal-title" style="color:white; background:#D2C0A6;">Error Occurred</h4>
                     </div>
                     <div class="modal-body" id="model-body">
                         <p></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" style="color:white; background:#bbdeed;" data-dismiss="modal">Close</button>
+                        <button type="button" style="color:white; background:#D2C0A6;" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
