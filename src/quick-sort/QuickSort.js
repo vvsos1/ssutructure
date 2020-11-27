@@ -40,8 +40,8 @@ class QuickSort extends Sort {
         while (blocks[pl].getValue() < pivot.getValue()) pl++;
         while (blocks[pr].getValue() > pivot.getValue()) pr--;
 
-        blocks[pl].setColorRed();
-        blocks[pr].setColorRed();
+        blocks[pl].setColorSelected();
+        blocks[pr].setColorSelected();
         // pl 또는 pr이 pivot과 겹쳐도 pivot의 색을 유지
         pivot.setColorPivot();
 

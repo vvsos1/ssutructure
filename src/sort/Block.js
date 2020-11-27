@@ -1,3 +1,5 @@
+const Color = require('./Color');
+
 class Block {
   // static factory method; value와 container를 이용해 Block 객체를 만든다
   static createNewBlock(value, container, blockWidth = 28, blockMargin = 2) {
@@ -99,39 +101,34 @@ class Block {
     return this.color;
   }
 
-  setColorYellow() {
-    this.color = "#FFFF00";
-    this.dom.style.backgroundColor = "#FFFF00";
-  }
-
   // block을 선택된 블록의 색으로 바꾸는 함수
-  setColorRed() {
-    this.color = "#B69AE7";
-    this.dom.style.backgroundColor = "#B69AE7"; //선택된 블록 : 빨강 -> 연보라
+  setColorSelected() {
+    this.color = Color.selected;
+    this.dom.style.backgroundColor = this.color; //선택된 블록 : 빨강 -> 연보라
   }
 
   // block을 기본 블록의 색으로 바꾸는 함수
   setColorDefault() {
-    this.color = "#FF9FB3";
-    this.dom.style.backgroundColor = "#FF9FB3"; //기본 블록: 파랑 -> 연핑크
+    this.color = Color.defaultColor;
+    this.dom.style.backgroundColor = this.color; //기본 블록: 파랑 -> 연핑크
   }
 
   // block을 정렬이 끝난 블록의 색으로 바꾸는 함수
-  setColorGreen() {
-    this.color = "#FF6C77";
-    this.dom.style.backgroundColor = "#FF6C77"; //정렬 끝난 블록: 그린(초록) -> 찐핑크
+  setColorSorted() {
+    this.color = Color.sorted;
+    this.dom.style.backgroundColor = this.color; //정렬 끝난 블록: 그린(초록) -> 찐핑크
   }
 
   // block을 Pivot 블록의 색으로 바꾸는 함수
   setColorPivot() {
-    this.color = "#9F70F1";
-    this.dom.style.backgroundColor = "#9F70F1"; //피벗 블록 : 형광 핑크 ->  찐보라
+    this.color = Color.pivot;
+    this.dom.style.backgroundColor = this.color; //피벗 블록 : 형광 핑크 ->  찐보라
   }
 
   // block을 경계를 나타내는 블록의 색으로 바꾸는 함수
   setColorBoundary() {
-    this.color = "#F5E348";
-    this.dom.style.backgroundColor = "#F5E348"; // 블럭 경계 : 보라 -> 노랑 
+    this.color = Color.boundary;
+    this.dom.style.backgroundColor = this.color; // 블럭 경계 : 보라 -> 노랑 
   }
 
   setValue(value){
