@@ -48,6 +48,11 @@ class Hashtable {
                     const c = getCirclePosition(i);
 
                     p.circle(c.x, c.y, 60);
+
+                    // p.fill("black");
+                    p.text("Mango mungoo", c.x + 200, c.y);
+                    p.fill(255);
+                    p.stroke("black");
                  
                     if (key !== undefined && key !== "DELETED") {
                         if (this.searchedIndex === i) p.fill("#bbdeed"); 
