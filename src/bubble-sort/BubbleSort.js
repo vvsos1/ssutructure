@@ -60,21 +60,17 @@ function bubbleSort(A, n) {
         }
         // 상태 저장
         this.pushMemento({i,j,blocks:[...blocks].map(block=>({...block}))});
-
-
         
         const value1 = blocks[j].getValue();
         const value2 = blocks[j + 1].getValue();
 
-
-        
-        this.codeHighlight(4);
+        this.codeHighlight(5);
         this.setDescription(`${value1}과 ${value2} 비교`);
         // delay만큼 기다림
         await new Promise(resolve => setTimeout(resolve, this.delay));
 
         if (value1 > value2) {
-          this.codeHighlight(5);
+          this.codeHighlight(6);
           this.setDescription(`${value1}과 ${value2} 변경`);
           // swap 함수로 두 블록의 위치를 바꿈; await은 swap 이 끝날 때 까지 기다리겠다는 의미
           await this.swap(blocks[j], blocks[j + 1]);
