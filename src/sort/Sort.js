@@ -8,7 +8,8 @@ class Sort {
     delay = 200,
     animationDelay = 250,
     blockWidth = 28,
-    blockMargin = 2
+    blockMargin = 2,
+    description
   ) {
     // 정렬할 대상인 블록들
     this.blocks = blocks;
@@ -23,6 +24,8 @@ class Sort {
     // 블록 사이 간격
     this.blockMargin = blockMargin;
 
+    this.description = description;
+
     // 정렬이 현재 실행중인 상태
     this.isSortRunning = false;
 
@@ -32,11 +35,25 @@ class Sort {
     this.memetoStack = [];
   }
 
+  // 수도 코드 문자열을 받아서 시각화 컨테이너 우측에 보여줌
+  drawPseudoCode(pseudoCode){
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
+    // 기존에 있던 수도코드 삭제
+    Array.from(pseudoCodeContainer.children).forEach(child=>child.remove());
+    pseudoCodeContainer.innerHTML = "";
+    
+    // 줄별로
+    pseudoCode.split('\n').map(line => {
+      pseudoCodeContainer.innerHTML += `<code>${line}</code>${'\n'}`
+    })
+
+  }
+
   // 추상 메소드
   sort() {}
 
   wait() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (this.isStop) {
         // 현재 정렬 중지 상태라면 this.step을 통해 정렬을 시작하도록 설정
         this.resolve = resolve;
@@ -59,7 +76,7 @@ class Sort {
     if (this.resolve != null && this.resolve != undefined) {
       this.resolve({ type: "step" });
       this.resolve = null;
-    } 
+    }
   }
 
   stepBack() {
@@ -67,18 +84,48 @@ class Sort {
       if (this.memetoStack.length != 0) {
         this.resolve({
           type: "back",
-          memento: this.memetoStack.pop()
+          memento: this.memetoStack.pop(),
         });
         this.resolve = null;
       }
-    } 
+    }
   }
 
-  pushMemento( memento) {
+  // 시각화된 수도 코드의 하이라이트를 없앰
+  codeDefault(){
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
+
+    const children = pseudoCodeContainer.children;
+
+    for(let i = 0; i < children.length; i++) {
+      children[i].style.color = '';
+    }
+  }
+
+  // 시각화된 수도 코드의 특정 줄을 하이라이트
+  codeHighlight(...line) {
+    const pseudoCodeContainer = document.querySelector(".pseudo-code-container");
+
+    const children = pseudoCodeContainer.children;
+
+    for(let i = 0; i < children.length; i++) {
+      children[i].style.color = '';
+    }
+
+    for (let mango = 0; mango < line.length; mango++) {
+      const codeElement = children[line[mango]-1];
+      codeElement.style.color = "#B69AE7";
+    }
+  }
+
+  pushMemento(memento) {
     this.memetoStack.push(memento);
   }
 
   shuffle() {
+
+    this.setDescription("");
+    
     let blocks = this.blocks;
     for (let i = blocks.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1)); // 0 이상 i 미만의 무작위 인덱스
@@ -98,6 +145,19 @@ class Sort {
     });
 
     this.blocks = blocks;
+  }
+
+  // 현재 시각화되는 단계의 설명 설정
+  // 시각화 컨테이너 하단에 표시됨
+  setDescription(text) {
+    if (this.description === undefined) {
+      this.description = document.createElement("div");
+      this.description.classList.add("sort-description");
+      this.container.appendChild(this.description);
+    }
+    
+    this.description.innerHTML = "";
+    this.description.innerHTML = text;
   }
 
   setBlockWidth(blockWidth, blockMargin = 2) {
@@ -155,7 +215,7 @@ class Sort {
 
   setAnimationDelay(millis) {
     this.animationDelay = millis;
-    this.blocks.forEach(block =>
+    this.blocks.forEach((block) =>
       block.setTransitionDuration(this.animationDelay)
     );
   }
@@ -182,30 +242,33 @@ class Sort {
     await block1.swapBlock(block2);
   }
 
-  // target을 destIndex 자리에 넣고 원래 destIndex의 element부터 한 칸씩 뒤로 미는 함수
+  // target을 destIndex 자리에 넣는 함수 
   // target은 항상 destIndex보다 뒤에 있어야함
   async insertAt(block, destIndex) {
     const blocks = this.blocks;
 
-    // target의 인덱스
-    const targetIndex = blocks.indexOf(block);
+    block.setXPosition(destIndex *  (this.blockWidth+this.blockMargin));
 
-    // destIndex와 target 사이에 있는 블록들
-    const betweens = blocks.filter((_, i) => destIndex <= i && i < targetIndex);
+    // 애니메이션이 끝나기를 기다림.
+    await block.insertBefore(blocks[destIndex]);
+  }
 
-    // x 좌표
-    const x1 = block.getXPosition();
-    const xRest = betweens.map(b => b.getXPosition());
+  // start 인덱스부터 end 인덱스까지 block 한 칸씩 미는 함수 
+  async shift (start, end) {
+    const blocks = this.blocks;
 
-    block.setXPosition(xRest[0]);
+    const betweens = blocks.filter((_, i) => start <= i && i < end);
+
+    const  xRest = betweens.map(b => b.getXPosition());
     for (let i = 0; i < betweens.length - 1; i++) {
       betweens[i].setXPosition(xRest[i + 1]);
     }
-    betweens[betweens.length - 1].setXPosition(x1);
+    blocks[end-1].setXPosition(blocks[end].getXPosition());
+    
 
-    // 애니메이션이 끝나기를 기다림.
-    await block.insertBefore(betweens[0]);
+    await new Promise(res => setTimeout(res, blocks[0].getTransitionDuration()));
   }
 }
+
 
 module.exports = Sort;

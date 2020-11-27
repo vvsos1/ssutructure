@@ -47,10 +47,6 @@ const sortStepBackBtn = document.getElementById("sort-step-back-btn");
 // 블록 섞기 Button
 const blockShuffleBtn = document.getElementById("block-shuffle-btn");
 
-// 스텝 타입 Radio
-const stepDetailRadio = document.getElementById("step-detail-radio");
-const stepSimpleRadio = document.getElementById("step-simple-radio");
-
 function generateUniqueValues(count = 20) {
   const values = [];
   while (values.length < count) {
@@ -62,23 +58,27 @@ function generateUniqueValues(count = 20) {
   return values;
 }
 
-// sort type radio로 부터 값을 읽어서 Sort Algorithm을 결정
-function getSortAlgorithm() {
-  let SortAlgorithm;
-  if (bubbleSortRadio.checked) {
-    SortAlgorithm = BubbleSort;
-  } else if (insertionSortRadio.checked) {
-    SortAlgorithm = InsertionSort;
-  } else if (selectionSortRadio.checked) {
-    SortAlgorithm = SelectionSort;
-  } else if (quickSortRadio.checked) {
-    SortAlgorithm = QuickSort;
-  }
-  return SortAlgorithm;
-}
+// Sort 알고리즘 클래스를 받아서 정렬을 시
+const makeSortRadioOnchange = SortAlgorithm => () => {
+  sort = new SortAlgorithm(
+    sort.container,
+    sort.blocks,
+    sort.delay,
+    sort.animationDelay,
+    sort.blockWidth,
+    sort.blockMargin,
+    sort.description
+  );
+};
 
 
-let sort = new (getSortAlgorithm())(container);
+bubbleSortRadio.onchange = makeSortRadioOnchange(BubbleSort);
+insertionSortRadio.onchange = makeSortRadioOnchange(InsertionSort);
+selectionSortRadio.onchange = makeSortRadioOnchange(SelectionSort);
+quickSortRadio.onchange = makeSortRadioOnchange(QuickSort);
+
+
+let sort = new BubbleSort(container);
 generateUniqueValues().forEach(value => sort.addBlock(value));
 
 delayRange.oninput = e => {
@@ -98,6 +98,12 @@ delayRange.oninput = e => {
 //   delayRange.value = delay;
 // }
 
+delayInput.onkeydown = e => {
+  // 엔터키를 누른 경우
+  if (e.keyCode === 13)
+    // delayInputBtn에 click 이벤트 트리거
+    delayInputBtn.click();
+}
 delayInputBtn.onclick = e => {
   // 입력값이 범위를 넘어서면 경계값으로 설정
   if (Number(delayInput.value) > Number(delayRange.max)) {
@@ -119,6 +125,13 @@ sizeRange.onchange = e => {
   const size = Number(e.target.value);
   sort.setBlockWidth(size);
 };
+
+newDataInput.onkeydown = e => {
+  // 엔터키를 누른 경우
+  if (e.keyCode === 13)
+    // newDataAddBtn에 click 이벤트 트리거
+    newDataAddBtn.click();
+}
 
 newDataAddBtn.onclick = e => {
   // 아무것도 입력하지 않았다면
@@ -158,17 +171,6 @@ function enableInputs() {
 sortBtn.onclick = e => {
 
   disableInputs(); // 정렬이 시작될 때 비활성화
-
-  const SortAlgorithm = getSortAlgorithm();
-
-  sort = new SortAlgorithm(
-    sort.container,
-    sort.blocks,
-    sort.delay,
-    sort.animationDelay,
-    sort.blockWidth,
-    sort.blockMargin
-  );
 
   sort.sort().then(enableInputs)
 };
