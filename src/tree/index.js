@@ -1,5 +1,7 @@
 const Treeviz = require("treeviz");
 
+const Color =require('./Color');
+
 const AVLTree = require("../avl-tree/AVLTree");
 const RedBlackTree = require("../red-black-tree/RedBlackTree");
 const BTree = require("../b-tree/BTree");
@@ -31,7 +33,7 @@ const config = {
   },
   linkWidth: (nodeData) => 5,
   linkShape: "quadraticBeziers",
-  linkColor: (nodeData) => "#54432A",
+  linkColor: (nodeData) => Color.edge,
   onNodeClick: ({data:{data}}) => tree.remove(data,vizCallback),
 };
 
@@ -103,6 +105,14 @@ delayRange.oninput = (e) => {
   config.duration = delay;
 };
 
+newDataAdd.onkeydown = e => {
+  // 엔터키를 누른 경우
+  if (e.keyCode === 13)
+    // newDataAddBtn에 click 이벤트 트리거
+    newDataAddBtn.click();
+}
+
+
 newDataAddBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우 바로 리턴
   if (newDataAdd.value.trim() == "") return;
@@ -114,6 +124,13 @@ newDataAddBtn.onclick = (e) => {
   // data clear
   newDataAdd.value = "";
 };
+
+newDataRemove.onkeydown = e => {
+  // 엔터키를 누른 경우
+  if (e.keyCode === 13)
+    // newDataRemoveBtn에 click 이벤트 트리거
+    newDataRemoveBtn.click();
+}
 
 newDataRemoveBtn.onclick = (e) => {
   // 아무것도 입력하지 않은 경우

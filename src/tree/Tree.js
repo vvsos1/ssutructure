@@ -1,3 +1,5 @@
+const Color = require("./Color");
+
 class Tree{
     constructor(root){
         this.root = root;
@@ -32,11 +34,16 @@ class Tree{
       
         const data = {
           id,
-          data:root.data,
+          data: root.data,
           text: root.data,
           parentId,
           color: root.getColor(),
-          textColor: root.getColor()=='red'?'black' : root.getColor()=='black'?'red':'black'
+          textColor:
+            root.getColor() == Color.redNode
+              ? Color.textRedNode
+              : root.getColor() == Color.blackNode
+              ? Color.textBlackNode
+              : Color.textDefault,
         };
       
         return [data]

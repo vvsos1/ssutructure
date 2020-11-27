@@ -39,9 +39,10 @@ function SelectionSort(A, n) {
 
     for (let i = 0; i < n - 1;) {
       min = i;
-      blocks[i].setColorRed(); //i번째블럭 빨간색으로
+      blocks[i].setColorSelected(); //i번째블럭 빨간색으로
       for (let j = i + 1; j < n;) {
-        blocks[j].setColorRed(); // i+1번부터n-1번까지의 블럭을 차례대로 빨간색으로
+        blocks[j].setColorSelected(); // i+1번부터n-1번까지의 블럭을 차례대로 빨간색으로
+        
 
         const {type,memento} = await this.wait();
         // 이전 상태로 복구
@@ -88,12 +89,12 @@ function SelectionSort(A, n) {
         blocks[j].setColorDefault(); // 원래 색깔로 되돌리기
         j += 1;
       }
-      blocks[i].setColorGreen();
+      blocks[i].setColorSorted();
       i += 1;
     }
 
     // 정렬이 끝났으므로 마지막 블록도 Green으로 색 변경
-    blocks[n - 1].setColorGreen();
+    blocks[n - 1].setColorSorted();
 
     this.isSortRunning = false;
   }

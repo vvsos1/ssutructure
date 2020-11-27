@@ -1,4 +1,6 @@
 const Tree = require('../tree/Tree');
+const Color = require('../tree/Color');
+
 
 class RedBlackTree extends Tree{
   constructor() {
@@ -38,9 +40,8 @@ class TreeNode {
   }
 
   getColor() {
-    if (this.isBlack()) return "black";
-    else if (this.isRed()) return "red";
-    else throw `unknown color ${this.color}`
+    if (this.isBlack()) return Color.redNode;
+    else if (this.isRed()) return Color.blackNode;
   }
 
   getBlackPathLength() {

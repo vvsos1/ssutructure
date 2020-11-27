@@ -1,4 +1,5 @@
 const p5 = require("p5");
+const Color = require('./Color');
 
 class Hashtable {
 
@@ -40,31 +41,39 @@ class Hashtable {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
 
-                    if (this.searchedIndex === i) p.stroke("#bbdeed"); 
-                    else if (this.searchStep === i) p.stroke("blue");
-                    else if (this.insertedIndex === i) p.stroke("orange"); 
-                    else if (this.insertStep === i) p.stroke("yellow");
-
-                    const c = getCirclePosition(i);
-
-                    p.circle(c.x, c.y, 60);
+                    if (this.searchedIndex === i) p.stroke(Color.searchedNodeBorder); 
+                    else if (this.searchStep === i) p.stroke(Color.searchStepNodeBorder);
+                    else if (this.insertedIndex === i) p.stroke(Color.insertedNodeBorder); 
+                    else if (this.insertStep === i) p.stroke(Color.insertStepNodeBorder);
                  
+                    const c = getCirclePosition(i);
+                    p.circle(c.x, c.y, 60);
+
                     if (key !== undefined && key !== "DELETED") {
-                        if (this.searchedIndex === i) p.fill("#bbdeed"); 
-                        else if (this.searchStep === i) p.fill("blue");
-                        else if (this.insertedIndex === i) p.fill("orange");
-                        else if (this.insertStep === i) p.fill("yellow"); 
-                        else p.fill("black"); 
+                        if (this.searchedIndex === i) p.fill(Color.searchedNodeText); 
+                        else if (this.searchStep === i) p.fill(Color.searchStepNodeText);
+                        else if (this.insertedIndex === i) p.fill(Color.insertedNodeText);
+                        else if (this.insertStep === i) p.fill(Color.insertStepNodeText); 
+                        else p.fill(Color.defaultText); 
                         p.text(key, c.x, c.y);
                         p.fill(255);
-                        p.stroke("black");
+                        p.stroke(Color.defaultBorder);
                     }
+
+                    if (this.description !== undefined && this.description.i === i) {
+                        p.fill(Color.descriptionText);    // 변경 
+                        p.stroke(Color.descriptionTextBorder);  // 해주세용 ^^!!!! 
+                        p.text(this.description.text, c.x + 200, c.y);
+                    }
+                    p.fill(255);
+                    p.stroke(Color.defaultBorder);
+
                 }
-                clearAndRedraw;
                 this.searchedIndex = null;
                 this.searchStep = null;
                 this.insertedIndex = null;
                 this.insertStep = null;
+                this.description = undefined;
             };
 
             p.setup = setup;
@@ -74,6 +83,10 @@ class Hashtable {
             this.draw = clearAndRedraw;
         };
         new p5(setting, document.getElementById("container"));
+    }
+
+    setDescription(i, text) {
+        this.description = {i : i, text : text};
     }
     
     async insert(key) {
@@ -102,6 +115,7 @@ class Hashtable {
                 case "DELETED":
                     this.hashTable[hashedKey] = key;
                     this.insertedIndex = hashedKey;
+                    this.setDescription(hashedKey, "삽입 성공");
                     await this.sleep(500);
                     this.draw();
                     return;
@@ -111,6 +125,7 @@ class Hashtable {
                     this.draw();
                     throw new Error("Duplicate Key!");
                 default:
+                    this.setDescription(hashedKey, "충돌!!!");
                     await this.sleep(500);
                     this.draw();
             }
@@ -145,10 +160,12 @@ class Hashtable {
 
             if (this.hashTable[hashedKey] == key) {
                 this.searchedIndex = hashedKey;
+                this.setDescription(hashedKey, "검색 성공");
                 await this.sleep(500);
                 this.draw();
                 return;
             }
+            this.setDescription(hashedKey, "아직.. 아니에요.."); // 문구 수정해주삼 뇌절왔읍니다
             await this.sleep(500);
             this.draw();
         }
@@ -160,14 +177,15 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw "Invalid Key!"
-         
-         for (let i = 0; i < this.tableSize; i++) {
+
+        for (let i = 0; i < this.tableSize; i++) {
 
             let hashedKey = this.hashFunction(key, i);
 
             if (this.hashTable[hashedKey] == key) {
                 this.hashTable[hashedKey] = "DELETED";
                 this.deletedIndex = hashedKey;
+                this.setDescription(hashedKey, "삭제 성공");
                 this.draw();
                 return ;
             }
@@ -180,9 +198,7 @@ class Hashtable {
     }
 
     clear () {
-        for (let i = 0; i < this.tableSize; i++) {
-            if (this.hashTable[i] != null) this.delete(this.hashTable[i]);
-        }
+        this.hashTable = new Array(this.tableSize);
         this.draw();
     }
 }

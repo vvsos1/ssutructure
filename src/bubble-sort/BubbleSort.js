@@ -36,8 +36,8 @@ function bubbleSort(A, n) {
     for (let i = 0; i < n - 1;) {
       for (let j = 0; j < n - i - 1;) {
         // 현재 선택된(정렬중인) 블록의 색을 Red로 바꿈
-        blocks[j].setColorRed();
-        blocks[j + 1].setColorRed();
+        blocks[j].setColorSelected();
+        blocks[j + 1].setColorSelected();
 
        
         // 사용자가 다음 스텝으로 넘어가기 전 까지(this.continue() or this.step()) 기다림
@@ -83,11 +83,11 @@ function bubbleSort(A, n) {
         j+= 1;
       }
       // 정렬이 끝난 블록의 색을 Green으로 바꿈
-      blocks[n - i - 1].setColorGreen();
+      blocks[n - i - 1].setColorSorted();
       this.setDescription(`${blocks[n-i-1].getValue()} 블록 정렬 완료`);
       i += 1
     }
-    blocks[0].setColorGreen();
+    blocks[0].setColorSorted();
     this.isSortRunning = false;
   }
 }

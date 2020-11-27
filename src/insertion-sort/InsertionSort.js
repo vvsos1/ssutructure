@@ -36,17 +36,17 @@ function insertionSort(A, n) {
     // block들의 총 개수
     const n = blocks.length;
 
-    blocks[0].setColorGreen();
+    blocks[0].setColorSorted();
 
     for (let i = 1; i < n;) {
-      blocks[i].setColorRed();
+      blocks[i].setColorSelected();
 
       let destIndex = i;
 
       const target = blocks[i].getValue();
 
       for (let j = 0; j < i;) {
-        blocks[j].setColorRed();
+        blocks[j].setColorSelected();
 
         this.setDescription(`${blocks[i].getValue()} 블록이 들어갈 위치를 탐색`);
 
@@ -76,7 +76,7 @@ function insertionSort(A, n) {
 
         const value = blocks[j].getValue();
 
-        blocks[j].setColorGreen();
+        blocks[j].setColorSorted();
         if (value > target) {
           destIndex = j;
           break;
@@ -85,7 +85,7 @@ function insertionSort(A, n) {
       }
       if (i != destIndex) {
         this.codeHighlight(8);
-        blocks[destIndex].setColorRed();
+        blocks[destIndex].setColorSelected();
 
         await this.shift(destIndex, i);
 
@@ -97,11 +97,11 @@ function insertionSort(A, n) {
 
         await this.insertAt(blocks[i], destIndex);
         
-        blocks[destIndex].setColorGreen();
+        blocks[destIndex].setColorSorted();
       }
       else
         this.setDescription(`${blocks[i].getValue()} 블록의 위치 변경 없음`);
-      blocks[i].setColorGreen();
+      blocks[i].setColorSorted();
       this.refreshBlocks();
       i += 1;
     }

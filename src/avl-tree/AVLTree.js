@@ -1,4 +1,6 @@
 const Tree = require('../tree/Tree')
+const Color = require('../tree/Color');
+
 
 class AVLTree extends Tree{
   constructor() {
@@ -20,7 +22,7 @@ class AVLTree extends Tree{
 class AVLTreeNode {
 
   getColor() {
-    return "rosybrown";
+    return Color.avlTreeNode;
   }
 
   constructor(data, left = AVLTreeNode.END, right = AVLTreeNode.END) {
