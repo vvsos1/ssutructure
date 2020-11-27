@@ -1,4 +1,6 @@
+const { color } = require("d3-color");
 const p5 = require("p5");
+const Color = require('../hashtable/Color');
 
 class Node {
   constructor(data, next = null) {
@@ -45,13 +47,15 @@ class Chaining {
         for (let i = 0; i < hashtable.tableSize; i++) {
           let node = hashtable.hashTable[i];
 
-          if (node === undefined || node === null) p.stroke("black");
-          else if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
-          else if (node == this.insertedNode) p.stroke("orange");
+          if (node === undefined || node === null) p.stroke(Color.defaultBorderult);
+          else if (node === this.searchedNode && node !== null) p.stroke(Color.searchedNodeBorder);
+          else if (node == this.insertedNode) p.stroke(Color.insertedNodeBorder);
 
           const c = getCirclePosition(i);
 
-          p.circle(c.x, c.y, 60).stroke("black");
+          p.circle(c.x, c.y, 60)
+          
+          p.stroke(Color.defaultBorder);
 
           const lineLength = 50;
           const nodeSize = 55;
@@ -59,8 +63,8 @@ class Chaining {
 
           for (let j = 0; node !== undefined && node !== null; j++) {
 
-            if (node == this.insertedNode) p.stroke("orange");
-            else if (node === this.searchedNode && node !== null) p.stroke("#bbdeed");
+            if (node == this.insertedNode) p.stroke(Color.insertedNodeBorder);
+            else if (node === this.searchedNode && node !== null) p.stroke(Color.searchedNodeBorder);
 
             const deltaX = j * (lineLength + nodeSize + nodeMargin);
             const lineStartX = c.x + deltaX + 45;
@@ -81,12 +85,12 @@ class Chaining {
             p.rect(nodeStartX, c.y - nodeSize / 2, nodeSize, nodeSize);
 
             if (node !== undefined) {
-              if (node === this.searchedNode && node !== null) p.fill("#bbdeed");
-              else if (node === this.insertedNode) p.fill("orange");
-              else p.fill("black");
+              if (node === this.searchedNode && node !== null) p.fill(Color.searchedNodeText);
+              else if (node === this.insertedNode) p.fill(Color.insertedNodeText);
+              else p.fill(Color.defaultText);
               p.text(node.data, nodeStartX + nodeSize / 2, c.y);
               p.fill(255);
-              p.stroke("black");
+              p.stroke(Color.defaultBorder);
             }
             node = node.next;
           }

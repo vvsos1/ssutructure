@@ -1,4 +1,5 @@
 const p5 = require("p5");
+const Color = require('./Color');
 
 class Hashtable {
 
@@ -40,32 +41,32 @@ class Hashtable {
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
 
-                    if (this.searchedIndex === i) p.stroke("#bbdeed"); 
-                    else if (this.searchStep === i) p.stroke("blue");
-                    else if (this.insertedIndex === i) p.stroke("orange"); 
-                    else if (this.insertStep === i) p.stroke("yellow");
+                    if (this.searchedIndex === i) p.stroke(Color.searchedNodeBorder); 
+                    else if (this.searchStep === i) p.stroke(Color.searchStepNodeBorder);
+                    else if (this.insertedIndex === i) p.stroke(Color.insertedNodeBorder); 
+                    else if (this.insertStep === i) p.stroke(Color.insertStepNodeBorder);
                  
                     const c = getCirclePosition(i);
                     p.circle(c.x, c.y, 60);
 
                     if (key !== undefined && key !== "DELETED") {
-                        if (this.searchedIndex === i) p.fill("#bbdeed"); 
-                        else if (this.searchStep === i) p.fill("blue");
-                        else if (this.insertedIndex === i) p.fill("orange");
-                        else if (this.insertStep === i) p.fill("yellow"); 
-                        else p.fill("black"); 
+                        if (this.searchedIndex === i) p.fill(Color.searchedNodeText); 
+                        else if (this.searchStep === i) p.fill(Color.searchStepNodeText);
+                        else if (this.insertedIndex === i) p.fill(Color.insertedNodeText);
+                        else if (this.insertStep === i) p.fill(Color.insertStepNodeText); 
+                        else p.fill(Color.defaultText); 
                         p.text(key, c.x, c.y);
                         p.fill(255);
-                        p.stroke("black");
+                        p.stroke(Color.defaultBorder);
                     }
 
                     if (this.description !== undefined && this.description.i === i) {
-                        p.fill("brown");    // 변경 
-                        p.stroke("black");  // 해주세용 ^^!!!! 
+                        p.fill(Color.descriptionText);    // 변경 
+                        p.stroke(Color.descriptionTextBorder);  // 해주세용 ^^!!!! 
                         p.text(this.description.text, c.x + 200, c.y);
                     }
                     p.fill(255);
-                    p.stroke("black");
+                    p.stroke(Color.defaultBorder);
 
                 }
                 this.searchedIndex = null;
