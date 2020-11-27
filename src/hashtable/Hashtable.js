@@ -64,16 +64,15 @@ class Hashtable {
                         p.stroke("black");  // 해주세용 ^^!!!! 
                         p.text(this.description.text, c.x + 200, c.y);
                     }
-
                     p.fill(255);
                     p.stroke("black");
-            
+
                 }
-                clearAndRedraw;
                 this.searchedIndex = null;
                 this.searchStep = null;
                 this.insertedIndex = null;
                 this.insertStep = null;
+                this.description = undefined;
             };
 
             p.setup = setup;
@@ -115,7 +114,7 @@ class Hashtable {
                 case "DELETED":
                     this.hashTable[hashedKey] = key;
                     this.insertedIndex = hashedKey;
-                    this.setDescription(hashedKey, "성공");
+                    this.setDescription(hashedKey, "삽입 성공");
                     await this.sleep(500);
                     this.draw();
                     return;
@@ -160,10 +159,12 @@ class Hashtable {
 
             if (this.hashTable[hashedKey] == key) {
                 this.searchedIndex = hashedKey;
+                this.setDescription(hashedKey, "검색 성공");
                 await this.sleep(500);
                 this.draw();
                 return;
             }
+            this.setDescription(hashedKey, "아직.. 아니에요.."); // 문구 수정해주삼 뇌절왔읍니다
             await this.sleep(500);
             this.draw();
         }
@@ -175,14 +176,15 @@ class Hashtable {
         key = parseInt(key);
 
         if (isNaN(key)) throw "Invalid Key!"
-         
-         for (let i = 0; i < this.tableSize; i++) {
+
+        for (let i = 0; i < this.tableSize; i++) {
 
             let hashedKey = this.hashFunction(key, i);
 
             if (this.hashTable[hashedKey] == key) {
                 this.hashTable[hashedKey] = "DELETED";
                 this.deletedIndex = hashedKey;
+                this.setDescription(hashedKey, "삭제 성공");
                 this.draw();
                 return ;
             }
