@@ -1,4 +1,5 @@
 const Tree = require("../tree/Tree");
+const Color = require('../tree/Color');
 
 class BTree extends Tree {
   constructor(minimum = 2) {
@@ -40,7 +41,7 @@ class BTree extends Tree {
       text: root.datas.join(", "),
       parentId,
       color: root.getColor(),
-      textColor: "black",
+      textColor: Color.textDefault,
     };
 
     const childs = root.subsets
@@ -67,7 +68,7 @@ class TreeNode {
   }
 
   getColor() {
-    return "rosybrown";
+    return Color.bTreeNode;
   }
 
   firstGE(data) {

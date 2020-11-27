@@ -1,5 +1,7 @@
 const Treeviz = require("treeviz");
 
+const Color =require('./Color');
+
 const AVLTree = require("../avl-tree/AVLTree");
 const RedBlackTree = require("../red-black-tree/RedBlackTree");
 const BTree = require("../b-tree/BTree");
@@ -31,7 +33,7 @@ const config = {
   },
   linkWidth: (nodeData) => 5,
   linkShape: "quadraticBeziers",
-  linkColor: (nodeData) => "#54432A",
+  linkColor: (nodeData) => Color.edge,
   onNodeClick: ({data:{data}}) => tree.remove(data,vizCallback),
 };
 
