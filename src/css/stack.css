@@ -8,7 +8,7 @@ body {
   padding: 0;
   height: 100%;
   font-family: "Segoe UI";
-  background-color: #353b48;
+  /* background-color: #353b48; */
   overflow: hidden;
 }
 header.main-header {
