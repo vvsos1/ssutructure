@@ -198,9 +198,7 @@ class Hashtable {
     }
 
     clear () {
-        for (let i = 0; i < this.tableSize; i++) {
-            if (this.hashTable[i] != null) this.delete(this.hashTable[i]);
-        }
+        this.hashTable = new Array(this.tableSize);
         this.draw();
     }
 }

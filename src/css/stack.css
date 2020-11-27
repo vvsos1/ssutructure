@@ -72,10 +72,10 @@ header.main-header h1 {
   -ms-flex-pack: center;
   justify-content: center;
   position: relative;
-  background-color: #ff7f00;
+  /* background-color: #ff7f00; */
   width: 150px;
   height: 30px;
-  color: #f5f6fa;
+  /* color: #f5f6fa; */
   font-weight: bold;
   font-size: 20px;
   margin-top: 20px;
@@ -131,10 +131,10 @@ header.main-header h1 {
   -ms-flex-pack: center;
   justify-content: center;
   position: relative;
-  background-color: #ff7f00;
+  /* background-color: #ff7f00; */
   width: 150px;
   height: 30px;
-  color: #f5f6fa;
+  /* color: #f5f6fa; */
   font-weight: bold;
   font-size: 20px;
   margin-top: 20px;

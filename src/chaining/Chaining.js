@@ -1,4 +1,3 @@
-const { color } = require("d3-color");
 const p5 = require("p5");
 const Color = require('../hashtable/Color');
 
@@ -47,7 +46,7 @@ class Chaining {
         for (let i = 0; i < hashtable.tableSize; i++) {
           let node = hashtable.hashTable[i];
 
-          if (node === undefined || node === null) p.stroke(Color.defaultBorderult);
+          if (node === undefined || node === null) p.stroke(Color.defaultBorder);
           else if (node === this.searchedNode && node !== null) p.stroke(Color.searchedNodeBorder);
           else if (node == this.insertedNode) p.stroke(Color.insertedNodeBorder);
 
@@ -211,14 +210,7 @@ class Chaining {
 
   clear () {
 
-    for (let i = 0; i < this.tableSize; i++) {
-      let node = this.hashTable[i];
-
-      for (let j = 0; node !== undefined && node !== null; j++) {
-        if (node.data != null) this.delete(node.data);
-        node = node.next;
-      }
-    }
+    this.hashTable = new Array(this.tableSize);
     this.draw();
   }
 

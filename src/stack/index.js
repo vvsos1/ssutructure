@@ -1,5 +1,8 @@
 const Stack = require("./Stack");
 const Queue = require("./Queue");
+
+const Color = require('./Color');
+
 const items = document.querySelector('.stack-items');
 const push = document.getElementById('push');
 const pushbtn = document.getElementById('push-btn');
@@ -66,7 +69,8 @@ pushbtn.onclick = function() {
   disableButtons(true);
   // Create HTML element and push it to items
   const item = document.createElement('div');
- 
+  item.style.color = Color.stackItemText;
+  item.style.backgroundColor = Color.stackItem;
   item.classList.add('stack-item');
   item.innerHTML = itemName;
   items.insertBefore(item, items.childNodes[0]);
@@ -100,7 +104,8 @@ enqueuebtn.onclick = function() {
   disableButtons(true);
   // Create HTML element and push it to items
   const arr = document.createElement('div');
-
+  arr.style.color = Color.queueItemText;
+  arr.style.backgroundColor = Color.queueItem;
   arr.classList.add('queue-item');
   arr.innerHTML = arrName;
   items.insertBefore(arr, items.childNodes[l]);
