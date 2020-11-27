@@ -229,8 +229,8 @@ header.main-header h1 {
 @-webkit-keyframes pushqueue {
   0% {
     opacity: 0;
-    -webkit-transform: translateX(-80px);
-    transform: translateX(-80px);
+    -webkit-transform: translateY(-80px);
+    transform: translateY(-80px);
   }
   100% {
     opacity: 1;
@@ -270,12 +270,5 @@ header.main-header h1 {
 .moveDown {
   -webkit-transform: translateY(100px);
   transform: translateY(100px);
-}
-.box {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-.box::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera*/
 }
 ::-webkit-scrollbar { display: none; }
