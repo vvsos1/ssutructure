@@ -4,6 +4,11 @@ class QuickSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+    this.drawDescription(
+`
+quick sort
+`
+    )
     this.drawPseudoCode(
 `function quickSort(A, p, r) {
   if (p < r) {
