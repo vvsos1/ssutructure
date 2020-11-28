@@ -11,7 +11,7 @@ selection sort(선택 정렬)는 해당 순서에 원소를 넣을 위치는 이
 
 평균 시간 복잡도 : T(n) = O(n<sup>2</sup>)
 `
-    )
+    );
     this.drawPseudoCode(  
  `
 function selectionSort(A, n) {
@@ -24,8 +24,9 @@ function selectionSort(A, n) {
     if(min != i)
       swap(A[i],A[min])
   }
-}`)
-        }
+}
+`   );
+  }
 
   async sort() {
     // 이미 정렬중인 경우 바로 리턴

@@ -12,7 +12,7 @@ insert sort(삽입 정렬)는 원소를 이미 정렬된 배열 부분과 비교
 
 평균 시간 복잡도 : T(n) = O(n<sup>2</sup>)
 `
-    )
+    );
     this.drawPseudoCode(
 `
 function insertionSort(A, n) {
@@ -24,7 +24,9 @@ function insertionSort(A, n) {
     shift(A,j,i) 
     A[j] = key 
   }
-}`)
+}
+`
+    );
   }
 
   async sort() {

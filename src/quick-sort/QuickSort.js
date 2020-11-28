@@ -11,7 +11,7 @@ quick sort(퀵 정렬)는 기준점(pivot)을 기준으로 두 개의 분할된 
 
 평균 시간 복잡도 : T(n) = O(n * log(n))
 `
-    )
+    );
     this.drawPseudoCode(
 `function quickSort(A, p, r) {
   if (p < r) {
@@ -35,7 +35,7 @@ function partition(A, p, r) {
   return right >= p ? right : p
 }
 `
-    )
+    );
   }
 
   async sort(left = 0, right = this.blocks.length - 1) {

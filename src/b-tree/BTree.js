@@ -7,6 +7,18 @@ class BTree extends Tree {
     TreeNode.MINIMUN = minimum;
     TreeNode.MAXIMUM = minimum * 2;
     TreeNode.NODE_COUNT = 0;
+    this.drawDescription(
+`
+B-트리(B-tree)는 이진 트리를 확장해 하나의 노드가 가질 수 있는 자식 노드의 최대 숫자가 2보다 큰 트리 구조입니다.
+노드 내에 최대 m개의 자료가 배치될 수 있는 B-tree of order m은 다음과 같은 조건을 만족합니다.
+1. 모든 노드가 가질 수 있는 자식 노드의 최대 수는 m이다.
+2. 루트 노드를 제외한 내부 노드 들은 적어도 m/2개(소수점 올림)의 자식 노드를 가진다.
+3. 루트 노드는 리프 노드가 아니라면 최소한 두개의 자식 노드를 가진다.
+4. k개의 자식 노드를 가진 내부 노드들은 k-1개의 값을 가지고 있다.
+5. 모든 리프 노드들의 높이는 같다.
+시간 복잡도 : T(n) = O(log(n))
+`
+    );
   }
 
   clear() {

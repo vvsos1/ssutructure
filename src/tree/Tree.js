@@ -25,6 +25,18 @@ class Tree{
         return this.root.contain(data);        
     }
 
+    drawDescription(description) {
+        const descriptionContainer = document.querySelector(".description-container");
+        // 기존에 있던 설명 삭제
+        Array.from(descriptionContainer.children).forEach(child => child.remove());
+        descriptionContainer.innerHTML = "";
+
+        // 줄별로
+        description.split('\n').map(line => {
+            descriptionContainer.innerHTML += `<div>${line}</div>${'\n'}`
+        })
+    }
+
     // 트리를 Treeviz 라이브러리가 사용할 수 있는 데이터로 만들어 리턴 
     // Binary Tree 기본형
     traversal(root=this.root, parentId=null) {

@@ -13,7 +13,7 @@ bubble sort(거품 정렬)는 서로 인접한 두 원소를 검사하여 정렬
 
 평균 시간 복잡도 : T(n) = O(n<sup>2</sup>)
 `
-    )
+    );
     this.drawPseudoCode(  
 `
 function bubbleSort(A, n) {
@@ -22,7 +22,7 @@ function bubbleSort(A, n) {
       if (A[i] > A[i + 1])
         swap(A[i],A[i+1])
 }`
-    )
+    );
   }
   
   
