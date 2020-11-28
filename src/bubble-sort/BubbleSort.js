@@ -6,9 +6,10 @@ class BubbleSort extends Sort {
     super(...args);
     this.drawDescription(
 `
-이 설명은 쉽게 합니다.
-너는 죽습니다.
-ㅎㅎ
+bubble sort(거품 정렬)은 서로 인접한 두 원소를 검사하여 정렬하는 알고리즘입니다.
+bubble sort는 첫 번째 원소와 두 번째 원소, 두번째 원소와 세 번째 원소, ..., n-1번째 원소와 n번째 원소를 비교, 교환하며 정렬합니다.
+1회전이 끝나면 가장 큰 원소는 맨 뒤로 이동하므로 다음 회전에서는 정렬에서 제외됩니다.
+이를 반복할 때마다 정렬에서 제외되는 원소가 하나씩 늘어납니다.
 `
     )
     this.drawPseudoCode(  

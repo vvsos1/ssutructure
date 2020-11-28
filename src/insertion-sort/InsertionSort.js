@@ -6,9 +6,7 @@ class InsertionSort extends Sort {
     super(...args);
     this.drawDescription(
 `
-이 설명은 쉽게 합니다.
-너는 죽습니다.
-ㅎㅎㅎㅎ
+insert sort
 `
     )
     this.drawPseudoCode(
