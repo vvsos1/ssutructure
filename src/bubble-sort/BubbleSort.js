@@ -4,6 +4,13 @@ class BubbleSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+    this.drawDescription(
+`
+이 설명은 쉽게 합니다.
+너는 죽습니다.
+ㅎㅎ
+`
+    )
     this.drawPseudoCode(  
 `
 function bubbleSort(A, n) {

@@ -49,6 +49,20 @@ class Sort {
 
   }
 
+  // 수도 코드 문자열을 받아서 시각화 컨테이너 우측에 보여줌
+  drawDescription(description){
+    const descriptionContainer = document.querySelector(".description-container");
+    // 기존에 있던 수도코드 삭제
+    Array.from(descriptionContainer.children).forEach(child=>child.remove());
+    descriptionContainer.innerHTML = "";
+    
+    // 줄별로
+    description.split('\n').map(line => {
+      descriptionContainer.innerHTML += `<div>${line}</div>${'\n'}`
+    })
+
+  }
+
   // 추상 메소드
   sort() {}
 
