@@ -29,7 +29,8 @@ class Hashtable {
             }
 
             function setup() {
-                p.createCanvas(p.displayWidth / 2, p.windowHeight);
+                const containerWidth = document.getElementById("container").getBoundingClientRect().width;
+                p.createCanvas(containerWidth, p.windowHeight);
                 p.textAlign(p.CENTER, p.CENTER);
                 p.textSize(30);
                 p.ellipseMode(p.CENTER);
