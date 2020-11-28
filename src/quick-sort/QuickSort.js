@@ -4,6 +4,30 @@ class QuickSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+    this.drawPseudoCode(
+`function quickSort(A, p, r) {
+  if (p < r) {
+    let q = partition(A, p, r)
+    quickSort(A, p, q-1)
+    quickSort(A, q+1, r)
+  }
+}
+function partition(A, p, r) {
+  let pivot = A[(p+r)/2)]
+  let left = p;
+  let right = r;
+  do {
+    while (A[left] < pivot) 
+      left++
+    while (A[right] > pivot) 
+      right--
+    if (left <= right) 
+       swap(A[left--],A[right++])
+  } while (left <= right)
+  return right >= p ? right : p
+}
+`
+    )
   }
 
   async sort(left = 0, right = this.blocks.length - 1) {
@@ -35,6 +59,9 @@ class QuickSort extends Sort {
         .forEach((block) => block.setColorBoundary());
       // 피벗의 색 변경
       pivot.setColorPivot();
+      
+      this.codeHighlight(9);
+      await this.sleep("50");
 
       do {
         while (blocks[pl].getValue() < pivot.getValue()) pl++;
@@ -44,6 +71,8 @@ class QuickSort extends Sort {
         blocks[pr].setColorSelected();
         // pl 또는 pr이 pivot과 겹쳐도 pivot의 색을 유지
         pivot.setColorPivot();
+
+        this.codeHighlight(13,14,15,16)
 
         const { type, memento } = await this.wait();
 
@@ -75,6 +104,7 @@ class QuickSort extends Sort {
         });
 
         if (pl <= pr) {
+          this.codeHighlight(18);
           await this.swap(blocks[pl++], blocks[pr--]);
           // swap(blocks, pl++, pr--);
           this.refreshBlocks();
