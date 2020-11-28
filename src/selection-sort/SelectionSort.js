@@ -6,7 +6,7 @@ class SelectionSort extends Sort {
     super(...args);
     this.drawPseudoCode(  
  `
-function SelectionSort(A, n) {
+function selectionSort(A, n) {
   for(let i = 0; i < n-1; i++){
     min = i
     for(let j = i + 1; j < n; j++) {

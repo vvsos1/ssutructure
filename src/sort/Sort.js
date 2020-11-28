@@ -122,6 +122,10 @@ class Sort {
     this.memetoStack.push(memento);
   }
 
+  sleep(millis) {
+    return new Promise(res =>setTimeout(res,millis));
+  }
+
   shuffle() {
 
     this.setDescription("");
