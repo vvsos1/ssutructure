@@ -41,7 +41,7 @@ Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 
       }
 
       function setup() {
-        p.createCanvas(p.displayWidth/1.5, p.windowHeight);
+        p.createCanvas(p.displayWidth / 2.75, p.windowHeight);
         p.textAlign(p.CENTER, p.CENTER);
         p.textSize(30);
         p.ellipseMode(p.CENTER);

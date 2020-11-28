@@ -29,7 +29,7 @@ class Hashtable {
             }
 
             function setup() {
-                p.createCanvas(p.displayWidth / 2, p.windowHeight);
+                p.createCanvas(p.displayWidth / 3.75, p.windowHeight);
                 p.textAlign(p.CENTER, p.CENTER);
                 p.textSize(30);
                 p.ellipseMode(p.CENTER);
@@ -165,7 +165,7 @@ class Hashtable {
                 this.draw();
                 return;
             }
-            this.setDescription(hashedKey, "아직.. 아니에요.."); // 문구 수정해주삼 뇌절왔읍니다
+            this.setDescription(hashedKey, "검색 중"); // 문구 수정해주삼 뇌절왔읍니다
             await this.sleep(500);
             this.draw();
         }
