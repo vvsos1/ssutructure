@@ -40,7 +40,7 @@
     </nav>
 
     <!-- 메인 콘텐츠 컨테이너 -->
-    <div class="container-fluid d-flex my-3 mt-2 pb-3 pt-4 align-items-start bg-white">
+    <div class="container-fluid row d-flex my-3 mt-2 pb-3 pt-4 align-items-start bg-white">
         <!-- 입력 폼 컨테이너-->
         <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-3">
 
@@ -98,10 +98,8 @@
             </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="col m-0 ml-4 p-0">
+        <div id="visualize-section-wrapper" class="col-md m-0 ml-4 p-0">
             <section class="data-container border border-dark ml-0" style="height: 500px;">
-                <pre class="pseudo-code-container">
-                </pre>
             </section>
             <div class="mt-2">
                 <!-- 정렬 버튼-->
@@ -118,6 +116,8 @@
                 <button id="block-shuffle-btn" type="button" class="btn btn-warning">Shuffle</button>
             </div>
         </div>
+        <pre class="col-md-4 pseudo-code-container">
+        </pre>
     </div>
 </body>
 <script src="js/static/jquery-3.5.1.slim.min.js"></script>
