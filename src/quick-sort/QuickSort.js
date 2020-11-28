@@ -6,7 +6,10 @@ class QuickSort extends Sort {
     super(...args);
     this.drawDescription(
 `
-quick sort
+quick sort(퀵 정렬)는 기준점(pivot)을 기준으로 두 개의 분할된 부분 리스트를 정렬한 다음 합하여 전체가 정렬된 리스트가 되게 하는 알고리즘입니다.
+분할 정복 알고리즘의 하나로, 평균적으로 매우 빠른 수행 속도를 자랑합니다.
+
+평균 시간 복잡도 : T(n) = O(n * log(n))
 `
     )
     this.drawPseudoCode(

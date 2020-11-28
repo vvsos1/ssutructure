@@ -6,7 +6,10 @@ class SelectionSort extends Sort {
     super(...args);
     this.drawDescription(
 `
-selection sort
+selection sort(선택 정렬)는 해당 순서에 원소를 넣을 위치는 이미 정해져 있고, 어떤 원소를 넣을지 선택하는 알고리즘입니다.
+최소값을 탐색 후 그 값을 앞에서부터 배열하는 방식입니다.
+
+평균 시간 복잡도 : T(n) = O(n<sup>2</sup>)
 `
     )
     this.drawPseudoCode(  
