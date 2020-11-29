@@ -16,6 +16,13 @@ class Chaining {
     this.searchedNode = null;
     this.insertedNode = null;
     this.setHashFunction(key => key % this.tableSize);
+    this.drawDescription(
+`
+Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 값과 충돌 값을 연결해 저장하는 방법입니다.
+한정된 저장소를 효율적으로 활용할 수 있고 hash function를 선택하는 중요성이 낮아지는 장점이 있습니다.
+하지만 한 hash에 값이 계속 쏠린다면 검색 효율이 낮아질 수 있습니다.
+`
+    );
 
     const setting = (p) => {
       const hashtable = this;
@@ -34,7 +41,7 @@ class Chaining {
       }
 
       function setup() {
-        p.createCanvas(p.displayWidth/1.4, p.windowHeight);
+        p.createCanvas(p.displayWidth / 2.75, p.windowHeight);
         p.textAlign(p.CENTER, p.CENTER);
         p.textSize(30);
         p.ellipseMode(p.CENTER);
@@ -214,6 +221,18 @@ class Chaining {
     this.draw();
   }
 
+  //설명 그리기
+  drawDescription(description) {
+    const descriptionContainer = document.querySelector(".description-container");
+    // 기존에 있던 설명 삭제
+    Array.from(descriptionContainer.children).forEach(child => child.remove());
+    descriptionContainer.innerHTML = "";
+
+    // 줄별로
+    description.split('\n').map(line => {
+        descriptionContainer.innerHTML += `<div>${line}</div>${'\n'}`
+    })
+  }
 }
 
 module.exports = Chaining;

@@ -4,7 +4,15 @@ class InsertionSort extends Sort {
   // container:DOM, delay:Number, animationDelay:Number
   constructor(...args) {
     super(...args);
+    this.drawDescription(
+`
+insert sort(삽입 정렬)는 원소를 이미 정렬된 배열 부분과 비교 하여, 자신의 위치를 찾아 삽입함으로써 정렬을 완성하는 알고리즘입니다.
+기존의 정렬된 배열에서 삽입 될 부분을 찾았다면 그 위치에 원소를 삽입하기 위해 원소들을 한 칸씩 뒤로 이동시킵니다.
+삽입정렬의 처음 key 값은 두 번째 원소로부터 시작합니다.
 
+평균 시간 복잡도 : T(n) = O(n<sup>2</sup>)
+`
+    );
     this.drawPseudoCode(
 `
 function insertionSort(A, n) {
@@ -16,7 +24,9 @@ function insertionSort(A, n) {
     shift(A,j,i) 
     A[j] = key 
   }
-}`);
+}
+`
+    );
   }
 
   async sort() {

@@ -166,7 +166,7 @@ class Hashtable {
                 this.draw();
                 return;
             }
-            this.setDescription(hashedKey, "아직.. 아니에요.."); // 문구 수정해주삼 뇌절왔읍니다
+            this.setDescription(hashedKey, "검색 중"); // 문구 수정해주삼 뇌절왔읍니다
             await this.sleep(500);
             this.draw();
         }
@@ -201,6 +201,19 @@ class Hashtable {
     clear () {
         this.hashTable = new Array(this.tableSize);
         this.draw();
+    }
+
+    //설명 그리기
+    drawDescription(description) {
+        const descriptionContainer = document.querySelector(".description-container");
+        // 기존에 있던 설명 삭제
+        Array.from(descriptionContainer.children).forEach(child => child.remove());
+        descriptionContainer.innerHTML = "";
+    
+        // 줄별로
+        description.split('\n').map(line => {
+            descriptionContainer.innerHTML += `<div>${line}</div>${'\n'}`
+        })
     }
 }
 

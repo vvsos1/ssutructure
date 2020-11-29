@@ -5,6 +5,15 @@ const Color = require('../tree/Color');
 class AVLTree extends Tree{
   constructor() {
     super(AVLTreeNode.END);
+    this.drawDescription(
+`
+AVL 트리란 서브트리의 높이를 적절하게 제어해 전체 트리가 어느 한쪽으로 늘어지지 않도록 한 이진탐색트리(Binary Search Tree)의 일종입니다. 
+AVL 트리에서, 두 자식 서브트리의 높이는 항상 최대 1만큼 차이납니다. 만약 어떤 시점에서 높이 차이가 1보다 커지면 이 속성을 유지하기 위해서 스스로 균형을 잡습니다.
+AVL 트리의 삽입, 삭제는 균형을 잡기 위해 회전(rotation)을 실행합니다.
+
+시간 복잡도 : T(n) = O(log(n))
+`
+    );
   }
 
   clear(){
