@@ -71,7 +71,7 @@ $(function () {
 	});//인디케이터 클릭으로 이동하기
 	
 
-	goToSlide(currentIndex);
+	moveSlide(currentIndex);
 		
 	
 });
