@@ -91,7 +91,16 @@
                     <button type="button" id="data-clear-btn" class="btn btn-warning">Clear</button>
                 </div>
 
-                <div class="description-container mt-3"></div>
+                <div class="card mt-4">
+                    <div class="card-header" id="headOne">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                            트리 설명 보기
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse">
+                        <div class="card-body description-container"></div>
+                    </div>
+                </div>
 
             </div>
             
@@ -104,6 +113,12 @@
     <script src="js/static/jquery-3.5.1.slim.min.js"></script>
     <script src="js/static/bootstrap.bundle.min.js"></script>
     <script src="js/tree/index.js"></script>
-
+    <script>
+    $(document).ready(function(){
+        $("#headOne").click(function(){
+            $("#collapseOne").collapse('toggle');
+        });
+    });
+    </script>
 
 </html>
