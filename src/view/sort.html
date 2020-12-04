@@ -118,13 +118,41 @@
         </div>
         <!--각 정렬 설명 컨테이너-->
         <div class="col-md">
-            <div class="description-container"></div>
-            <pre class="pseudo-code-container"></pre>
+            <div class="card">
+                <div class="card-header" id="headOne">
+                    <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                        정렬 설명 보기
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse">
+                    <div class="card-body description-container"></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headTwo">
+                    <a class="card-link" data-toggle="collapse" href="#collapseTwo" style="color: black; text-decoration: none;">
+                        PseudoCode 보기
+                    </a>
+                </div>
+                <div id="collapseTwo" class="collapse">
+                    <pre class="pseudo-code-container"></pre>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 <script src="js/static/jquery-3.5.1.slim.min.js"></script>
 <script src="js/static/bootstrap.bundle.min.js"></script>
 <script src="js/sort/index.js"></script>
+<script>
+$(document).ready(function(){
+    $("#headOne").click(function(){
+        $("#collapseOne").collapse('toggle');
+    });
+    $("#headTwo").click(function(){
+        $("#collapseTwo").collapse('toggle');
+    });
+});
+</script>
 
 </html>
