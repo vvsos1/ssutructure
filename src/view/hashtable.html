@@ -148,7 +148,16 @@
         </div>
 
         <!-- 설명 부분 컨테이너--> 
-        <div class="col-md description-container"></div>
+        <div class="col-md card">
+            <div class="card-header" id="headOne">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                    해시테이블 설명 보기
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse">
+                <div class="card-body description-container"></div>
+            </div>
+        </div>
         
         <!-- Error Message -->
         <div class="modal fade" id="errorModel" role="dialog">
@@ -174,7 +183,13 @@
     <script src="js/static/jquery-3.5.1.slim.min.js"></script>
     <script src="js/static/bootstrap.bundle.min.js"></script>
     <script src="js/hashtable/index.js"></script>
-
+    <script>
+    $(document).ready(function(){
+        $("#headOne").click(function(){
+            $("#collapseOne").collapse('toggle');
+        });
+    });
+    </script>
 </body>
 
 </html>
