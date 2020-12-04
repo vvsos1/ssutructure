@@ -31,6 +31,13 @@ header.main-header h1 {
   color: #f5f6fa;
 }
 
+.description-container {
+  /*position: absolute;
+  left: 100%;*/
+  width: fit-content;
+  text-align: left;
+  /*margin-left: 10%;*/
+}
 
 .stack-container {
   display: -webkit-box;

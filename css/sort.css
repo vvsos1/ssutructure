@@ -48,10 +48,13 @@ body {
     width: 100%;
   }
 
-  .pseudo-code-container {
-    /* position: absolute;
-    left: 100%; */
+  .description-container {
     width: fit-content;
     text-align: left;
-    /* margin-left: 10%; */
+    margin-bottom: 1em;
+  }
+
+  .pseudo-code-container {
+    width: fit-content;
+    text-align: left;
   }

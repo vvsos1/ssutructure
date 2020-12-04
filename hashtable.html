@@ -39,7 +39,7 @@
     </nav>
 
     <!-- 메인 콘텐츠 컨테이너-->
-    <div class="container-fluid d-flex my-3 py-4 align-items-start bg-white">
+    <div class="container-fluid row d-flex mx-0 my-3 py-4 align-items-start bg-white">
 
         <!-- 입력 폼 컨테이너-->
         <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-3">
@@ -143,10 +143,22 @@
         </div>
 
         <!-- 데이터 시각화 부분 컨테이너-->
-        <div id="visualize-section-wrapper" class="col m-0 ml-4 p-0">
+        <div id="visualize-section-wrapper" class="col-md m-0 ml-4 p-0">
             <div id="container"></div>
         </div>
 
+        <!-- 설명 부분 컨테이너--> 
+        <div class="col-md card">
+            <div class="card-header" id="headOne">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                    해시테이블 설명 보기
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse">
+                <div class="card-body description-container"></div>
+            </div>
+        </div>
+        
         <!-- Error Message -->
         <div class="modal fade" id="errorModel" role="dialog">
             <div class="modal-dialog">
@@ -171,7 +183,13 @@
     <script src="js/static/jquery-3.5.1.slim.min.js"></script>
     <script src="js/static/bootstrap.bundle.min.js"></script>
     <script src="js/hashtable/index.js"></script>
-
+    <script>
+    $(document).ready(function(){
+        $("#headOne").click(function(){
+            $("#collapseOne").collapse('toggle');
+        });
+    });
+    </script>
 </body>
 
 </html>

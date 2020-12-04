@@ -28,3 +28,8 @@ body {
 .border-brown {
     border-color: #D2C0A6 !important;
 }
+
+.description-container {
+    width: fit-content;
+    text-align: left;
+}

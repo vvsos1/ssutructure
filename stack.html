@@ -90,17 +90,33 @@
         </div>
     </div>
     <!-- 데이터 시각화 부분 컨테이너--> 
-	<div class="col-3">
+    <div class="col-md-3">
         <div class="stack-container">
-            <div class="stack-items">       
-            </div>
+            <div class="stack-items"></div>
         </div>
     </div>
-
+    <!-- 설명 부분 컨테이너--> 
+    <div class="col-md card">
+        <div class="card-header" id="headOne">
+            <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                스택&큐 설명 보기
+            </a>
+        </div>
+        <div id="collapseOne" class="collapse">
+            <div class="card-body description-container"></div>
+        </div>
+    </div>
+    <!--<div class="col-md description-container"></div>-->
 
     <script src="js/static/jquery-3.5.1.slim.min.js"></script>
     <script src="js/static/bootstrap.bundle.min.js"></script>
     <script src="js/stack/index.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("#headOne").click(function(){
+            $("#collapseOne").collapse('toggle');
+        });
+    });
+    </script>
 </body>
-
 </html>
