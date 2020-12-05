@@ -1,37 +1,37 @@
 
 // 검색된 노드의 텍스트 색상
-const searchedNodeText = "#bbdeed";
+const searchedNodeText = "#6dc7e3";
 
 // 검색된 노드의 테두리 색상
-const searchedNodeBorder = "#bbdeed";
+const searchedNodeBorder = "#6dc7e3";
 
 
 // 검색하며 거쳐가는 노드의 텍스트 색상
-const searchStepNodeText = "blue";
+const searchStepNodeText = "#edf9ff";
 
 // 검색하며 거쳐가는 노드의 테두리 색상
-const searchStepNodeBorder = "blue";
+const searchStepNodeBorder = "#edf9ff";
 
 
 // 삽입된 노드의 텍스트 색상
-const insertedNodeText = "orange";
+const insertedNodeText = "#e0b1da";
 
 // 삽입된 노드의 테두리 색상
-const insertedNodeBorder = "orange";
+const insertedNodeBorder = "#e0b1da";
 
 
 // 삽입하며 거쳐가는 노드의 텍스트 색상
-const insertStepNodeText = "yellow";
+const insertStepNodeText = "#fff0fd";
 
 // 삽입하며 거쳐가는 노드의 테두리 색상
-const insertStepNodeBorder = "yellow";
+const insertStepNodeBorder = "#fff0fd";
 
 
 // description 텍스트 색상
-const descriptionText = "brown";
+const descriptionText = "black";
 
 // description 텍스트 테두리 색상
-const descriptionTextBorder = "black";
+const descriptionTextBorder = "#ffffff";
 
 
 // 기본 텍스트 색상
