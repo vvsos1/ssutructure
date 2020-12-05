@@ -7,10 +7,10 @@ const searchedNodeBorder = "#6dc7e3";
 
 
 // 검색하며 거쳐가는 노드의 텍스트 색상
-const searchStepNodeText = "#90d8fc";
+const searchStepNodeText = "#edf9ff";
 
 // 검색하며 거쳐가는 노드의 테두리 색상
-const searchStepNodeBorder = "#90d8fc";
+const searchStepNodeBorder = "#edf9ff";
 
 
 // 삽입된 노드의 텍스트 색상
@@ -21,10 +21,10 @@ const insertedNodeBorder = "#e0b1da";
 
 
 // 삽입하며 거쳐가는 노드의 텍스트 색상
-const insertStepNodeText = "#edd3ea";
+const insertStepNodeText = "#fff0fd";
 
 // 삽입하며 거쳐가는 노드의 테두리 색상
-const insertStepNodeBorder = "#edd3ea";
+const insertStepNodeBorder = "#fff0fd";
 
 
 // description 텍스트 색상
