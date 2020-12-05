@@ -29,7 +29,7 @@ class Hashtable {
             }
 
             function setup() {
-                const containerWidth = document.getElementById("container").getBoundingClientRect().width;
+                const containerWidth = document.getElementById("visualize-section-wrapper").getBoundingClientRect().width*(3/4);
                 p.createCanvas(containerWidth, p.windowHeight);
                 p.textAlign(p.CENTER, p.CENTER);
                 p.textSize(30);
