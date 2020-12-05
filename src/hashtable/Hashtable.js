@@ -62,8 +62,8 @@ class Hashtable {
                     }
 
                     if (this.description !== undefined && this.description.i === i) {
-                        p.fill(Color.descriptionText);    // 변경 
-                        p.stroke(Color.descriptionTextBorder);  // 해주세용 ^^!!!! 
+                        p.fill(Color.descriptionText);    
+                        p.stroke(Color.descriptionTextBorder);  
                         p.text(this.description.text, c.x + 200, c.y);
                     }
                     p.fill(255);
