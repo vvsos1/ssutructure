@@ -96,6 +96,30 @@
                     <button type="button" id="new-data-add-btn" class="btn btn-dark">Add</button>
                 </div>
             </div>
+
+            <!--각 정렬 설명 컨테이너-->
+            <div class="col-md mx-0 mt-4 px-0">
+                <div class="card">
+                    <div class="card-header" id="headOne">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                            정렬 설명 보기
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse">
+                        <div class="card-body description-container"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headTwo">
+                        <a class="card-link" data-toggle="collapse" href="#collapseTwo" style="color: black; text-decoration: none;">
+                            PseudoCode 보기
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse">
+                        <pre class="pseudo-code-container"></pre>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--데이터 시각화 부분 컨테이너-->
         <div id="visualize-section-wrapper" class="col-md m-0 ml-4 p-0">
@@ -116,29 +140,7 @@
                 <button id="block-shuffle-btn" type="button" class="btn btn-warning">Shuffle</button>
             </div>
         </div>
-        <!--각 정렬 설명 컨테이너-->
-        <div class="col-md">
-            <div class="card">
-                <div class="card-header" id="headOne">
-                    <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
-                        정렬 설명 보기
-                    </a>
-                </div>
-                <div id="collapseOne" class="collapse">
-                    <div class="card-body description-container"></div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headTwo">
-                    <a class="card-link" data-toggle="collapse" href="#collapseTwo" style="color: black; text-decoration: none;">
-                        PseudoCode 보기
-                    </a>
-                </div>
-                <div id="collapseTwo" class="collapse">
-                    <pre class="pseudo-code-container"></pre>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </body>
 <script src="js/static/jquery-3.5.1.slim.min.js"></script>
