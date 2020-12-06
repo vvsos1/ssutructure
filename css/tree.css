@@ -1,35 +1,35 @@
 body {
-    background-color: #D2C0A6;
-    
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+  background-color: #d2c0a6;
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 * {
-    font-family: 'Sunflower';
-  }
+  font-family: "Sunflower";
+}
 
 .node {
-    cursor:pointer;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    border-radius:5px;
-    min-width: 80px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  min-width: 80px;
 }
 
 .border-2 {
-    border-width: 0.5em !important;
+  border-width: 0.5em !important;
 }
 
 .border-brown {
-    border-color: #D2C0A6 !important;
+  border-color: #d2c0a6 !important;
 }
 
 .description-container {
-    width: fit-content;
-    text-align: left;
+  width: fit-content;
+  text-align: left;
 }
