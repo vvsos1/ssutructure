@@ -10,4 +10,6 @@ mkdir output/css
 cp src/css/* output/css # css 파일들 복사
 mkdir output/img
 cp src/img/* output/img # img 파일들 복사
+mkdir output/font
+cp src/font/* output/font # font 파일들 복사
 
