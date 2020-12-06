@@ -26,6 +26,7 @@ Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 
 
     const setting = (p) => {
       const hashtable = this;
+      let SunFlower;
       function clearAndRedraw() {
         p.clear();
         p.redraw();
@@ -40,8 +41,13 @@ Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 
         });
       }
 
+      function preload() {
+        SunFlower = p.loadFont('font/Sunflower-Medium.ttf');
+      }
+
       function setup() {
-        p.createCanvas(p.displayWidth / 2.75, p.windowHeight);
+        const containerWidth = document.getElementById("visualize-section-wrapper").getBoundingClientRect().width*(3/4);
+        p.createCanvas(containerWidth, p.windowHeight);
         p.textAlign(p.CENTER, p.CENTER);
         p.textSize(30);
         p.ellipseMode(p.CENTER);
@@ -50,6 +56,7 @@ Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 
       }
 
       const draw = () => {
+        p.textFont(SunFlower);
         for (let i = 0; i < hashtable.tableSize; i++) {
           let node = hashtable.hashTable[i];
 
@@ -105,6 +112,7 @@ Chaining은 hash collision을 해결하기 위해 충돌이 발생하면 기존 
         this.insertedNode = null;
       };
 
+      p.preload = preload;
       p.setup = setup;
       p.draw = draw;
 

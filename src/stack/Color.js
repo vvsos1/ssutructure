@@ -1,15 +1,15 @@
 
 // 스택 아이템의 노드 색상
-const stackItem = '#ff7f00';
+const stackItem = 'rosybrown';
 
 // 스택 아이템의 텍스트 색상
-const stackItemText = '#f5f6fa';
+const stackItemText = 'black';
 
 // 큐 아이템의 노드 색상
-const queueItem = '#ff7f00';
+const queueItem = 'rosybrown';
 
 // 큐 아이템의 텍스트 색상
-const queueItemText = '#f5f6fa'
+const queueItemText = 'black';
 
 module.exports = {
     stackItem,

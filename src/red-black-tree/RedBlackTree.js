@@ -27,14 +27,14 @@ class RedBlackTree extends Tree{
 
   add(data, vizCallback) {
     this.root = this.root.add(data, vizCallback);
-    this.root.color = TreeNode.BLACK; // Root는 항상 Black
+    this.root.setColorBlack(); // Root는 항상 Black
     vizCallback();
   }
 
   remove(data, vizCallback) {
     isLeafRed = false;
     this.root = this.root.remove(data, vizCallback);
-    this.root.color = TreeNode.BLACK; // Root는 항상 Black
+    this.root.setColorBlack(); // Root는 항상 Black
     vizCallback();
   }
 }
@@ -55,8 +55,8 @@ class TreeNode {
   }
 
   getColor() {
-    if (this.isBlack()) return Color.redNode;
-    else if (this.isRed()) return Color.blackNode;
+    if (this.isBlack()) return Color.blackNode;
+    else if (this.isRed()) return Color.redNode;
   }
 
   getBlackPathLength() {

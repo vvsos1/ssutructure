@@ -7,13 +7,13 @@ browserify src/tutorial/index_sort.js -do output/js/tutorial/index_sort.js # tut
 browserify src/tutorial/index_tree.js -do output/js/tutorial/index_tree.js # tutorial 페이지에 들어갈 js 번들링
 browserify src/tutorial/index_hash.js -do output/js/tutorial/index_hash.js # tutorial 페이지에 들어갈 js 번들링
 browserify src/tutorial/index_stack.js -do output/js/tutorial/index_stack.js # tutorial 페이지에 들어갈 js 번들링
-
 mkdir output/js/static
 cp src/static/* output/js/static # static js파일 (jquery, bootstrap) 복사
 cp src/view/*.html output # view 파일들 복사
 mkdir output/css
 cp src/css/* output/css # css 파일들 복사
 mkdir output/img
-cp -r src/img/* output/img # img 파일들 복사
-
+cp src/img/* -r output/img # img 파일들 복사
+mkdir output/font
+cp src/font/* output/font # font 파일들 복사
 

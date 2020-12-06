@@ -110,6 +110,19 @@
                     <input type="text" id="chaining-function" placeholder="i => i % 5"  class="col-7 mr-2"/>
                     <button type="button" id="chaining-btn" class="btn btn-dark" >Set</button>
                 </div>
+                <div class="card mt-3">
+                    <div class="card-header col" id="시은">
+                        <a class="card-link" data-toggle="collapse" href="#collapseThree" style="color: black; text-decoration: none;">
+                            함수 작성법 보기
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse col">
+                        <div class="card-body">
+                            <p> i => { statements }</p>
+                            <p> i => expression</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 사용자 데이터 입력(추가) 폼 컨테이너-->
@@ -144,6 +157,17 @@
                 <button type="button" id="data-clear-btn" class="btn btn-warning">Clear</button>
             </div>
 
+             <!-- 설명 부분 컨테이너--> 
+            <div class="col-md card mt-4 px-0">
+                <div class="card-header" id="headOne">
+                    <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                        해시테이블 설명 보기
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse">
+                    <div class="card-body description-container"></div>
+                </div>
+            </div>
         </div>
 
         <!-- 데이터 시각화 부분 컨테이너-->
@@ -151,17 +175,7 @@
             <div id="container"></div>
         </div>
 
-        <!-- 설명 부분 컨테이너--> 
-        <div class="col-md card">
-            <div class="card-header" id="headOne">
-                <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
-                    해시테이블 설명 보기
-                </a>
-            </div>
-            <div id="collapseOne" class="collapse">
-                <div class="card-body description-container"></div>
-            </div>
-        </div>
+       
         
         <!-- Error Message -->
         <div class="modal fade" id="errorModel" role="dialog">
@@ -191,6 +205,9 @@
     $(document).ready(function(){
         $("#headOne").click(function(){
             $("#collapseOne").collapse('toggle');
+        });
+        $("#시은").click(function(){
+            $("#collapseThree").collapse('toggle');
         });
     });
     </script>

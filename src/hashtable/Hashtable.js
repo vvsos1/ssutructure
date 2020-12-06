@@ -13,12 +13,14 @@ class Hashtable {
 
         const setting = (p) => {
             const hashtable = this;
+            let SunFlower;
 
             function clearAndRedraw() {
                 p.clear();
                 p.redraw();
             }
 
+            
             function getCirclePosition(index) {
                 return Object.freeze({
                 x: 
@@ -28,17 +30,24 @@ class Hashtable {
                 });
             }
 
+            function preload() {
+                SunFlower = p.loadFont('font/Sunflower-Medium.ttf');
+            }
+
             function setup() {
-                const containerWidth = document.getElementById("container").getBoundingClientRect().width;
+                const containerWidth = document.getElementById("visualize-section-wrapper").getBoundingClientRect().width*(3/4);
                 p.createCanvas(containerWidth, p.windowHeight);
                 p.textAlign(p.CENTER, p.CENTER);
                 p.textSize(30);
                 p.ellipseMode(p.CENTER);
                 p.strokeWeight(3);
-                p.noLoop();
+                p.noLoop();   
             }
 
+            
+
             const draw = () => {
+                p.textFont(SunFlower);
                 for (let i = 0; i < hashtable.tableSize; ++i) {
                     let key = hashtable.hashTable[i];
 
@@ -56,6 +65,7 @@ class Hashtable {
                         else if (this.insertedIndex === i) p.fill(Color.insertedNodeText);
                         else if (this.insertStep === i) p.fill(Color.insertStepNodeText); 
                         else p.fill(Color.defaultText); 
+                        
                         p.text(key, c.x, c.y);
                         p.fill(255);
                         p.stroke(Color.defaultBorder);
@@ -63,7 +73,7 @@ class Hashtable {
 
                     if (this.description !== undefined && this.description.i === i) {
                         p.fill(Color.descriptionText);    
-                        p.stroke(Color.descriptionTextBorder);  
+                        p.stroke(Color.descriptionTextBorder); 
                         p.text(this.description.text, c.x + 200, c.y);
                     }
                     p.fill(255);
@@ -77,6 +87,7 @@ class Hashtable {
                 this.description = undefined;
             };
 
+            p.preload = preload;
             p.setup = setup;
             p.draw = draw;
 

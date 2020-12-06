@@ -92,6 +92,12 @@ header.main-header h1 {
   animation-name: push;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
+  border-radius:5px;
+  cursor:pointer;
+  border-radius:5px;
+  min-width: 80px;
+  height: 45px;
+  box-shadow: inset 2px 2px 5px rosybrown, 2px 2px 1px rosybrown;
 }
 .stack-item:first-child {
   margin-top: 0;
@@ -151,6 +157,12 @@ header.main-header h1 {
   animation-name: pushqueue;
   -webkit-animation-duration: 0.5s;
   animation-duration: 0.5s;
+  border-radius:5px;
+  cursor:pointer;
+  border-radius:5px;
+  min-width: 80px;
+  height: 45px;
+  box-shadow: inset 2px 2px 5px rosybrown, 2px 2px 1px rosybrown;
 }
 .queue-item:first-child {
   margin-top: 0;

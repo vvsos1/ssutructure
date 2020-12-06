@@ -73,57 +73,51 @@
                     <input type="range" min="50" max="1000" value="500" step="10" style="transform: rotate(180deg)" class="custom-range col-10 "
                         id="animation-delay-range">
                 </div>
-
-
-                <!-- 사용자 데이터 입력 폼 컨테이너 -->
-                <div class="m-0 mt-4 p-0">
-                    <label for="new-data-input">Data</label>
-                    <div class="row m-0 p-0">
-                        <input type="number" id="new-data-add" class="form-control col-5 mr-2">
-                        <button type="button" id="new-data-add-btn" class="btn btn-dark">add</button>
-                    </div>
+            <!-- 사용자 데이터 입력 폼 컨테이너 -->
+            <div class="m-0 mt-4 p-0">
+                <label for="new-data-input">Data</label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="new-data-add" class="form-control col-5 mr-2">
+                    <button type="button" id="new-data-add-btn" class="btn btn-dark">add</button>
                 </div>
-
-                <div class="m-0 mt-4 p-0">
-                    <label for="new-data-input">Data</label>
-                    <div class="row m-0 p-0">
-                        <input type="number" id="new-data-remove" class="form-control col-5 mr-2">
-                        <button type="button" id="new-data-remove-btn" class="btn btn-dark">Remove</button>
-                    </div>
-                </div>
-
-                <div class="m-0 mt-4 p-0">
-                    <button type="button" id="data-clear-btn" class="btn btn-warning">Clear</button>
-                </div>
-
-                <div class="card mt-4">
-                    <div class="card-header" id="headOne">
-                        <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
-                            트리 설명 보기
-                        </a>
-                    </div>
-                    <div id="collapseOne" class="collapse">
-                        <div class="card-body description-container"></div>
-                    </div>
-                </div>
-
             </div>
-            
-            <!--데이터 시각화 부분 컨테이너-->
-            <div id="visualize-section-wrapper" class="col-md-8 my-2 ml-4 p-0">
-                <div id="tree" class="border border-2 border-brown w-100" style="height: 900px"></div>
+            <div class="m-0 mt-4 p-0">
+                <label for="new-data-input">Data</label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="new-data-remove" class="form-control col-5 mr-2">
+                    <button type="button" id="new-data-remove-btn" class="btn btn-dark">Remove</button>
+                </div>
+            </div>
+            <div class="m-0 mt-4 p-0">
+                <button type="button" id="data-clear-btn" class="btn btn-warning">Clear</button>
+            </div>
+            <div class="card mt-4">
+                <div class="card-header" id="headOne">
+                    <a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: black; text-decoration: none;">
+                        트리 설명 보기
+                    </a>
+                </div>
+                <div id="collapseOne" class="collapse">
+                    <div class="card-body description-container"></div>
+                </div>
             </div>
         </div>
-    </body>
-    <script src="js/static/jquery-3.5.1.slim.min.js"></script>
-    <script src="js/static/bootstrap.bundle.min.js"></script>
-    <script src="js/tree/index.js"></script>
-    <script>
-    $(document).ready(function(){
-        $("#headOne").click(function(){
-            $("#collapseOne").collapse('toggle');
-        });
+        
+        <!--데이터 시각화 부분 컨테이너-->
+        <div id="visualize-section-wrapper" class="col-md-8 my-2 ml-4 p-0">
+            <div id="tree" class="border border-2 border-brown w-100" style="height: 900px"></div>
+        </div>
+    </div>
+</body>
+<script src="js/static/jquery-3.5.1.slim.min.js"></script>
+<script src="js/static/bootstrap.bundle.min.js"></script>
+<script src="js/tree/index.js"></script>
+<script>
+$(document).ready(function(){
+    $("#headOne").click(function(){
+        $("#collapseOne").collapse('toggle');
     });
-    </script>
+});
+</script>
 
 </html>
