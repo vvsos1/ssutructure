@@ -156,7 +156,7 @@
                             함수 작성법 보기
                         </a>
                     </div>
-                    <div id="collapseThree" class="collapse col">
+                    <div id="collapseTwo" class="collapse col">
                         <div class="card-body">
                             <p> i => { statements }</p>
                             <p> i => expression</p>
@@ -238,20 +238,20 @@
 
     </div>
 
-    <script>
-    $(document).ready(function(){
-        $("#headOne").click(function(){
-            $("#collapseOne").collapse('toggle');
-        });
-        $("#시은").click(function(){
-            $("#collapseThree").collapse('toggle');
-        });
-    });
-    </script>
+    
 </body>
 
 <script src="js/static/jquery-3.5.1.slim.min.js"></script>
 <script src="js/static/bootstrap.bundle.min.js"></script>
 <script src="js/hashtable/index.js"></script>
-
+<script>
+    $(document).ready(function(){
+        $("#headOne").click(function(){
+            $("#collapseOne").collapse('toggle');
+        });
+        $("#시은").click(function(){
+            $("#collapseTwo").collapse('toggle');
+        });
+    });
+</script>
 </html>
