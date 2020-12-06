@@ -33,3 +33,6 @@ body {
   width: fit-content;
   text-align: left;
 }
+.carousel-item{
+  transition: transform 200ms ease, opacity .5s ease-out;
+}

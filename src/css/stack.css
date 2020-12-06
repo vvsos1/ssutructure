@@ -291,3 +291,7 @@ header.main-header h1 {
   transform: translateY(100px);
 }
 ::-webkit-scrollbar { display: none; }
+
+.carousel-item{
+  transition: transform 200ms ease, opacity .5s ease-out;
+}
