@@ -1,11 +1,11 @@
 $(function () {
 
   //변수 선언
-	var container = $('.slideshow'),
-		slideGroup = container.find('.slideshow-slides'),
-		slides = slideGroup.find('.slide'),
-		nav = container.find('.slideshow-nav'),
-		indicator = container.find('.slideshow-indicator'), 
+	var container = $('.slideshow_stack'),
+		slideGroup = container.find('.slideshow-slides_stack'),
+		slides = slideGroup.find('.slide_stack'),
+		nav = container.find('.slideshow-nav_stack'),
+		indicator = container.find('.slideshow-indicator_stack'), 
 		slideCount = slides.length,
 		indicatorHTML ='',
 		currentIndex = 0,
@@ -35,8 +35,8 @@ $(function () {
 	}
 
 	function viewButton(){    //버튼 페이지에 따라 안보이게함
-		var navPrev = nav.find('.prev'),
-			navNext = nav.find('.next');
+		var navPrev = nav.find('.prev_stack'),
+			navNext = nav.find('.next_stack');
 			
 			if(currentIndex == 0){ //처음
 				navPrev.addClass('disabled'); 
@@ -56,7 +56,7 @@ $(function () {
 	
 	nav.find('a').click(function(e){
 		e.preventDefault(); //기본기능 막히기
-		if($(this).hasClass('prev')){  //hasClass를 이용하여 클래스명 prev가 있는지 확인. 점 찍으면 안됨
+		if($(this).hasClass('prev_stack')){  //hasClass를 이용하여 클래스명 prev가 있는지 확인. 점 찍으면 안됨
 			moveSlide(currentIndex - 1);
 		} else {
 			moveSlide(currentIndex + 1);

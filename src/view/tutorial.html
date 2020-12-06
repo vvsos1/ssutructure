@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>tutorial</title>
-<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Sunflower:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/tutorial.css">
-<script src="js/static/modernizr.custom.min.js"></script>
-<script src="js/static/jquery-1.10.2.min.js"></script>
-<script src="js/static/jquery-ui-1.10.3.custom.min.js"></script>
-<script src="js/tutorial/index.js"></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>tutorial</title>
+	<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Sunflower:wght@300;500;700&family=VT323&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/tutorial_sort.css">
+	<link rel="stylesheet" href="css/tutorial_tree.css">
+	<link rel="stylesheet" href="css/tutorial_hash.css">
+	<link rel="stylesheet" href="css/tutorial_stack.css">
+	<script src="js/static/modernizr.custom.min.js"></script>
+	<script src="js/static/jquery-1.10.2.min.js"></script>
+	<script src="js/static/jquery-ui-1.10.3.custom.min.js"></script>
+	<script src="js/static/bootstrap.bundle.min.js"></script>
+	<script src="js/tutorial/index_sort.js"></script>
+	<script src="js/tutorial/index_tree.js"></script>
+	<script src="js/tutorial/index_hash.js"></script>
+	<script src="js/tutorial/index_stack.js"></script>
+
 </head>
 <body>
 	    <!-- NavBar -->
@@ -42,20 +50,125 @@
 		</nav>
 
 	<div class="jumbotron my-3 jumbotron-fluid">
-		<div class="slideshow" >
-			<div class="slideshow-slides">
-				<a href="#" class="slide"><img src="img/slide1.PNG" width="1600" height="465" alt="slide1"></a>
-				<a href="#" class="slide"><img src="img/slide2.PNG" width="1600" height="465" alt="slide2"></a>	
-				<a href="#" class="slide"><img src="img/slide3.PNG" width="1600" height="465" alt="slide3"></a>
-				<a href="#" class="slide"><img src="img/slide4.PNG" width="1600" height="465" alt="slide4"></a>	
-				<a href="#" class="slide"><img src="img/slide5.PNG" width="1600" height="465" alt="slide4"></a>			
+
+		<div class="accordion" id="accordionExample">
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0">
+					  <button class="btn font-weight-bolder text-dark btn-link btn-block text-left" type="button" data-toggle="collapse" 
+					  data-target="#sorttutorial" aria-expanded="true" aria-controls="sorttutorial">
+						Sort Tutorial
+					  </button>
+					</h2>
+				</div>
+				<div id="sorttutorial" class="collapse show" aria-labelledby="headingOne" 
+				  data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="slideshow_sort" >
+							<div class="slideshow-slides_sort">
+								<a href="#" class="slide_sort"><img src="img/slide1.PNG" width="1600" height="465" alt="slide1"></a>
+								<a href="#" class="slide_sort"><img src="img/slide2.PNG" width="1600" height="465" alt="slide2"></a>	
+								<a href="#" class="slide_sort"><img src="img/slide3.PNG" width="1600" height="465" alt="slide3"></a>
+								<a href="#" class="slide_sort"><img src="img/slide4.PNG" width="1600" height="465" alt="slide4"></a>	
+								<a href="#" class="slide_sort"><img src="img/slide5.PNG" width="1600" height="465" alt="slide4"></a>			
+							</div>
+							<div class="slideshow-nav_sort">
+								<a href="#" class="prev_sort"></a>
+								<a href="#" class="next_sort"></a>
+							</div>
+							<div class="slideshow-indicator_sort"></div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="slideshow-nav">
-				<a href="#" class="prev"></a>
-				<a href="#" class="next "></a>
+
+			<div class="card">
+			  	<div class="card-header" id="headingTwo">
+					<h2 class="mb-0">
+				  		<button class="btn font-weight-bolder text-dark btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" 
+				  		data-target="#treetutorial" aria-expanded="false" aria-controls="treetutorial">
+							tree Tutorial
+				  		</button>
+					</h2>
+			  	</div>
+			  	<div id="treetutorial" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="slideshow_tree" >
+							<div class="slideshow-slides_tree">
+								<a href="#" class="slide_tree"><img src="img/slide1.PNG" width="1600" height="465" alt="slide1"></a>
+								<a href="#" class="slide_tree"><img src="img/slide2.PNG" width="1600" height="465" alt="slide2"></a>	
+								<a href="#" class="slide_tree"><img src="img/slide3.PNG" width="1600" height="465" alt="slide3"></a>
+							</div>
+							<div class="slideshow-nav_tree">
+								<a href="#" class="prev_tree"></a>
+								<a href="#" class="next_tree"></a>
+							</div>
+							<div class="slideshow-indicator_tree"></div>
+						</div>
+					</div>
+			  	</div>
 			</div>
-			<div class="slideshow-indicator">
+
+
+
+			<div class="card">
+			 	<div class="card-header" id="headingThree">
+					<h2 class="mb-0">
+				 		<button class="btn font-weight-bolder text-dark btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" 
+				 			data-target="#hashtabletutorial" aria-expanded="false" aria-controls="hashtabletutorial">
+							HashTable Tutorial
+				  		</button>
+					</h2>
+			  	</div>
+				<div id="hashtabletutorial" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="slideshow_hash" >
+							<div class="slideshow-slides_hash">
+								<a href="#" class="slide_hash"><img src="img/slide1.PNG" width="1600" height="465" alt="slide1"></a>
+								<a href="#" class="slide_hash"><img src="img/slide2.PNG" width="1600" height="465" alt="slide2"></a>	
+								<a href="#" class="slide_hash"><img src="img/slide3.PNG" width="1600" height="465" alt="slide3"></a>
+								<a href="#" class="slide_hash"><img src="img/slide4.PNG" width="1600" height="465" alt="slide4"></a>	
+								<a href="#" class="slide_hash"><img src="img/slide5.PNG" width="1600" height="465" alt="slide4"></a>			
+							</div>
+							<div class="slideshow-nav_hash">
+								<a href="#" class="prev_hash"></a>
+								<a href="#" class="next_hash"></a>
+							</div>
+							<div class="slideshow-indicator_hash"></div>
+						</div>
+					</div>
+				</div>
 			</div>
+
+			<div class="card">
+				<div class="card-header" id="headingFour">
+				 	<h2 class="mb-0">
+						<button class="btn font-weight-bolder text-dark btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" 
+						data-target="#stacktutorial" aria-expanded="false" aria-controls="stacktutorial">
+							Stack Tutorial
+						</button>
+					</h2>
+				</div>
+				<div id="stacktutorial" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="slideshow_stack" >
+							<div class="slideshow-slides_stack">
+								<a href="#" class="slide_stack"><img src="img/slide1.PNG" width="1600" height="465" alt="slide1"></a>
+								<a href="#" class="slide_stack"><img src="img/slide2.PNG" width="1600" height="465" alt="slide2"></a>	
+								<a href="#" class="slide_stack"><img src="img/slide3.PNG" width="1600" height="465" alt="slide3"></a>
+								<a href="#" class="slide_stack"><img src="img/slide4.PNG" width="1600" height="465" alt="slide4"></a>	
+								<a href="#" class="slide_stack"><img src="img/slide5.PNG" width="1600" height="465" alt="slide4"></a>			
+							</div>
+							<div class="slideshow-nav_stack">
+								<a href="#" class="prev_stack"></a>
+								<a href="#" class="next_stack"></a>
+							</div>
+							<div class="slideshow-indicator_stack"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
 		</div>
 	</div>
 </body>
