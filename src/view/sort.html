@@ -45,14 +45,12 @@
         </div>
     </nav>
 
-
-
+    <!--tutorial-->
     <div class="card">
         <div class="card-header" id="headingOne">
             <h2 class="mb-0">
                 <button class="btn font-weight-bolder text-dark btn-link btn-block text-left" type="button"
-                    data-toggle="collapse" data-target="#sorttutorial" aria-expanded="true"
-                    aria-controls="sorttutorial"
+                    data-toggle="collapse" data-target="#sorttutorial" aria-expanded="true" aria-controls="sorttutorial"
                     href="#sorttutorial">
                     Sort Tutorial
                 </button>
@@ -62,159 +60,157 @@
             <div class="card-body">
                 <div id="sort-carousel" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                      <li data-target="#sort-carousel" data-slide-to="0" class="active"></li>
-                      <li data-target="#sort-carousel" data-slide-to="1"></li>
-                      <li data-target="#sort-carousel" data-slide-to="2"></li>
-                      <li data-target="#sort-carousel" data-slide-to="3"></li>
-                      <li data-target="#sort-carousel" data-slide-to="4"></li>
-                      <li data-target="#sort-carousel" data-slide-to="5"></li>
-                      <li data-target="#sort-carousel" data-slide-to="6"></li>
+                        <li data-target="#sort-carousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#sort-carousel" data-slide-to="1"></li>
+                        <li data-target="#sort-carousel" data-slide-to="2"></li>
+                        <li data-target="#sort-carousel" data-slide-to="3"></li>
+                        <li data-target="#sort-carousel" data-slide-to="4"></li>
+                        <li data-target="#sort-carousel" data-slide-to="5"></li>
+                        <li data-target="#sort-carousel" data-slide-to="6"></li>
                     </ol>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="img/tutorial/t_sort1.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort2.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort3.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort4.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort5.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort6.png" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="img/tutorial/t_sort7.png" class="d-block w-100" alt="...">
-                      </div>
+                        <div class="carousel-item active">
+                            <img src="img/tutorial/t_sort1.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort2.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort3.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort4.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort5.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort6.png" class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="img/tutorial/t_sort7.png" class="d-block w-100" alt="...">
+                        </div>
                     </div>
                     <a class="carousel-control-prev" href="#sort-carousel" role="button" data-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Previous</span>
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
                     </a>
                     <a class="carousel-control-next" href="#sort-carousel" role="button" data-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="sr-only">Next</span>
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
                     </a>
-                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인 콘텐츠 컨테이너 -->
+    <div class="container-fluid row d-flex mx-0 my-3 mt-2 pb-3 pt-4 align-items-start bg-white"
+        style="min-height: 85vh">
+        <!-- 입력 폼 컨테이너-->
+        <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-3">
+
+            <!-- 정렬 타입 라디오 버튼 컨테이너-->
+            <div id="sort-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="bubble-sort-radio" name="sort-type-radio" class="custom-control-input"
+                        checked>
+                    <label class="custom-control-label" for="bubble-sort-radio">Bubble Sort</label>
+                </div>
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="selection-sort-radio" name="sort-type-radio" class="custom-control-input">
+                    <label class="custom-control-label" for="selection-sort-radio">Selection Sort</label>
+                </div>
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="insertion-sort-radio" name="sort-type-radio" class="custom-control-input">
+                    <label class="custom-control-label" for="insertion-sort-radio">Insertion Sort</label>
+                </div>
+                <div class="custom-control custom-radio pb-2">
+                    <input type="radio" id="quick-sort-radio" name="sort-type-radio" class="custom-control-input">
+                    <label class="custom-control-label" for="quick-sort-radio">Quick Sort</label>
+                </div>
+            </div>
+
+
+            <!-- 딜레이 Range 컨테이너-->
+            <div class="m-0 mt-4 p-0 d-flex flex-column">
+                <label for="animation-delay-range">Sort Speed</label>
+                <input type="range" min="10" max="1000" value="250" step="10" style="transform: rotate(180deg)"
+                    class="custom-range col-10 " id="animation-delay-range">
+            </div>
+
+            <!-- 딜레이 입력 폼 컨테이너 (js 수정 못했습니다...)-->
+            <div class="m-0 mt-4 p-0">
+                <label for="new-delay-input">Set speed(10-1000)</label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="new-delay-input" class="form-control col-5 mr-2">
+                    <button type="button" id="new-delay-input-btn" class="btn btn-dark">Change</button>
+                </div>
+            </div>
+
+            <!-- 크기 Range 컨테이너-->
+            <div class="m-0 mt-4 p-0 d-flex flex-column">
+                <label for="size-range">Size</label>
+                <input type="range" min="18" max="38" step="1" value="28" class="custom-range col-10 " id="size-range">
+            </div>
+
+            <!-- 사용자 데이터 입력 폼 컨테이너 -->
+            <div class="m-0 mt-4 p-0">
+                <label for="new-data-input">Data</label>
+                <div class="row m-0 p-0">
+                    <input type="number" id="new-data-input" class="form-control col-5 mr-2">
+                    <button type="button" id="new-data-add-btn" class="btn btn-dark">Add</button>
+                    <button type="button" id="new-data-remove-btn" class="btn btn-dark ml-2">Remove</button>
+                </div>
+            </div>
+
+            <!--각 정렬 설명 컨테이너-->
+            <div class="col-md mx-0 mt-4 px-0">
+                <div class="card">
+                    <div class="card-header" id="headOne">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne"
+                            style="color: black; text-decoration: none;">
+                            정렬 설명 보기
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse">
+                        <div class="card-body description-container"></div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headTwo">
+                        <a class="card-link" data-toggle="collapse" href="#collapseTwo"
+                            style="color: black; text-decoration: none;">
+                            PseudoCode 보기
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse">
+                        <pre class="pseudo-code-container"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--데이터 시각화 부분 컨테이너-->
+        <div id="visualize-section-wrapper" class="col-md m-0 ml-4 p-0">
+            <section class="data-container border border-dark ml-0" style="height: 500px;">
+            </section>
+            <div class="mt-2">
+                <!-- 정렬 버튼-->
+                <button id="sort-btn" type="button" class="btn btn-info mr-3">Sort</button>
+                <!-- 정렬 중지 버튼-->
+                <button id="sort-stop-btn" type="button" class="btn btn-info mr-3">Stop</button>
+                <!-- 정렬 진행 버튼-->
+                <button id="sort-continue-btn" type="button" class="btn btn-info mr-3">Start</button>
+                <!-- 정렬 스텝 버튼-->
+                <button id="sort-step-btn" type="button" class="btn btn-info mr-3">Step Forward</button>
+                <!-- 정렬 뒤로 수텝 버튼-->
+                <button id="sort-step-back-btn" type="button" class="btn btn-info mr-3">Step Backward</button>
+                <!-- 블록 셔플 버튼-->
+                <button id="block-shuffle-btn" type="button" class="btn btn-warning">Shuffle</button>
             </div>
         </div>
 
-        <!-- 메인 콘텐츠 컨테이너 -->
-        <div class="container-fluid row d-flex mx-0 my-3 mt-2 pb-3 pt-4 align-items-start bg-white"
-            style="min-height: 85vh">
-            <!-- 입력 폼 컨테이너-->
-            <div id="input-form-wrapper" class="d-inline-flex flex-column col-md-3">
-
-                <!-- 정렬 타입 라디오 버튼 컨테이너-->
-                <div id="sort-type-radio-wrapper" class="d-flex flex-column m-0 p-0 ">
-                    <div class="custom-control custom-radio pb-2">
-                        <input type="radio" id="bubble-sort-radio" name="sort-type-radio" class="custom-control-input"
-                            checked>
-                        <label class="custom-control-label" for="bubble-sort-radio">Bubble Sort</label>
-                    </div>
-                    <div class="custom-control custom-radio pb-2">
-                        <input type="radio" id="selection-sort-radio" name="sort-type-radio"
-                            class="custom-control-input">
-                        <label class="custom-control-label" for="selection-sort-radio">Selection Sort</label>
-                    </div>
-                    <div class="custom-control custom-radio pb-2">
-                        <input type="radio" id="insertion-sort-radio" name="sort-type-radio"
-                            class="custom-control-input">
-                        <label class="custom-control-label" for="insertion-sort-radio">Insertion Sort</label>
-                    </div>
-                    <div class="custom-control custom-radio pb-2">
-                        <input type="radio" id="quick-sort-radio" name="sort-type-radio" class="custom-control-input">
-                        <label class="custom-control-label" for="quick-sort-radio">Quick Sort</label>
-                    </div>
-                </div>
-
-
-                <!-- 딜레이 Range 컨테이너-->
-                <div class="m-0 mt-4 p-0 d-flex flex-column">
-                    <label for="animation-delay-range">Sort Speed</label>
-                    <input type="range" min="10" max="1000" value="250" step="10" style="transform: rotate(180deg)"
-                        class="custom-range col-10 " id="animation-delay-range">
-                </div>
-
-                <!-- 딜레이 입력 폼 컨테이너 (js 수정 못했습니다...)-->
-                <div class="m-0 mt-4 p-0">
-                    <label for="new-delay-input">Set speed(10-1000)</label>
-                    <div class="row m-0 p-0">
-                        <input type="number" id="new-delay-input" class="form-control col-5 mr-2">
-                        <button type="button" id="new-delay-input-btn" class="btn btn-dark">Change</button>
-                    </div>
-                </div>
-
-                <!-- 크기 Range 컨테이너-->
-                <div class="m-0 mt-4 p-0 d-flex flex-column">
-                    <label for="size-range">Size</label>
-                    <input type="range" min="18" max="38" step="1" value="28" class="custom-range col-10 "
-                        id="size-range">
-                </div>
-
-                <!-- 사용자 데이터 입력 폼 컨테이너 -->
-                <div class="m-0 mt-4 p-0">
-                    <label for="new-data-input">Data</label>
-                    <div class="row m-0 p-0">
-                        <input type="number" id="new-data-input" class="form-control col-5 mr-2">
-                        <button type="button" id="new-data-add-btn" class="btn btn-dark">Add</button>
-                        <button type="button" id="new-data-remove-btn" class="btn btn-dark ml-2">Remove</button>
-                    </div>
-                </div>
-
-                <!--각 정렬 설명 컨테이너-->
-                <div class="col-md mx-0 mt-4 px-0">
-                    <div class="card">
-                        <div class="card-header" id="headOne">
-                            <a class="card-link" data-toggle="collapse" href="#collapseOne"
-                                style="color: black; text-decoration: none;">
-                                정렬 설명 보기
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse">
-                            <div class="card-body description-container"></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header" id="headTwo">
-                            <a class="card-link" data-toggle="collapse" href="#collapseTwo"
-                                style="color: black; text-decoration: none;">
-                                PseudoCode 보기
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse">
-                            <pre class="pseudo-code-container"></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--데이터 시각화 부분 컨테이너-->
-            <div id="visualize-section-wrapper" class="col-md m-0 ml-4 p-0">
-                <section class="data-container border border-dark ml-0" style="height: 500px;">
-                </section>
-                <div class="mt-2">
-                    <!-- 정렬 버튼-->
-                    <button id="sort-btn" type="button" class="btn btn-info mr-3">Sort</button>
-                    <!-- 정렬 중지 버튼-->
-                    <button id="sort-stop-btn" type="button" class="btn btn-info mr-3">Stop</button>
-                    <!-- 정렬 진행 버튼-->
-                    <button id="sort-continue-btn" type="button" class="btn btn-info mr-3">Start</button>
-                    <!-- 정렬 스텝 버튼-->
-                    <button id="sort-step-btn" type="button" class="btn btn-info mr-3">Step Forward</button>
-                    <!-- 정렬 뒤로 수텝 버튼-->
-                    <button id="sort-step-back-btn" type="button" class="btn btn-info mr-3">Step Backward</button>
-                    <!-- 블록 셔플 버튼-->
-                    <button id="block-shuffle-btn" type="button" class="btn btn-warning">Shuffle</button>
-                </div>
-            </div>
-
-        </div>
+    </div>
 </body>
 
 <script src="js/static/jquery-3.5.1.slim.min.js"></script>
