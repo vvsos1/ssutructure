@@ -73,10 +73,14 @@ pushbtn.onclick = function() {
   item.style.backgroundColor = Color.stackItem;
   item.classList.add('stack-item');
   item.innerHTML = itemName;
+   // 그림자 강조 효과 설정
+  item.style.boxShadow = 'inset 2px 2px 5px rosybrown, 2px 2px 10px rosybrown';
   items.insertBefore(item, items.childNodes[0]);
 
   setTimeout(() => {
     disableButtons(false);
+     // 그림자 강조 효과 삭제
+    item.style.boxShadow = '';
   },500)
   }
 }
@@ -108,10 +112,14 @@ enqueuebtn.onclick = function() {
   arr.style.backgroundColor = Color.queueItem;
   arr.classList.add('queue-item');
   arr.innerHTML = arrName;
+  // 그림자 강조 효과 설정
+  arr.style.boxShadow = 'inset 2px 2px 5px rosybrown, 2px 2px 10px rosybrown';
   items.insertBefore(arr, items.childNodes[l]);
 
   setTimeout(() => {
     disableButtons(false);
+    // 그림자 강조 효과 삭제
+    arr.style.boxShadow = '';
   },500)
 }
 
