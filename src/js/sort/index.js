@@ -165,6 +165,7 @@ function disableInputs() {
   sizeRange.disabled = true;
   sortBtn.disabled = true;
   newDataAddBtn.disabled = true;
+  newDataRemoveBtn.disabled = true;
   blockShuffleBtn.disabled = true;
 }
 // 정렬이 끝난 후 Input들을 활성화
@@ -177,6 +178,7 @@ function enableInputs() {
   sizeRange.disabled = false;
   sortBtn.disabled = false;
   newDataAddBtn.disabled = false;
+  newDataRemoveBtn.disabled = false;
   blockShuffleBtn.disabled = false;
 }
 

@@ -9,7 +9,7 @@ body {
   height: 100%;
   font-family: "Segoe UI";
   /* background-color: #353b48; */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 header.main-header {
   display: -webkit-box;
@@ -290,7 +290,6 @@ header.main-header h1 {
   -webkit-transform: translateY(100px);
   transform: translateY(100px);
 }
-::-webkit-scrollbar { display: none; }
 
 .carousel-item{
   transition: transform 200ms ease, opacity .5s ease-out;
