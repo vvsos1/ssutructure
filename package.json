@@ -1,12 +1,12 @@
 {
   "name": "ssutructure",
   "version": "1.0.0",
-  "description": "",
+  "description": "Algorithm&Data Structure Visualize",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vvsos1/ssutructure.git"
   },
-  "author": "",
+  "author": "vvsos1",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/vvsos1/ssutructure/issues"
@@ -15,5 +15,8 @@
   "dependencies": {
     "p5": "^1.1.9",
     "treeviz": "^2.2.3"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0"
   }
 }
